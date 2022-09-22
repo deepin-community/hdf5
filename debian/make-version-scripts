@@ -1,0 +1,100 @@
+#!/bin/bash
+# This script generates the version scripts
+
+set -e
+
+# 1- Go to debian dir
+debian_dir="$(dirname "$(readlink -f "$0")")"
+cd "$debian_dir"
+
+# 2- Get sonames
+ext=$(cd .. && ./debian/rules EXT)
+soname=$(cd .. && ./debian/rules SONAME)$ext
+soname_f=$(cd .. && ./debian/rules SONAME_F)
+soname_cxx=$(cd .. && ./debian/rules SONAME_CXX)$ext
+soname_hl=$(cd .. && ./debian/rules SONAME_HL)
+soname_hl_f=$(cd .. && ./debian/rules SONAME_HL_F)
+soname_hl_cxx=$(cd .. && ./debian/rules SONAME_HL_CXX)
+
+# 3- Read mangled C++ symbols table and declare tne new table
+declare -A mangled
+declare -A mangled_new
+
+if [ -f mangled-symbols-table ]; then
+  while IFS='' read line; do
+    if [[ "$line" =~ ^\"([^\"]*)\"\ (_Z[a-zA-Z0-9_]*)$ ]]; then
+      mangled["${BASH_REMATCH[1]}"]="${BASH_REMATCH[2]}"
+    fi
+  done <mangled-symbols-table
+fi
+
+# 4- Generate version scripts
+#    While doing this, we update the mangled C++ symbols table to drop
+#    unused symbols.
+function map_symbols_files {
+  declare -A versions=()
+  declare -A c=()
+  declare -A cpp=()
+
+  while [ -n "$1" ]; do
+    while IFS='' read ligne; do
+      if [[ "$ligne" =~ ^\ (\(([^\)]*)\))?\"?([^@\"]*)@([^\ \"]*)\"?\ ([^\ ]*)$ ]]; then
+        flags="${BASH_REMATCH[2]}"
+        symbol="${BASH_REMATCH[3]}"
+        version_name="${BASH_REMATCH[4]}"
+        version_first_seen="${BASH_REMATCH[5]}"
+        mangled_cpp_symbol="${mangled["$symbol"]}"
+        if [ "$version_name" = "Base" ]; then
+          version_name="$version_first_seen"
+        else
+          version_name="${version_name##*_}"
+        fi
+        if [ ! ${versions[$version_name]+_} ]; then
+          versions[$version_name]=""
+        fi
+        if [[ "$flags" =~ (^|\|)c\+\+(\||$) ]]; then
+          if [ -n "$mangled_cpp_symbol" ]; then
+            cpp[$version_name]="${cpp[$version_name]}$(c++filt -i "$mangled_cpp_symbol")\n"
+            echo '"'"$symbol"'"'" $mangled_cpp_symbol" >>mangled-symbols-table.new
+          else
+            cpp[$version_name]="${cpp[$version_name]}${symbol}\n"
+          fi
+        else
+          c[$version_name]="${c[$version_name]}${symbol}\n"
+        fi
+      fi
+    done <"$1"
+    shift
+  done
+
+  echo "/* Generated from script $(basename "$0") */"
+  echo
+  prev_version=""
+  for version in $(echo "${!versions[@]}" | sed 's/ /\n/g' | sort -V); do
+    echo "HDF5_@MAP@_$version {"
+    # Drop symbols which are version names, such as:"
+    # HDF5_CPP_1.8.14@HDF5_CPP_1.8.14
+    c[$version]="$(echo -e "${c[$version]}" | grep -v '^HDF5_\(SERIAL\|CPP\|MPI\)_[0-9\.]*$')"
+    if [ -n "${cpp[$version]}${c[$version]}" ]; then
+      echo "    global:"
+    fi
+    if [ -n "${cpp[$version]}" ]; then
+      echo '        extern "C++" {'
+      echo -e "${cpp[$version]}" | sort -u | sed '/^$/d;s/^/            "/;s/$/"\;/'
+      echo '        };'
+    fi
+    echo -e "${c[$version]}" | sort -u | sed '/^$/d;s/^/        /;s/$/\;/'
+    echo "}${prev_version:+ HDF5_@MAP@_$prev_version};"
+    echo ""
+    prev_version=$version
+  done
+}
+
+rm -f mangled-symbols-table.new
+map_symbols_files "libhdf5-$soname.symbols" "libhdf5-fortran-$soname_f.symbols" "libhdf5-hl-$soname_hl.symbols" "libhdf5-hl-fortran-$soname_hl_f.symbols" | sed 's/@MAP@/SERIAL/' >map_serial.ver
+map_symbols_files "libhdf5-cpp-$soname_cxx.symbols" "libhdf5-hl-cpp-$soname_hl_cxx.symbols" | sed 's/@MAP@/CPP/' >>map_serial.ver
+map_symbols_files "libhdf5-openmpi-$soname.symbols" "libhdf5-openmpi-fortran-$soname_f.symbols" "libhdf5-openmpi-hl-$soname_hl.symbols" "libhdf5-openmpi-hl-fortran-$soname_hl_f.symbols" | sed 's/@MAP@/MPI/' >map_mpi.ver
+map_symbols_files "libhdf5-openmpi-cpp-$soname_cxx.symbols" "libhdf5-openmpi-hl-cpp-$soname_hl_cxx.symbols" | sed 's/@MAP@/CPP_MPI/' >>map_mpi.ver
+
+# 5- Replace the mangled C++ symbols table with the updated one
+mv mangled-symbols-table.new mangled-symbols-table

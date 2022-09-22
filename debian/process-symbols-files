@@ -1,0 +1,81 @@
+#!/bin/bash
+
+set -e
+
+# 1- Go to debian directory
+debian_dir="$(dirname "$(readlink -f "$0")")"
+cd "$debian_dir"
+
+# 2- Get version and sonames
+version="$(grep 'HDF5 config.lt' ../configure | awk '{print $3}' | sed -r 's/-patch[0-9]*//;s/-(alpha|pre)[0-9]*//')"
+soname=$(cd .. && ./debian/rules SONAME)
+soname_f=$(cd .. && ./debian/rules SONAME_F)
+soname_cxx=$(cd .. && ./debian/rules SONAME_CXX)
+soname_hl=$(cd .. && ./debian/rules SONAME_HL)
+soname_hl_f=$(cd .. && ./debian/rules SONAME_HL_F)
+soname_hl_cxx=$(cd .. && ./debian/rules SONAME_HL_CXX)
+
+# 3- Unmangle c++ symbols in symbols file
+#    While doing this we keep trac of the mangled symbol in the file
+#    'mangled-symbols-table' needed by step 5.
+function unmangle_symbols_file {
+  while IFS='' read line; do
+    if [[ "$line" =~ ^\ ([a-zA-Z0-9_]*)@([a-zA-Z0-9_.]*)\ (.*)$ ]]; then
+      base="${BASH_REMATCH[2]}"
+      if [ "$base" = "Base" ]; then
+        base="HDF5_#MAP#_$version"
+      fi
+      if [ "${line:1:2}" = "_Z" ]; then
+	unmangled_symbol=$(echo "${BASH_REMATCH[1]}" | c++filt)
+        # We need to keep the mangled symbol into mangled-symbols-table
+        # so make-version-scripts can use it later with 'c++filt -i'
+        echo " (optional|c++)"'"'"$unmangled_symbol@$base"'"'" ${BASH_REMATCH[3]}"
+        echo '"'"$unmangled_symbol"'"'" ${BASH_REMATCH[1]}" >>mangled-symbols-table.new
+      else
+        echo " ${BASH_REMATCH[1]}@$base ${BASH_REMATCH[3]}"
+      fi
+    else
+      echo "$line"
+    fi
+  done <"$1"
+}
+
+if [ -f mangled-symbols-table ]; then
+  cp mangled-symbols-table mangled-symbols-table.new
+fi
+
+symbols_filenames=""
+for flavor in serial openmpi mpich; do
+  pkgflavor=$(echo $flavor | sed -E 's/serial//;s/^(.)/-\1/')
+  for api in C fortran hl hl-fortran cpp hl-cpp; do
+    pkgapi=$(echo $api | sed -E 's/C//;s/^(.)/-\1/')
+    sonamevar=soname$(echo $api | sed -E 's/C//;s/fortran/f/;s/cpp/cxx/;s/-/_/g;s/^(.)/_\1/')
+    if [ "$api" = C -o "$api" = cpp ]; then
+      ext=-1
+    else
+      ext=
+    fi
+    symbols_filenames="$symbols_filenames libhdf5${pkgflavor}${pkgapi}-${!sonamevar}${ext}.symbols"
+  done
+done
+
+for sfile in $symbols_filenames; do
+  map=$(echo $sfile | sed -E 's/.*mpi.*cpp.*/CPP_MPI/;s/.*cpp.*/CPP/;s/.*mpi.*/MPI/;/CPP|MPI/!{s/.*/SERIAL/}')
+  unmangle_symbols_file "$sfile" | sed 's/#MAP#/'$map'/' >"$sfile.new"
+done
+
+if [ -f mangled-symbols-table.new ]; then
+  mv mangled-symbols-table.new mangled-symbols-table
+fi
+
+# 4- Sort symbols in symbols file to workaround bug #773718
+for sfile in $symbols_filenames; do
+  ./sort-symbols "$sfile.new" >"$sfile"
+done
+
+# 5- Generate version scripts (debian/map_*.ver files)
+#    In these files, C++ symbols must be unmangled with 'c++filt -i'
+./make-version-scripts
+
+# 6- Cleanup
+rm *.symbols.new

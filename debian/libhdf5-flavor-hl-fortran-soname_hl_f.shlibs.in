@@ -1,0 +1,1 @@
+libhdf5@FLAVORLIB@hl_fortran @SONAME_HL_F@ libhdf5@FLAVORPKG@-hl-fortran-@SONAME_HL_F@

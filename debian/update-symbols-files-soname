@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+eval "$(debian/rules sonames)"
+
+for flavor in serial openmpi mpich; do
+  if [ $flavor != serial ]; then
+    flavor_string="-$flavor"
+  else
+    flavor_string=""
+  fi
+  for interface in "" _F _CXX _HL _HL_F _HL_CXX; do
+    api=$(echo $interface | tr 'A-Z_' 'a-z-' | sed 's/-f/-fortran/;s/-cxx/-cpp/')
+    _api=$(echo "@$api" | sed 's/^@//;s/-/_/g;s/^_hl_fortran/hl_fortran/')
+    soname=$(eval echo '$'SONAME$interface)
+    sonamepkg="$soname"
+    if [ "$interface" = "" -o "$interface" = "_CXX" ]; then
+      sonamepkg="$sonamepkg$EXT"
+    fi
+    symbols_file=debian/libhdf5${flavor_string}${api}-$sonamepkg.symbols
+    old_symbols_file=debian/libhdf5${flavor_string}${api}-[0-9\-]*.symbols
+    [ -f "$symbols_file" ] || mv $old_symbols_file "$symbols_file"
+    sed -ri \
+      -e "/^libhdf5_${flavor}${_api}.so/{s/\.[0-9]+/.$soname/;s/-[0-9]+(-[0-9]+)?( |$)/-$sonamepkg\2/}" \
+      $symbols_file
+  done
+done

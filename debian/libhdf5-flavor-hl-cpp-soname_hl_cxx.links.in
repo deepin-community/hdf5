@@ -1,0 +1,1 @@
+@IFSERIAL@usr/lib/@MULTIARCH@/libhdf5@FLAVORLIB@_hl_cpp.so.@SONAME_HL_CXX@ usr/lib/@MULTIARCH@/libhdf5_hl_cpp.so.@SONAME_HL_CXX@

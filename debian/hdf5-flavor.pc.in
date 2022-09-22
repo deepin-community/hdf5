@@ -1,0 +1,8 @@
+Name: HDF5
+Description: Hierarchical Data Format 5 (HDF5) - @FLAVOR@ version
+Version: @VERSION@
+Requires: @PKGCONFIG_REQ_FLAVOR@
+Cflags: -I/usr/include/hdf5/@FLAVOR@
+Libs: -L/usr/lib/@MULTIARCH@/hdf5/@FLAVOR@ -lhdf5
+
+PluginDir=/usr/lib/@MULTIARCH@/hdf5/@FLAVOR@/plugins

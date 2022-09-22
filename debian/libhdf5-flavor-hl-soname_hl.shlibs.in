@@ -1,0 +1,1 @@
+libhdf5@FLAVORLIB@_hl @SONAME_HL@ libhdf5@FLAVORPKG@-hl-@SONAME_HL@
