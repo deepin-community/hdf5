@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -21,7 +20,6 @@
 extern "C" {
 #endif /* __cplusplus */
 
-
 /***********/
 /* Headers */
 /***********/
@@ -33,9 +31,8 @@ extern "C" {
 #include "h5jni.h"
 #include "exceptionImp.h"
 
-extern H5E_auto2_t  efunc;
-extern void        *edata;
-
+extern H5E_auto2_t efunc;
+extern void       *edata;
 
 /*******************/
 /* Local Variables */
@@ -47,13 +44,13 @@ extern void        *edata;
  * minor error numbers.
  */
 typedef struct H5E_major_mesg_t {
-    hid_t error_code;
-    const char  *str;
+    hid_t       error_code;
+    const char *str;
 } H5E_major_mesg_t;
 
 typedef struct H5E_minor_mesg_t {
-    hid_t error_code;
-    const char  *str;
+    hid_t       error_code;
+    const char *str;
 } H5E_minor_mesg_t;
 
 /* major and minor error numbers */
@@ -66,42 +63,41 @@ typedef struct H5E_num_t {
 /* Local Macros     */
 /********************/
 
-#define THROWEXCEPTION(className, args)                                                       \
-{                                                                                             \
-    jmethodID jm;                                                                             \
-    jclass    jc;                                                                             \
-    jobject   ex;                                                                             \
-                                                                                              \
-    if (NULL == (jc = ENVPTR->FindClass(ENVONLY, (className))))                               \
-        CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);                                              \
-                                                                                              \
-    if (NULL == (jm = ENVPTR->GetMethodID(ENVONLY, jc, "<init>", "(Ljava/lang/String;)V"))) { \
-        HDprintf("THROWEXCEPTION FATAL ERROR: GetMethodID failed\n");                         \
-        CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);                                              \
-    }                                                                                         \
-                                                                                              \
-    if (NULL == (ex = ENVPTR->NewObjectA(ENVONLY, jc, jm, (jvalue *)(args)))) {              \
-        HDprintf("THROWEXCEPTION FATAL ERROR: Class %s: Creation failed\n", (className));     \
-        CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);                                              \
-    }                                                                                         \
-                                                                                              \
-    if (ENVPTR->Throw(ENVONLY, (jthrowable)ex) < 0) {                                         \
-        HDprintf("THROWEXCEPTION FATAL ERROR: Class %s: Throw failed\n", (className));        \
-        CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);                                              \
-    }                                                                                         \
-}
+#define THROWEXCEPTION(className, args)                                                                      \
+    {                                                                                                        \
+        jmethodID jm;                                                                                        \
+        jclass    jc;                                                                                        \
+        jobject   ex;                                                                                        \
+                                                                                                             \
+        if (NULL == (jc = ENVPTR->FindClass(ENVONLY, (className))))                                          \
+            CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);                                                         \
+                                                                                                             \
+        if (NULL == (jm = ENVPTR->GetMethodID(ENVONLY, jc, "<init>", "(Ljava/lang/String;)V"))) {            \
+            HDprintf("THROWEXCEPTION FATAL ERROR: GetMethodID failed\n");                                    \
+            CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);                                                         \
+        }                                                                                                    \
+                                                                                                             \
+        if (NULL == (ex = ENVPTR->NewObjectA(ENVONLY, jc, jm, (jvalue *)(args)))) {                          \
+            HDprintf("THROWEXCEPTION FATAL ERROR: Class %s: Creation failed\n", (className));                \
+            CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);                                                         \
+        }                                                                                                    \
+                                                                                                             \
+        if (ENVPTR->Throw(ENVONLY, (jthrowable)ex) < 0) {                                                    \
+            HDprintf("THROWEXCEPTION FATAL ERROR: Class %s: Throw failed\n", (className));                   \
+            CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);                                                         \
+        }                                                                                                    \
+    }
 
 /********************/
 /* Local Prototypes */
 /********************/
 
 static const char *defineHDF5LibraryException(hid_t maj_num);
-static jboolean H5JNIErrorClass(JNIEnv *env, const char *message, const char *className);
+static jboolean    H5JNIErrorClass(JNIEnv *env, const char *message, const char *className);
 
 /* get the major and minor error numbers on the top of the error stack */
 static herr_t
-walk_error_callback
-    (unsigned n, const H5E_error2_t *err_desc, void *_err_nums)
+walk_error_callback(unsigned n, const H5E_error2_t *err_desc, void *_err_nums)
 {
     H5E_num_t *err_nums = (H5E_num_t *)_err_nums;
 
@@ -122,8 +118,7 @@ walk_error_callback
  *
  */
 JNIEXPORT jint JNICALL
-Java_hdf_hdf5lib_H5_H5error_1off
-    (JNIEnv *env, jclass clss)
+Java_hdf_hdf5lib_H5_H5error_1off(JNIEnv *env, jclass clss)
 {
     UNUSED(env);
     UNUSED(clss);
@@ -144,8 +139,7 @@ Java_hdf_hdf5lib_H5_H5error_1off
  *
  */
 JNIEXPORT void JNICALL
-Java_hdf_hdf5lib_H5_H5error_1on
-    (JNIEnv *env, jclass clss)
+Java_hdf_hdf5lib_H5_H5error_1on(JNIEnv *env, jclass clss)
 {
     UNUSED(env);
     UNUSED(clss);
@@ -158,14 +152,13 @@ Java_hdf_hdf5lib_H5_H5error_1on
  * Method:    printStackTrace0
  * Signature: (Ljava/lang/Object;)V
  *
- *  Call the HDF-5 library to print the HDF-5 error stack to 'file_name'.
+ *  Call the HDF5 library to print the HDF5 error stack to 'file_name'.
  */
 JNIEXPORT void JNICALL
-Java_hdf_hdf5lib_exceptions_HDF5LibraryException_printStackTrace0
-    (JNIEnv *env, jobject obj, jstring file_name)
+Java_hdf_hdf5lib_exceptions_HDF5LibraryException_printStackTrace0(JNIEnv *env, jobject obj, jstring file_name)
 {
     FILE       *stream = NULL;
-    const char *file = NULL;
+    const char *file   = NULL;
 
     UNUSED(obj);
 
@@ -193,11 +186,10 @@ done:
  * Method:    _getMajorErrorNumber
  * Signature: ()J
  *
- *  Extract the HDF-5 major error number from the HDF-5 error stack.
+ *  Extract the HDF5 major error number from the HDF5 error stack.
  */
 JNIEXPORT jlong JNICALL
-Java_hdf_hdf5lib_exceptions_HDF5LibraryException__1getMajorErrorNumber
-    (JNIEnv *env, jobject obj)
+Java_hdf_hdf5lib_exceptions_HDF5LibraryException__1getMajorErrorNumber(JNIEnv *env, jobject obj)
 {
     H5E_num_t err_nums;
 
@@ -218,11 +210,10 @@ Java_hdf_hdf5lib_exceptions_HDF5LibraryException__1getMajorErrorNumber
  * Method:    _getMinorErrorNumber
  * Signature: ()J
  *
- *  Extract the HDF-5 minor error number from the HDF-5 error stack.
+ *  Extract the HDF5 minor error number from the HDF5 error stack.
  */
 JNIEXPORT jlong JNICALL
-Java_hdf_hdf5lib_exceptions_HDF5LibraryException__1getMinorErrorNumber
-    (JNIEnv *env, jobject obj)
+Java_hdf_hdf5lib_exceptions_HDF5LibraryException__1getMinorErrorNumber(JNIEnv *env, jobject obj)
 {
     H5E_num_t err_nums;
 
@@ -242,17 +233,16 @@ Java_hdf_hdf5lib_exceptions_HDF5LibraryException__1getMinorErrorNumber
  *  Routine to raise particular Java exceptions from C.
  */
 static jboolean
-H5JNIErrorClass
-    (JNIEnv *env, const char *message, const char *className)
+H5JNIErrorClass(JNIEnv *env, const char *message, const char *className)
 {
-    jstring   str;
-    char     *args[2];
-    jboolean  retVal = JNI_FALSE;
+    jstring  str;
+    char    *args[2];
+    jboolean retVal = JNI_FALSE;
 
     if (NULL == (str = ENVPTR->NewStringUTF(ENVONLY, message)))
         CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);
 
-    args[0] = (char *) str;
+    args[0] = (char *)str;
     args[1] = 0;
 
     THROWEXCEPTION(className, args);
@@ -271,12 +261,23 @@ done:
  *  exception.
  */
 jboolean
-h5outOfMemory
-    (JNIEnv *env, const char *functName)
+h5outOfMemory(JNIEnv *env, const char *message)
 {
-    return H5JNIErrorClass(env, functName, "java/lang/OutOfMemoryError");
+    return H5JNIErrorClass(env, message, "java/lang/OutOfMemoryError");
 } /* end h5outOfMemory() */
 
+/*
+ *  Create and throw an 'AssertionError'
+ *
+ *  Note:  This routine never returns from the 'throw',
+ *  and the Java native method immediately raises the
+ *  exception.
+ */
+jboolean
+h5assertion(JNIEnv *env, const char *message)
+{
+    return H5JNIErrorClass(env, message, "java/lang/AssertionError");
+} /* end h5assertion() */
 
 /*
  *  A fatal error in a JNI call
@@ -287,10 +288,9 @@ h5outOfMemory
  *  exception.
  */
 jboolean
-h5JNIFatalError
-    (JNIEnv *env, const char *functName)
+h5JNIFatalError(JNIEnv *env, const char *message)
 {
-    return H5JNIErrorClass(env, functName, "java/lang/InternalError");
+    return H5JNIErrorClass(env, message, "java/lang/InternalError");
 } /* end h5JNIFatalError() */
 
 /*
@@ -302,10 +302,9 @@ h5JNIFatalError
  *  exception.
  */
 jboolean
-h5nullArgument
-    (JNIEnv *env, const char *functName)
+h5nullArgument(JNIEnv *env, const char *message)
 {
-    return H5JNIErrorClass(env, functName, "java/lang/NullPointerException");
+    return H5JNIErrorClass(env, message, "java/lang/NullPointerException");
 } /* end h5nullArgument() */
 
 /*
@@ -317,10 +316,9 @@ h5nullArgument
  *  exception.
  */
 jboolean
-h5badArgument
-    (JNIEnv *env, const char *functName)
+h5badArgument(JNIEnv *env, const char *message)
 {
-    return H5JNIErrorClass(env, functName, "java/lang/IllegalArgumentException");
+    return H5JNIErrorClass(env, message, "java/lang/IllegalArgumentException");
 } /* end h5badArgument() */
 
 /*
@@ -332,10 +330,9 @@ h5badArgument
  *  exception.
  */
 jboolean
-h5unimplemented
-    (JNIEnv *env, const char *functName)
+h5unimplemented(JNIEnv *env, const char *message)
 {
-    return H5JNIErrorClass(env, functName, "java/lang/UnsupportedOperationException");
+    return H5JNIErrorClass(env, message, "java/lang/UnsupportedOperationException");
 } /* end h5unimplemented() */
 
 /*  h5raiseException().  This routine is called to generate
@@ -346,17 +343,16 @@ h5unimplemented
  *  exception.
  */
 jboolean
-h5raiseException
-    (JNIEnv *env, const char *message, const char *exception)
+h5raiseException(JNIEnv *env, const char *message, const char *exception)
 {
     return H5JNIErrorClass(env, message, exception);
 } /* end h5raiseException() */
 
 /*
- *  h5libraryError()   determines the HDF-5 major error code
+ *  h5libraryError()   determines the HDF5 major error code
  *  and creates and throws the appropriate sub-class of
  *  HDF5LibraryException().  This routine should be called
- *  whenever a call to the HDF-5 library fails, i.e., when
+ *  whenever a call to the HDF5 library fails, i.e., when
  *  the return is -1.
  *
  *  Note:  This routine never returns from the 'throw',
@@ -364,20 +360,19 @@ h5raiseException
  *  exception.
  */
 jboolean
-h5libraryError
-    (JNIEnv *env)
+h5libraryError(JNIEnv *env)
 {
     const char *exception = NULL;
     H5E_type_t  error_msg_type;
     H5E_num_t   exceptionNumbers;
-    jstring     str = NULL;
+    jstring     str      = NULL;
     ssize_t     msg_size = 0;
     hid_t       min_num;
     hid_t       maj_num;
     hid_t       stk_id = H5I_INVALID_HID;
     char       *args[2];
     char       *msg_str = NULL;
-    jboolean    retVal = JNI_FALSE;
+    jboolean    retVal  = JNI_FALSE;
 
     exceptionNumbers.maj_num = 0;
     exceptionNumbers.min_num = 0;
@@ -408,7 +403,7 @@ h5libraryError
         goto done;
 
     if (msg_size > 0) {
-        if (NULL == (msg_str = (char *) HDcalloc((size_t)msg_size + 1, sizeof(char))))
+        if (NULL == (msg_str = (char *)HDcalloc((size_t)msg_size + 1, sizeof(char))))
             H5_OUT_OF_MEMORY_ERROR(ENVONLY, "h5libraryerror: failed to allocate buffer for error message");
 
         if ((msg_size = H5Eget_msg(min_num, &error_msg_type, msg_str, (size_t)msg_size + 1)) < 0)
@@ -424,7 +419,7 @@ h5libraryError
     if (stk_id >= 0)
         H5Eset_current_stack(stk_id);
 
-    args[0] = (char *) str;
+    args[0] = (char *)str;
     args[1] = 0;
 
     THROWEXCEPTION(exception, args);
@@ -440,11 +435,10 @@ done:
 
 /*
  *  defineHDF5LibraryException()  returns the name of the sub-class
- *  which goes with an HDF-5 error code.
+ *  which goes with an HDF5 error code.
  */
 static const char *
-defineHDF5LibraryException
-    (hid_t maj_num)
+defineHDF5LibraryException(hid_t maj_num)
 {
     hid_t err_num = maj_num;
 
@@ -497,4 +491,3 @@ defineHDF5LibraryException
 #ifdef __cplusplus
 } /* end extern "C" */
 #endif /* __cplusplus */
-

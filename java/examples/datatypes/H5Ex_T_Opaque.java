@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -25,32 +24,33 @@ import hdf.hdf5lib.H5;
 import hdf.hdf5lib.HDF5Constants;
 
 public class H5Ex_T_Opaque {
-    private static String FILENAME = "H5Ex_T_Opaque.h5";
+    private static String FILENAME    = "H5Ex_T_Opaque.h5";
     private static String DATASETNAME = "DS1";
-    private static final int DIM0 = 4;
-    private static final int LEN = 7;
-    private static final int RANK = 1;
+    private static final int DIM0     = 4;
+    private static final int LEN      = 7;
+    private static final int RANK     = 1;
 
-    private static void CreateDataset() {
-        long file_id = -1;
-        long dataspace_id = -1;
-        long datatype_id = -1;
-        long dataset_id = -1;
-        long[] dims = { DIM0 };
-        byte[] dset_data = new byte[DIM0 * LEN];
-        byte[] str_data = { 'O', 'P', 'A', 'Q', 'U', 'E' };
+    private static void CreateDataset()
+    {
+        long file_id      = HDF5Constants.H5I_INVALID_HID;
+        long dataspace_id = HDF5Constants.H5I_INVALID_HID;
+        long datatype_id  = HDF5Constants.H5I_INVALID_HID;
+        long dataset_id   = HDF5Constants.H5I_INVALID_HID;
+        long[] dims       = {DIM0};
+        byte[] dset_data  = new byte[DIM0 * LEN];
+        byte[] str_data   = {'O', 'P', 'A', 'Q', 'U', 'E'};
 
         // Initialize data.
         for (int indx = 0; indx < DIM0; indx++) {
             for (int jndx = 0; jndx < LEN - 1; jndx++)
                 dset_data[jndx + indx * LEN] = str_data[jndx];
-            dset_data[LEN - 1 + indx * LEN] = (byte) (indx + '0');
+            dset_data[LEN - 1 + indx * LEN] = (byte)(indx + '0');
         }
 
         // Create a new file using default properties.
         try {
             file_id = H5.H5Fcreate(FILENAME, HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT,
-                    HDF5Constants.H5P_DEFAULT);
+                                   HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -83,8 +83,9 @@ public class H5Ex_T_Opaque {
         // automatically converts between different integer types.
         try {
             if ((file_id >= 0) && (datatype_id >= 0) && (dataspace_id >= 0))
-                dataset_id = H5.H5Dcreate(file_id, DATASETNAME, datatype_id, dataspace_id, HDF5Constants.H5P_DEFAULT,
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                dataset_id =
+                    H5.H5Dcreate(file_id, DATASETNAME, datatype_id, dataspace_id, HDF5Constants.H5P_DEFAULT,
+                                 HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -94,7 +95,7 @@ public class H5Ex_T_Opaque {
         try {
             if ((dataset_id >= 0) && (datatype_id >= 0))
                 H5.H5Dwrite(dataset_id, datatype_id, HDF5Constants.H5S_ALL, HDF5Constants.H5S_ALL,
-                        HDF5Constants.H5P_DEFAULT, dset_data);
+                            HDF5Constants.H5P_DEFAULT, dset_data);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -134,16 +135,16 @@ public class H5Ex_T_Opaque {
         catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    private static void ReadDataset() {
-        long file_id = -1;
-        long datatype_id = -1;
-        long dataspace_id = -1;
-        long dataset_id = -1;
-        long type_len = -1;
-        long[] dims = { DIM0 };
+    private static void ReadDataset()
+    {
+        long file_id      = HDF5Constants.H5I_INVALID_HID;
+        long datatype_id  = HDF5Constants.H5I_INVALID_HID;
+        long dataspace_id = HDF5Constants.H5I_INVALID_HID;
+        long dataset_id   = HDF5Constants.H5I_INVALID_HID;
+        long type_len     = HDF5Constants.H5I_INVALID_HID;
+        long[] dims       = {DIM0};
         byte[] dset_data;
         String tag_name = null;
 
@@ -195,13 +196,13 @@ public class H5Ex_T_Opaque {
         }
 
         // Allocate buffer.
-        dset_data = new byte[(int) (dims[0] * type_len)];
+        dset_data = new byte[(int)(dims[0] * type_len)];
 
         // Read data.
         try {
             if ((dataset_id >= 0) && (datatype_id >= 0))
                 H5.H5Dread(dataset_id, datatype_id, HDF5Constants.H5S_ALL, HDF5Constants.H5S_ALL,
-                        HDF5Constants.H5P_DEFAULT, dset_data);
+                           HDF5Constants.H5P_DEFAULT, dset_data);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -212,7 +213,7 @@ public class H5Ex_T_Opaque {
         for (int indx = 0; indx < dims[0]; indx++) {
             System.out.print(DATASETNAME + "[" + indx + "]: ");
             for (int jndx = 0; jndx < type_len; jndx++) {
-                char temp = (char) dset_data[jndx + indx * (int)type_len];
+                char temp = (char)dset_data[jndx + indx * (int)type_len];
                 System.out.print(temp);
             }
             System.out.println("");
@@ -253,10 +254,10 @@ public class H5Ex_T_Opaque {
         catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         H5Ex_T_Opaque.CreateDataset();
         // Now we begin the read section of this example. Here we assume
         // the dataset and array have the same name and rank, but can have
@@ -264,5 +265,4 @@ public class H5Ex_T_Opaque {
         // data using malloc().
         H5Ex_T_Opaque.ReadDataset();
     }
-
 }

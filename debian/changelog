@@ -1,3 +1,81 @@
+hdf5 (1.10.10+repack-3) unstable; urgency=medium
+
+  * Update symbols files
+  * Fix symbols files for loong64 (closes: #1054106; thanks to Dandan Zhang)
+
+ -- Gilles Filippini <pini@debian.org>  Tue, 17 Oct 2023 22:56:33 +0200
+
+hdf5 (1.10.10+repack-2) unstable; urgency=medium
+
+  * Re-ctivate patch java-test-TestH5Arw_array-overflow
+
+ -- Gilles Filippini <pini@debian.org>  Sat, 19 Aug 2023 13:31:04 +0200
+
+hdf5 (1.10.10+repack-1) unstable; urgency=medium
+
+  * New upstream release
+  * Tools git2h5 and h52gif are deprecated
+  * Refresh patches
+  * Update symbols files
+  * Drop transitionnal packages:
+    - libhdf5-103 (closes: #1038330)
+    - libhdf5-cpp-103 (closes: #1038257)
+    - libhdf5-openmpi-103 (closes: #1038316)
+    - libhdf5-mpich-103 (closes: #1038238)
+
+ -- Gilles Filippini <pini@debian.org>  Sun, 11 Jun 2023 19:25:39 +0200
+
+hdf5 (1.10.8+repack1-2) unstable; urgency=medium
+
+  * Do not install gif2h5 anymore, which is subject of multiple CVE
+    (closes: #1031726):
+    - CVE-2022-26061
+    - CVE-2022-25972
+    - CVE-2022-25942
+
+ -- Gilles Filippini <pini@debian.org>  Thu, 06 Apr 2023 18:30:50 +0200
+
+hdf5 (1.10.8+repack1-1) unstable; urgency=medium
+
+  * Build against default JDK for all arches (closes: #1025232)
+  * java-test-TestH5Arw_array-overflow.patch: fix an array overflow
+    in java test TestH5Arw
+  * Repack upstream source to drop embedded jar files
+  * java_use-system-jars.patch: use system provided jar files
+    instead of the embedded ones
+  * Build-Depends: junit4, libslf4j-java
+  * debian/watch: use the Github upstream repo
+
+ -- Gilles Filippini <pini@debian.org>  Sun, 18 Dec 2022 18:20:33 +0100
+
+hdf5 (1.10.8+repack-4) unstable; urgency=medium
+
+  * Fix previous change where d/control.in was forgotten
+
+ -- Gilles Filippini <pini@debian.org>  Sat, 26 Nov 2022 10:39:18 +0100
+
+hdf5 (1.10.8+repack-3) unstable; urgency=medium
+
+  * |i386 mips64el] Build against openjdk-11 instead of default-jdk to
+    avoid tests failures
+
+ -- Gilles Filippini <pini@debian.org>  Sat, 26 Nov 2022 00:04:44 +0100
+
+hdf5 (1.10.8+repack-2) unstable; urgency=medium
+
+  * Remove rpath link flag from h5cc et al commands
+
+ -- Gilles Filippini <pini@debian.org>  Wed, 16 Nov 2022 00:15:35 +0100
+
+hdf5 (1.10.8+repack-1) unstable; urgency=medium
+
+  * New release upstream
+  * Refresh patches
+  * Add configure flag --enable-hltools, or the HL tools are not built
+  * Update symbols files
+
+ -- Gilles Filippini <pini@debian.org>  Mon, 22 Aug 2022 13:07:50 +0200
+
 hdf5 (1.10.7+repack-4) unstable; urgency=medium
 
   * libhdf5*-dev: Depends: libssl-dev

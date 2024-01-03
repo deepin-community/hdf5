@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -26,16 +25,17 @@
 
 #define FILENAME "bad_compound.h5"
 
-int main()
+int
+main()
 {
-    hid_t       file;
-    hid_t       cmpd_dt;
-    hid_t       sid;
-    hid_t       did;
-    hid_t       aid;
-    hid_t       gid;
-    hsize_t     dim = 1;
-    herr_t      ret;
+    hid_t   file;
+    hid_t   cmpd_dt;
+    hid_t   sid;
+    hid_t   did;
+    hid_t   aid;
+    hid_t   gid;
+    hsize_t dim = 1;
+    herr_t  ret;
 
     /* Create compound datatype, but don't insert fields */
     cmpd_dt = H5Tcreate(H5T_COMPOUND, (size_t)8);
@@ -79,6 +79,5 @@ int main()
     ret = H5Fclose(file);
     assert(ret >= 0);
 
-    return(0);
+    return (0);
 }
-

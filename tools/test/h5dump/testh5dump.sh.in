@@ -1,13 +1,12 @@
 #! /bin/sh
 #
 # Copyright by The HDF Group.
-# Copyright by the Board of Trustees of the University of Illinois.
 # All rights reserved.
 #
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -130,6 +129,7 @@ $SRC_H5DUMP_TESTFILES/tfamily00010.h5
 $SRC_H5DUMP_TESTFILES/tfcontents1.h5
 $SRC_H5DUMP_TESTFILES/tfcontents2.h5
 $SRC_H5DUMP_TESTFILES/tfilters.h5
+$SRC_H5DUMP_TESTFILES/tfloatsattrs.h5
 $SRC_H5DUMP_TESTFILES/tfpformat.h5
 $SRC_H5DUMP_TESTFILES/tfvalues.h5
 $SRC_H5DUMP_TESTFILES/tgroup.h5
@@ -140,7 +140,8 @@ $SRC_H5DUMP_TESTFILES/thyperslab.h5
 $SRC_H5DUMP_TESTFILES/tintsattrs.h5
 $SRC_H5DUMP_TESTFILES/tints4dims.h5
 $SRC_H5DUMP_TESTFILES/tlarge_objname.h5
-#$SRC_H5DUMP_TESTFILES/tldouble.h5
+$SRC_H5DUMP_TESTFILES/tldouble.h5
+$SRC_H5DUMP_TESTFILES/tldouble_scalar.h5
 $SRC_H5DUMP_TESTFILES/tlonglinks.h5
 $SRC_H5DUMP_TESTFILES/tloop.h5
 $SRC_H5DUMP_TESTFILES/tmulti-b.h5
@@ -177,6 +178,9 @@ $SRC_H5DUMP_TESTFILES/tvldtypes5.h5
 $SRC_H5DUMP_TESTFILES/tvlenstr_array.h5
 $SRC_H5DUMP_TESTFILES/tvlstr.h5
 $SRC_H5DUMP_TESTFILES/tvms.h5
+$SRC_H5DUMP_TESTFILES/tCVE_2018_11206_fill_old.h5
+$SRC_H5DUMP_TESTFILES/tCVE_2018_11206_fill_new.h5
+$SRC_H5DUMP_TESTFILES/tCVE-2021-37501_attr_decode.h5
 "
 
 LIST_OTHER_TEST_FILES="
@@ -259,6 +263,7 @@ $SRC_H5DUMP_TESTFILES/textlink.ddl
 $SRC_H5DUMP_TESTFILES/tfamily.ddl
 $SRC_H5DUMP_TESTFILES/tfill.ddl
 $SRC_H5DUMP_TESTFILES/tfletcher32.ddl
+$SRC_H5DUMP_TESTFILES/tfloatsattrs.ddl
 $SRC_H5DUMP_TESTFILES/tfpformat.ddl
 $SRC_H5DUMP_TESTFILES/tgroup-1.ddl
 $SRC_H5DUMP_TESTFILES/tgroup-2.ddl
@@ -284,7 +289,8 @@ $SRC_H5DUMP_TESTFILES/tints4dimsCountEq.ddl
 $SRC_H5DUMP_TESTFILES/tints4dimsStride2.ddl
 $SRC_H5DUMP_TESTFILES/tintsattrs.ddl
 $SRC_H5DUMP_TESTFILES/tlarge_objname.ddl
-#$SRC_H5DUMP_TESTFILES/tldouble.ddl
+$SRC_H5DUMP_TESTFILES/tldouble.ddl
+$SRC_H5DUMP_TESTFILES/tldouble_scalar.ddl
 $SRC_H5DUMP_TESTFILES/tlonglinks.ddl
 $SRC_H5DUMP_TESTFILES/tloop-1.ddl
 $SRC_H5DUMP_TESTFILES/tmulti.ddl
@@ -861,6 +867,35 @@ TOOLTEST5() {
     fi
 }
 
+# same as TOOLTEST1 but expects h5dump to fail
+#
+TOOLTEST_FAIL() {
+
+    infile=$1
+    expect="$TESTDIR/`basename $1 exp`.ddl"
+    actual="$TESTDIR/`basename $1 .exp`.out"
+
+    # Run test.
+    TESTING $DUMPER $@
+    (
+        cd $TESTDIR
+        $RUNSERIAL $DUMPER_BIN "$@" $infile
+    ) >&$actual
+    RET=$?
+    # Segfault occurred
+    if [ $RET == 139 ] ; then
+        nerrors="`expr $nerrors + 1`"
+        echo "*FAILED - test on $infile failed with segmentation fault"
+    # Should fail but didn't
+    elif [ $RET == 0 ] ; then
+        nerrors="`expr $nerrors + 1`"
+        echo "*FAILED - test on $infile did not fail as expected"
+    else
+        echo " PASSED"
+    fi
+
+}
+
 # ADD_HELP_TEST
 TOOLTEST_HELP() {
 
@@ -1129,7 +1164,7 @@ TOOLTEST tcomp-1.ddl --enable-error-stack tcompound.h5
 # test for named data types
 TOOLTEST tcomp-2.ddl --enable-error-stack -t /type1 --datatype /type2 --datatype=/group1/type3 tcompound.h5
 TOOLTEST tcomp-2.ddl --enable-error-stack -N /type1 --any_path /type2 --any_path=/group1/type3 tcompound.h5
-# test for unamed type
+# test for unnamed type
 TOOLTEST4 tcomp-3.ddl --enable-error-stack -t /#6632 -g /group2 tcompound.h5
 # test complicated compound datatype
 TOOLTEST tcomp-4.ddl --enable-error-stack tcompound_complex.h5
@@ -1344,7 +1379,9 @@ TOOLTEST tgrpnullspace.ddl -p --enable-error-stack tgrpnullspace.h5
 TOOLTEST zerodim.ddl --enable-error-stack zerodim.h5
 
 # test for long double (some systems do not have long double)
-#TOOLTEST tldouble.ddl --enable-error-stack tldouble.h5
+TOOLTEST tfloatsattrs.ddl -p --enable-error-stack tfloatsattrs.h5
+TOOLTEST tldouble.ddl --enable-error-stack tldouble.h5
+TOOLTEST tldouble_scalar.ddl -p --enable-error-stack tldouble_scalar.h5
 
 # test for vms
 TOOLTEST tvms.ddl --enable-error-stack tvms.h5
@@ -1433,7 +1470,15 @@ TOOLTEST2 tall-6.exp --enable-error-stack -y -o tall-6.txt -d /g1/g1.1/dset1.1.1
 TOOLTEST3 non_existing.ddl --enable-error-stack tgroup.h5 non_existing.h5
 
 # test to verify HDFFV-9407: long double full precision
-GREPTEST OUTTXT "1.123456789012345" t128bit_float.ddl -m %.35Lf t128bit_float.h5
+#GREPTEST OUTTXT "1.123456789012345" t128bit_float.ddl -m %.35Lf t128bit_float.h5
+
+# test to verify HDFFV-10480: out of bounds read in H5O_fill_new[old]_decode
+TOOLTEST_FAIL tCVE_2018_11206_fill_old.h5
+TOOLTEST_FAIL tCVE_2018_11206_fill_new.h5
+
+# test to verify fix for CVE-2021-37501: multiplication overflow in H5O__attr_decode()
+# https://github.com/ST4RF4LL/Something_Found/blob/main/HDF5_v1.13.0_h5dump_heap_overflow.assets/poc
+TOOLTEST_FAIL tCVE-2021-37501_attr_decode.h5
 
 # Clean up temporary files/directories
 CLEAN_TESTFILES_AND_TESTDIR

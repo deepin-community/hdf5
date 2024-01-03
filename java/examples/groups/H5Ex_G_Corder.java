@@ -1,18 +1,17 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /************************************************************
     Creating a file with creation properties and traverse the
-    groups in alpabetical and creation order.
+    groups in alphabetical and creation order.
  ************************************************************/
 
 package examples.groups;
@@ -24,11 +23,12 @@ import hdf.hdf5lib.structs.H5G_info_t;
 public class H5Ex_G_Corder {
     private static String FILE = "H5Ex_G_Corder.h5";
 
-    private static void CreateGroup() throws Exception {
-        long file_id = -1;
-        long group_id = -1;
-        long subgroup_id = -1;
-        long gcpl_id = -1;
+    private static void CreateGroup() throws Exception
+    {
+        long file_id     = HDF5Constants.H5I_INVALID_HID;
+        long group_id    = HDF5Constants.H5I_INVALID_HID;
+        long subgroup_id = HDF5Constants.H5I_INVALID_HID;
+        long gcpl_id     = HDF5Constants.H5I_INVALID_HID;
         int status;
         H5G_info_t ginfo;
         int i;
@@ -37,35 +37,35 @@ public class H5Ex_G_Corder {
         try {
             // Create a new file using default properties.
             file_id = H5.H5Fcreate(FILE, HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT,
-                    HDF5Constants.H5P_DEFAULT);
+                                   HDF5Constants.H5P_DEFAULT);
 
             // Create group creation property list and enable link creation order tracking.
             gcpl_id = H5.H5Pcreate(HDF5Constants.H5P_GROUP_CREATE);
-            status = H5.H5Pset_link_creation_order(gcpl_id, HDF5Constants.H5P_CRT_ORDER_TRACKED
-                    + HDF5Constants.H5P_CRT_ORDER_INDEXED);
+            status  = H5.H5Pset_link_creation_order(gcpl_id, HDF5Constants.H5P_CRT_ORDER_TRACKED +
+                                                                 HDF5Constants.H5P_CRT_ORDER_INDEXED);
 
             // Create primary group using the property list.
             if (status >= 0)
                 group_id = H5.H5Gcreate(file_id, "index_group", HDF5Constants.H5P_DEFAULT, gcpl_id,
-                        HDF5Constants.H5P_DEFAULT);
+                                        HDF5Constants.H5P_DEFAULT);
 
             try {
                 /*
-                 * Create subgroups in the primary group. These will be tracked by creation order. Note that these
-                 * groups do not have to have the creation order tracking property set.
+                 * Create subgroups in the primary group. These will be tracked by creation order. Note that
+                 * these groups do not have to have the creation order tracking property set.
                  */
-                subgroup_id = H5.H5Gcreate(group_id, "H", HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
-                        HDF5Constants.H5P_DEFAULT);
-                status = H5.H5Gclose(subgroup_id);
-                subgroup_id = H5.H5Gcreate(group_id, "D", HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
-                        HDF5Constants.H5P_DEFAULT);
-                status = H5.H5Gclose(subgroup_id);
-                subgroup_id = H5.H5Gcreate(group_id, "F", HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
-                        HDF5Constants.H5P_DEFAULT);
-                status = H5.H5Gclose(subgroup_id);
-                subgroup_id = H5.H5Gcreate(group_id, "5", HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
-                        HDF5Constants.H5P_DEFAULT);
-                status = H5.H5Gclose(subgroup_id);
+                subgroup_id = H5.H5Gcreate(group_id, "H", HDF5Constants.H5P_DEFAULT,
+                                           HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                status      = H5.H5Gclose(subgroup_id);
+                subgroup_id = H5.H5Gcreate(group_id, "D", HDF5Constants.H5P_DEFAULT,
+                                           HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                status      = H5.H5Gclose(subgroup_id);
+                subgroup_id = H5.H5Gcreate(group_id, "F", HDF5Constants.H5P_DEFAULT,
+                                           HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                status      = H5.H5Gclose(subgroup_id);
+                subgroup_id = H5.H5Gcreate(group_id, "5", HDF5Constants.H5P_DEFAULT,
+                                           HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                status      = H5.H5Gclose(subgroup_id);
 
                 // Get group info.
                 ginfo = H5.H5Gget_info(group_id);
@@ -74,8 +74,8 @@ public class H5Ex_G_Corder {
                 System.out.println("Traversing group using alphabetical indices:");
                 for (i = 0; i < ginfo.nlinks; i++) {
                     // Retrieve the name of the ith link in a group
-                    name = H5.H5Lget_name_by_idx(group_id, ".", HDF5Constants.H5_INDEX_NAME, HDF5Constants.H5_ITER_INC,
-                            i, HDF5Constants.H5P_DEFAULT);
+                    name = H5.H5Lget_name_by_idx(group_id, ".", HDF5Constants.H5_INDEX_NAME,
+                                                 HDF5Constants.H5_ITER_INC, i, HDF5Constants.H5P_DEFAULT);
                     System.out.println("Index " + i + ": " + name);
                 }
 
@@ -84,10 +84,9 @@ public class H5Ex_G_Corder {
                 for (i = 0; i < ginfo.nlinks; i++) {
                     // Retrieve the name of the ith link in a group
                     name = H5.H5Lget_name_by_idx(group_id, ".", HDF5Constants.H5_INDEX_CRT_ORDER,
-                            HDF5Constants.H5_ITER_INC, i, HDF5Constants.H5P_DEFAULT);
+                                                 HDF5Constants.H5_ITER_INC, i, HDF5Constants.H5P_DEFAULT);
                     System.out.println("Index " + i + ": " + name);
                 }
-
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -107,7 +106,8 @@ public class H5Ex_G_Corder {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         try {
             H5Ex_G_Corder.CreateGroup();
         }
@@ -115,5 +115,4 @@ public class H5Ex_G_Corder {
             ex.printStackTrace();
         }
     }
-
 }

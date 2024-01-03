@@ -1,0 +1,20 @@
+Description: Fix array overflow
+ DIM_X=8
+ DIM128_Y=128
+ The dataset has 8x128 values, which matches the array's firt two
+ dimensions.
+ Each value is a 128 bit float.
+ Because 128 bits = 16 bytes, the third dimension of the array should be 16.
+Index: hdf5/java/test/TestH5Arw.java
+===================================================================
+--- hdf5.orig/java/test/TestH5Arw.java
++++ hdf5/java/test/TestH5Arw.java
+@@ -460,7 +460,7 @@ public class TestH5Arw {
+     @Test
+     public void testH5Aread_128bit_floats()
+     {
+-        byte[][][] attr_data = new byte[DIM_X][DIM128_Y][8];
++        byte[][][] attr_data = new byte[DIM_X][DIM128_Y][16];
+ 
+         try {
+             openH5file(H5_FLTS_FILE, DATASETF128);

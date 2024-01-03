@@ -467,9 +467,16 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5D__chunk_dump_index@HDF5_MPI_1.8.10 1.8.13
  H5D__chunk_file_alloc@HDF5_MPI_1.10.2 1.10.2
  H5D__chunk_format_convert@HDF5_MPI_1.10.0 1.10.0
+ H5D__chunk_index_empty@HDF5_MPI_1.10.10 1.10.10
  H5D__chunk_is_data_cached@HDF5_MPI_1.10.6 1.10.6
+ H5D__chunk_is_partial_edge_chunk@HDF5_MPI_1.10.10 1.10.10
  H5D__chunk_is_space_alloc@HDF5_MPI_1.8.10 1.8.13
+ H5D__chunk_iter@HDF5_MPI_1.10.10 1.10.10
  H5D__chunk_lookup@HDF5_MPI_1.8.10 1.8.13
+ H5D__chunk_mem_alloc@HDF5_MPI_1.10.10 1.10.10
+ H5D__chunk_mem_free@HDF5_MPI_1.10.10 1.10.10
+ H5D__chunk_mem_realloc@HDF5_MPI_1.10.10 1.10.10
+ H5D__chunk_mem_xfree@HDF5_MPI_1.10.10 1.10.10
  H5D__chunk_prune_by_extent@HDF5_MPI_1.8.10 1.8.13
  H5D__chunk_set_info@HDF5_MPI_1.8.10 1.8.13
  H5D__chunk_set_sizes@HDF5_MPI_1.10.0 1.10.0
@@ -524,6 +531,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5D__layout_type_test@HDF5_MPI_1.10.1 1.10.1
  H5D__layout_version_test@HDF5_MPI_1.8.10 1.8.13
  H5D__mark@HDF5_MPI_1.8.10 1.8.13
+ H5D__mpio_get_no_coll_cause_strings@HDF5_MPI_1.10.10 1.10.10
  H5D__mpio_opt_possible@HDF5_MPI_1.8.10 1.8.13
  H5D__mpio_select_read@HDF5_MPI_1.8.10 1.8.13
  H5D__mpio_select_write@HDF5_MPI_1.8.10 1.8.13
@@ -563,6 +571,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5D_nameof@HDF5_MPI_1.8.7 1.8.13
  H5D_oloc@HDF5_MPI_1.8.7 1.8.13
  H5D_open@HDF5_MPI_1.8.7 1.8.13
+ H5D_select_io_mem@HDF5_MPI_1.10.10 1.10.10
  H5D_term_package@HDF5_MPI_1.10.0 1.10.0
  H5D_top_term_package@HDF5_MPI_1.10.0 1.10.0
  H5D_typeof@HDF5_MPI_1.8.7 1.8.13
@@ -573,6 +582,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5D_virtual_parse_source_name@HDF5_MPI_1.10.0 1.10.0
  H5D_virtual_update_min_dims@HDF5_MPI_1.10.0 1.10.0
  H5D_vlen_reclaim@HDF5_MPI_1.8.7 1.8.13
+ H5Dchunk_iter@HDF5_MPI_1.10.10 1.10.10
  H5Dclose@HDF5_MPI_1.8.7 1.8.13
  H5Dcreate1@HDF5_MPI_1.8.7 1.8.13
  H5Dcreate2@HDF5_MPI_1.8.7 1.8.13
@@ -1205,6 +1215,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5F_get_alignment@HDF5_MPI_1.10.1 1.10.1
  H5F_get_base_addr@HDF5_MPI_1.8.7 1.8.13
  H5F_get_checksums@HDF5_MPI_1.10.0 1.10.0
+ H5F_get_coll_metadata_reads@HDF5_MPI_1.10.10 1.10.10
  H5F_get_driver_id@HDF5_MPI_1.8.7 1.8.13
  H5F_get_eoa@HDF5_MPI_1.8.7 1.8.13
  H5F_get_eoa_pre_fsm_fsalloc@HDF5_MPI_1.10.1 1.10.1
@@ -1251,6 +1262,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5F_is_tmp_addr@HDF5_MPI_1.8.7 1.8.13
  H5F_mdc_log_location@HDF5_MPI_1.10.1 1.10.1
  H5F_mpi_get_comm@HDF5_MPI_1.8.7 1.8.13
+ H5F_mpi_get_file_block_type@HDF5_MPI_1.10.10 1.10.10
  H5F_mpi_get_rank@HDF5_MPI_1.8.7 1.8.13
  H5F_mpi_get_size@HDF5_MPI_1.8.7 1.8.13
  H5F_mpi_retrieve_comm@HDF5_MPI_1.10.0 1.10.0
@@ -1262,6 +1274,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5F_rdcc_w0@HDF5_MPI_1.8.7 1.8.13
  H5F_same_shared@HDF5_MPI_1.8.8 1.8.13
  H5F_set_coll_md_read@HDF5_MPI_1.10.0 1.10.0
+ H5F_set_coll_metadata_reads@HDF5_MPI_1.10.10 1.10.10
  H5F_set_grp_btree_shared@HDF5_MPI_1.8.8 1.8.13
  H5F_set_min_dset_ohdr@HDF5_MPI_1.10.5 1.10.5
  H5F_set_retries@HDF5_MPI_1.10.0 1.10.0
@@ -1683,16 +1696,21 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5HL_protect@HDF5_MPI_1.8.7 1.8.13
  H5HL_remove@HDF5_MPI_1.8.7 1.8.13
  H5HL_unprotect@HDF5_MPI_1.8.7 1.8.13
- H5HP_change@HDF5_MPI_1.8.7 1.8.13
- H5HP_close@HDF5_MPI_1.8.7 1.8.13
- H5HP_count@HDF5_MPI_1.8.7 1.8.13
- H5HP_create@HDF5_MPI_1.8.7 1.8.13
- H5HP_decr@HDF5_MPI_1.8.7 1.8.13
- H5HP_incr@HDF5_MPI_1.8.7 1.8.13
- H5HP_insert@HDF5_MPI_1.8.7 1.8.13
- H5HP_remove@HDF5_MPI_1.8.7 1.8.13
- H5HP_top@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_change@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_close@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_count@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_create@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_decr@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_incr@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_insert@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_remove@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_top@HDF5_MPI_1.8.7 1.8.13
+ H5I__destroy_type@HDF5_MPI_1.10.8 1.10.8
+ H5I__find_id@HDF5_MPI_1.10.8 1.10.8
  H5I__get_name_test@HDF5_MPI_1.10.3 1.10.3
+ H5I__get_type_ref@HDF5_MPI_1.10.8 1.10.8
+ H5I__inc_type_ref@HDF5_MPI_1.10.8 1.10.8
+ H5I__remove_verify@HDF5_MPI_1.10.8 1.10.8
  H5I_clear_type@HDF5_MPI_1.8.7 1.8.13
  H5I_dec_app_ref@HDF5_MPI_1.8.7 1.8.13
  H5I_dec_app_ref_always_close@HDF5_MPI_1.8.7 1.8.13
@@ -1705,6 +1723,8 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5I_inc_ref@HDF5_MPI_1.8.7 1.8.13
  H5I_init_g@HDF5_MPI_1.10.0 1.10.0
  H5I_iterate@HDF5_MPI_1.8.9 1.8.13
+ H5I_marking_g@HDF5_MPI_1.10.8 1.10.8
+ H5I_next_type_g@HDF5_MPI_1.10.8 1.10.8
  H5I_nmembers@HDF5_MPI_1.8.7 1.8.13
  H5I_object@HDF5_MPI_1.8.7 1.8.13
  H5I_object_verify@HDF5_MPI_1.8.7 1.8.13
@@ -1715,6 +1735,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5I_remove@HDF5_MPI_1.8.7 1.8.13
  H5I_subst@HDF5_MPI_1.8.7 1.8.13
  H5I_term_package@HDF5_MPI_1.10.0 1.10.0
+ H5I_type_info_array_g@HDF5_MPI_1.10.8 1.10.8
  H5Iclear_type@HDF5_MPI_1.8.7 1.8.13
  H5Idec_ref@HDF5_MPI_1.8.7 1.8.13
  H5Idec_type_ref@HDF5_MPI_1.8.7 1.8.13
@@ -1816,16 +1837,16 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5MM_xfree@HDF5_MPI_1.8.7 1.8.13
  H5MM_xfree_const@HDF5_MPI_1.10.7 1.10.7
  H5MM_xstrdup@HDF5_MPI_1.8.7 1.8.13
- H5MP_close@HDF5_MPI_1.8.7 1.8.13
- H5MP_create@HDF5_MPI_1.8.7 1.8.13
- H5MP_free@HDF5_MPI_1.8.7 1.8.13
- H5MP_get_page_free_size@HDF5_MPI_1.8.7 1.8.13
- H5MP_get_page_next_page@HDF5_MPI_1.8.7 1.8.13
- H5MP_get_pool_first_page@HDF5_MPI_1.8.7 1.8.13
- H5MP_get_pool_free_size@HDF5_MPI_1.8.7 1.8.13
- H5MP_init_g@HDF5_MPI_1.10.0 1.10.0
- H5MP_malloc@HDF5_MPI_1.8.7 1.8.13
- H5MP_pool_is_free_size_correct@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_close@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_create@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_free@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_get_page_free_size@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_get_page_next_page@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_get_pool_first_page@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_get_pool_free_size@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_init_g@HDF5_MPI_1.10.0 1.10.0
+#MISSING: 1.10.10# H5MP_malloc@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_pool_is_free_size_correct@HDF5_MPI_1.8.7 1.8.13
  H5O_MSG_AINFO@HDF5_MPI_1.8.7 1.8.13
  H5O_MSG_ATTR@HDF5_MPI_1.8.7 1.8.13
  H5O_MSG_BTREEK@HDF5_MPI_1.8.7 1.8.13
@@ -2567,16 +2588,16 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5SM_table_free@HDF5_MPI_1.8.7 1.8.13
  H5SM_try_share@HDF5_MPI_1.8.7 1.8.13
  H5SM_type_shared@HDF5_MPI_1.8.7 1.8.13
- H5ST_close@HDF5_MPI_1.8.7 1.8.13
- H5ST_create@HDF5_MPI_1.8.7 1.8.13
- H5ST_delete@HDF5_MPI_1.8.7 1.8.13
- H5ST_find@HDF5_MPI_1.8.7 1.8.13
- H5ST_findfirst@HDF5_MPI_1.8.7 1.8.13
- H5ST_findnext@HDF5_MPI_1.8.7 1.8.13
- H5ST_insert@HDF5_MPI_1.8.7 1.8.13
- H5ST_locate@HDF5_MPI_1.8.7 1.8.13
- H5ST_remove@HDF5_MPI_1.8.7 1.8.13
- H5ST_search@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_close@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_create@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_delete@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_find@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_findfirst@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_findnext@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_insert@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_locate@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_remove@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_search@HDF5_MPI_1.8.7 1.8.13
  H5S__extent_copy_real@HDF5_MPI_1.10.7 1.10.7
  H5S__extent_release@HDF5_MPI_1.10.7 1.10.7
  H5S__get_diminfo_status_test@HDF5_MPI_1.10.7 1.10.7
@@ -3289,7 +3310,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5_H5HG_obj_t_seq_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_H5HL_free_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_H5MF_free_section_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
- H5_H5MP_pool_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.10# H5_H5MP_pool_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_H5O_addr_map_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_H5O_chunk_proxy_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_H5O_chunk_t_seq_free_list@HDF5_MPI_1.8.7 1.8.13
@@ -3315,7 +3336,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5_H5T_shared_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_H5T_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_H5_obj_t_reg_free_list@HDF5_MPI_1.8.7 1.8.13
- H5_api_entered_g@HDF5_MPI_1.10.0 1.10.0
+#MISSING: 1.10.8# H5_api_entered_g@HDF5_MPI_1.10.0 1.10.0
  H5_attr_buf_blk_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_bandwidth@HDF5_MPI_1.8.7 1.8.13
  H5_buffer_dump@HDF5_MPI_1.8.7 1.8.13
@@ -3334,6 +3355,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5_ea_native_elmt_blk_free_list@HDF5_MPI_1.10.0 1.10.0
  H5_fa_native_elmt_blk_free_list@HDF5_MPI_1.10.0 1.10.0
  H5_fa_page_init_blk_free_list@HDF5_MPI_1.10.0 1.10.0
+ H5_get_option@HDF5_MPI_1.10.8 1.10.8
  H5_get_time@HDF5_MPI_1.10.1 1.10.1
  H5_gheap_chunk_blk_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_haddr_t_reg_free_list@HDF5_MPI_1.8.9 1.8.13
@@ -3341,6 +3363,7 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5_hash_string@HDF5_MPI_1.8.7 1.8.13
  H5_hsize_t_arr_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_hsize_t_seq_free_list@HDF5_MPI_1.8.7 1.8.13
+ H5_init_g@HDF5_MPI_1.10.8 1.10.8
  H5_init_library@HDF5_MPI_1.8.7 1.8.13
  H5_lheap_chunk_blk_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_lib_vers_info_g@HDF5_MPI_1.8.7 1.8.13
@@ -3356,10 +3379,15 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5_mpi_info_free@HDF5_MPI_1.10.7 1.10.7
  H5_mpi_set_bigio_count@HDF5_MPI_1.10.7 1.10.7
  H5_mpio_create_large_type@HDF5_MPI_1.10.7 1.10.7
+ H5_mpio_gatherv_alloc@HDF5_MPI_1.10.10 1.10.10
+ H5_mpio_gatherv_alloc_simple@HDF5_MPI_1.10.10 1.10.10
  H5_nanosleep@HDF5_MPI_1.10.1 1.10.1
  H5_native_block_blk_free_list@HDF5_MPI_1.8.7 1.8.13
  H5_now@HDF5_MPI_1.8.7 1.8.13
  H5_now_usec@HDF5_MPI_1.10.7 1.10.7
+ H5_optarg@HDF5_MPI_1.10.8 1.10.8
+ H5_opterr@HDF5_MPI_1.10.8 1.10.8
+ H5_optind@HDF5_MPI_1.10.8 1.10.8
  H5_page_elmts_blk_free_list@HDF5_MPI_1.10.0 1.10.0
  H5_page_init_blk_free_list@HDF5_MPI_1.10.0 1.10.0
  H5_sieve_buf_blk_free_list@HDF5_MPI_1.8.7 1.8.13
@@ -3395,12 +3423,14 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  H5resize_memory@HDF5_MPI_1.8.15 1.8.15
  H5set_free_list_limits@HDF5_MPI_1.8.7 1.8.13
  HDF5_CPP_MPI_1.10.0@HDF5_CPP_MPI_1.10.0 1.10.5
+ HDF5_CPP_MPI_1.10.10@HDF5_CPP_MPI_1.10.10 1.10.10
  HDF5_CPP_MPI_1.10.1@HDF5_CPP_MPI_1.10.1 1.10.5
  HDF5_CPP_MPI_1.10.2@HDF5_CPP_MPI_1.10.2 1.10.5
  HDF5_CPP_MPI_1.10.3@HDF5_CPP_MPI_1.10.3 1.10.5
  HDF5_CPP_MPI_1.10.5@HDF5_CPP_MPI_1.10.5 1.10.5
  HDF5_CPP_MPI_1.10.6@HDF5_CPP_MPI_1.10.6 1.10.6
  HDF5_CPP_MPI_1.10.7@HDF5_CPP_MPI_1.10.7 1.10.7
+ HDF5_CPP_MPI_1.10.8@HDF5_CPP_MPI_1.10.8 1.10.8
  HDF5_CPP_MPI_1.8.10@HDF5_CPP_MPI_1.8.10 1.10.5
  HDF5_CPP_MPI_1.8.11@HDF5_CPP_MPI_1.8.11 1.10.5
  HDF5_CPP_MPI_1.8.12@HDF5_CPP_MPI_1.8.12 1.10.5
@@ -3413,12 +3443,14 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  HDF5_CPP_MPI_1.8.8@HDF5_CPP_MPI_1.8.8 1.10.5
  HDF5_CPP_MPI_1.8.9@HDF5_CPP_MPI_1.8.9 1.10.5
  HDF5_MPI_1.10.0@HDF5_MPI_1.10.0 1.10.0
+ HDF5_MPI_1.10.10@HDF5_MPI_1.10.10 1.10.10
  HDF5_MPI_1.10.1@HDF5_MPI_1.10.1 1.10.1
  HDF5_MPI_1.10.2@HDF5_MPI_1.10.2 1.10.2
  HDF5_MPI_1.10.3@HDF5_MPI_1.10.3 1.10.3
  HDF5_MPI_1.10.5@HDF5_MPI_1.10.5 1.10.5
  HDF5_MPI_1.10.6@HDF5_MPI_1.10.6 1.10.6
  HDF5_MPI_1.10.7@HDF5_MPI_1.10.7 1.10.7
+ HDF5_MPI_1.10.8@HDF5_MPI_1.10.8 1.10.8
  HDF5_MPI_1.8.10@HDF5_MPI_1.8.10 1.8.13
  HDF5_MPI_1.8.11@HDF5_MPI_1.8.11 1.8.13
  HDF5_MPI_1.8.12@HDF5_MPI_1.8.12 1.8.13
@@ -3430,11 +3462,13 @@ libhdf5_mpich.so.103 libhdf5-mpich-103-1 #MINVER#
  HDF5_MPI_1.8.7@HDF5_MPI_1.8.7 1.8.13
  HDF5_MPI_1.8.8@HDF5_MPI_1.8.8 1.8.13
  HDF5_MPI_1.8.9@HDF5_MPI_1.8.9 1.8.13
- HDfprintf@HDF5_MPI_1.8.7 1.8.13
+#MISSING: 1.10.8# HDfprintf@HDF5_MPI_1.8.7 1.8.13
  HDrand@HDF5_MPI_1.8.7 1.8.13
  HDsrand@HDF5_MPI_1.8.7 1.8.13
  Nflock@HDF5_MPI_1.10.0 1.10.0
  Pflock@HDF5_MPI_1.10.0 1.10.0
+ VERS_RELEASE_EXCEPTIONS@HDF5_MPI_1.10.8 1.10.8
+ VERS_RELEASE_EXCEPTIONS_SIZE@HDF5_MPI_1.10.8 1.10.8
  curlwritecallback@HDF5_MPI_1.10.7 1.10.7
  gmnow@HDF5_MPI_1.10.7 1.10.7
  use_locks_env_g@HDF5_MPI_1.10.7 1.10.7

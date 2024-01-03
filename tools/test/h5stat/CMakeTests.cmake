@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -111,9 +111,12 @@
               -D "TEST_OUTPUT=${resultfile}.out"
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}.ddl"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
     endif ()
+    set_tests_properties (H5STAT-${resultfile} PROPERTIES
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
+    )
   endmacro ()
 
   macro (ADD_H5_ERR_TEST resultfile resultcode)
@@ -135,9 +138,12 @@
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}.mty"
               -D "TEST_ERRREF=${resultfile}.err"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
     endif ()
+    set_tests_properties (H5STAT-${resultfile} PROPERTIES
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}"
+    )
   endmacro ()
 
 ##############################################################################
@@ -145,17 +151,6 @@
 ###           T H E   T E S T S                                            ###
 ##############################################################################
 ##############################################################################
-
-  if (HDF5_ENABLE_USING_MEMCHECKER)
-    # Remove any output file left over from previous test run
-    foreach (ddl_file ${HDF5_REFERENCE_FILES})
-      set (CLEAR_LIST ${CLEAR_LIST} ${ddl_file}.out ${ddl_file}.out.err)
-    endforeach ()
-    add_test (
-      NAME H5STAT-clearall-objects
-      COMMAND ${CMAKE_COMMAND} -E remove ${CLEAR_LIST}
-    )
-  endif ()
 
 # Test for help flag
   ADD_H5_TEST (h5stat_help1 0 -h)
@@ -207,7 +202,7 @@
 #   -d --di=15
   ADD_H5_ERR_TEST (h5stat_err1_dims 1 -d --dims=-1 h5stat_threshold.h5)
   ADD_H5_TEST (h5stat_dims1 0 -gd -m 5 h5stat_threshold.h5)
-  ADD_H5_TEST (h5stat_dims2 0 -d --di=15 h5stat_threshold.h5)
+  ADD_H5_TEST (h5stat_dims2 0 -d --dims=15 h5stat_threshold.h5)
 #
 # Tests for -a option on h5stat_threshold.h5
 #   -a -2 (incorrect threshold value)

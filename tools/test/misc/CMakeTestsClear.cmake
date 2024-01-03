@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -97,7 +97,7 @@
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}.ddl"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
     endif ()
   endmacro ()
@@ -115,7 +115,7 @@
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}.mty"
               -D "TEST_ERRREF=${resultfile}.err"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
     endif ()
   endmacro ()
@@ -144,7 +144,7 @@
               -D "TEST_OUTPUT=${testname}.out"
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}.ddl"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5CLEAR_CMP-${testname} PROPERTIES
           DEPENDS H5CLEAR_CMP-copy_${testname}
@@ -177,7 +177,7 @@
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}.mty"
               -D "TEST_ERRREF=${resultfile}.err"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5CLEAR_CMP-${testname} PROPERTIES
           DEPENDS H5CLEAR_CMP-copy_${testname}
@@ -222,7 +222,7 @@
               -D "TEST_OUTPUT=${testname}_before_size.out"
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}_before_size.ddl"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5CLEAR_FILESIZE_CMP-${testname}_before_size PROPERTIES
           DEPENDS H5CLEAR_FILESIZE_TEST-copy_${testname}
@@ -253,7 +253,7 @@
               -D "TEST_OUTPUT=${testname}_after_size.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${resultfile}_after_size.ddl"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5CLEAR_FILESIZE_CMP-${testname}_after_size PROPERTIES
           DEPENDS H5CLEAR_FILESIZE_INCR-${testname}
@@ -285,7 +285,7 @@
               -D "TEST_OUTPUT=${testname}_before_size.out"
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}.mty"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5CLEAR_FILESIZE_FAIL_CMP-${testname}_before_size PROPERTIES
           DEPENDS H5CLEAR_FILESIZE_FAIL_TEST-copy_${testname}
@@ -315,7 +315,7 @@
               -D "TEST_OUTPUT=${testname}_after_size.out"
               -D "TEST_EXPECT=0"
               -D "TEST_REFERENCE=${resultfile}_after_size.ddl"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
       set_tests_properties (H5CLEAR_FILESIZE_FAIL_CMP-${testname}_after_size PROPERTIES
           DEPENDS H5CLEAR_FILESIZE_FAIL_INCR-${testname}
@@ -397,7 +397,7 @@
 #
 # The following are tests to verify the expected exit code from h5clear:
 # "h5clear -m h5clear_mdc_image.h5"     (valid option, existing file, succeed exit code)
-# "h5clear --vers"                      (valid option, version #, succeed exit code)
+# "h5clear --version"                   (valid option, version #, succeed exit code)
 # "h5clear -k"                          (invalid 1 option, no file, fail exit code)
 # "h5clear -k junk.h5"                  (invalid 1 option, nonexisting file, fail exit code)
 # "h5clear -l h5clear_sec2_v2.h5"       (invalid 1 option, existing file, fail exit code)
@@ -408,7 +408,7 @@
 # "h5clear -m -l h5clear_sec2_v0.h5"    (valid/invalid 2 options, existing file, fail exit code)
 # "h5clear -l -m h5clear_sec2_v0.h5"    (invalid/valid 2 options, existing file, fail exit code)
   ADD_H5_RETTEST (h5clr_mdc_image "false" "-m" h5clear_mdc_image.h5)
-  ADD_H5_RETTEST (h5clr_vers "false" "--vers")
+  ADD_H5_RETTEST (h5clr_vers "false" "--version")
   ADD_H5_RETTEST (h5clr_k "true" "-k")
   ADD_H5_RETTEST (h5clr_k_junk "true" "-k" junk.h5)
   ADD_H5_RETTEST (h5clr_l_sec2 "true" "-l" h5clear_sec2_v2.h5)

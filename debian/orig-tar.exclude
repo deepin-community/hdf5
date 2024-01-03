@@ -25,3 +25,4 @@ Thumbs.db
 # Files overwritten during the build
 m4/libtool.m4
 m4/lt*.m4
+*.jar

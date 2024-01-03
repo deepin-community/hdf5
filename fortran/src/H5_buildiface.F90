@@ -14,7 +14,7 @@
 !
 ! NOTES
 !  This program uses the Fortran 2008 intrinsic function STORAGE_SIZE or SIZEOF
-!  depending on availablity.It generates code that makes use of
+!  depending on availability.It generates code that makes use of
 !  STORAGE_SIZE/SIZEOF in H5_gen.F90. STORAGE_SIZE is standard
 !  compliant and should always be chosen over SIZEOF.
 !
@@ -28,13 +28,12 @@
 ! COPYRIGHT
 !  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 !  Copyright by The HDF Group.                                                 *
-!  Copyright by the Board of Trustees of the University of Illinois.           *
 !  All rights reserved.                                                        *
 !                                                                              *
 !  This file is part of HDF5.  The full HDF5 copyright notice, including       *
 !  terms governing use, modification, and redistribution, is contained in      *
 !  the COPYING file, which can be found at the root of the source code         *
-!  distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.    *
+!  distribution tree, or in https://www.hdfgroup.org/licenses.                 *
 !  If you do not have access to either file, you may request a copy from       *
 !  help@hdfgroup.org.                                                          *
 !  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -123,7 +122,7 @@ PROGRAM H5_buildiface
 '!   This file is part of HDF5.  The full HDF5 copyright notice, including     *',&
 '!   terms governing use, modification, and redistribution, is contained in    *',&
 '!   the COPYING file, which can be found at the root of the source code       *',&
-'!   distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *',&
+'!   distribution tree, or in https://www.hdfgroup.org/licenses.               *',&
 '!   If you do not have access to either file, you may request a copy from     *',&
 '!   help@hdfgroup.org.                                                        *',&
 '! * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *',&
@@ -423,7 +422,7 @@ PROGRAM H5_buildiface
 !  buf 	       - Data buffer; may be a scalar or an array
 !
 ! Outputs:
-!  hdferr      - Returns 0 if successful and -1 if fails
+!  hdferr      - \fortran_error
 !
 ! AUTHOR
 !  Elena Pourmal
@@ -437,7 +436,7 @@ PROGRAM H5_buildiface
 !  dims parameter was added to make code portable;
 !  Aprile 4, 2001
 !
-!  Changed buf intent to INOUT to be consistant
+!  Changed buf intent to INOUT to be consistent
 !  with how the C functions handles it. The pg
 !  compiler will return 0 if a buf value is not set.
 !  February, 2008
@@ -550,7 +549,7 @@ PROGRAM H5_buildiface
 !
 ! Outputs:
 !  buf 	       - Data buffer; may be a scalar or an array
-!  hdferr      - Returns 0 if successful and -1 if fails
+!  hdferr      - \fortran_error
 !
 ! AUTHOR
 !  Elena Pourmal
@@ -564,7 +563,7 @@ PROGRAM H5_buildiface
 !  dims parameter was added to make code portable;
 !  Aprile 4, 2001
 !
-!  Changed buf intent to INOUT to be consistant
+!  Changed buf intent to INOUT to be consistent
 !  with how the C functions handles it. The pg
 !  compiler will return 0 if a buf value is not set.
 !  February, 2008
@@ -677,7 +676,7 @@ PROGRAM H5_buildiface
 ! Optional parameters:
 !		mem_space_id	- memory dataspace identifier
 !		file_space_id 	- file dataspace identifier
-!		xfer_prp	- trasfer property list identifier
+!		xfer_prp	- transfer property list identifier
 !
 ! AUTHOR
 !  Elena Pourmal

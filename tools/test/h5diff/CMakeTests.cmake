@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -282,6 +282,7 @@
       ${HDF5_TOOLS_TEST_H5DIFF_SOURCE_DIR}/testfiles/h5diff_80.txt
       ${HDF5_TOOLS_TEST_H5DIFF_SOURCE_DIR}/testfiles/h5diff_800.txt
       ${HDF5_TOOLS_TEST_H5DIFF_SOURCE_DIR}/testfiles/h5diff_801.txt
+      ${HDF5_TOOLS_TEST_H5DIFF_SOURCE_DIR}/testfiles/h5diff_830.txt
       ${HDF5_TOOLS_TEST_H5DIFF_SOURCE_DIR}/testfiles/h5diff_90.txt
       ${HDF5_TOOLS_TEST_H5DIFF_SOURCE_DIR}/testfiles/h5diff_8625.txt
       ${HDF5_TOOLS_TEST_H5DIFF_SOURCE_DIR}/testfiles/h5diff_8639.txt
@@ -363,38 +364,38 @@
 
   macro (ADD_H5_TEST resultfile resultcode)
     if (HDF5_TEST_SERIAL)
-      # If using memchecker add tests without using scripts
-      if (HDF5_ENABLE_USING_MEMCHECKER)
-        add_test (NAME H5DIFF-${resultfile} COMMAND ${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:h5diff${tgt_file_ext}> ${ARGN})
-        set_tests_properties (H5DIFF-${resultfile} PROPERTIES WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/testfiles")
-       if (${resultcode})
-          set_tests_properties (H5DIFF-${resultfile} PROPERTIES WILL_FAIL "true")
-        endif ()
-        if (last_test)
-          set_tests_properties (H5DIFF-${resultfile} PROPERTIES DEPENDS ${last_test})
-        endif ()
-      else ()
-        add_test (
-            NAME H5DIFF-${resultfile}
-            COMMAND "${CMAKE_COMMAND}"
-                -D "TEST_EMULATOR=${CMAKE_CROSSCOMPILING_EMULATOR}"
-                -D "TEST_PROGRAM=$<TARGET_FILE:h5diff${tgt_file_ext}>"
-                -D "TEST_ARGS:STRING=${ARGN}"
-                -D "TEST_FOLDER=${PROJECT_BINARY_DIR}/testfiles"
-                -D "TEST_OUTPUT=${resultfile}.out"
-                -D "TEST_EXPECT=${resultcode}"
-                -D "TEST_REFERENCE=${resultfile}.txt"
-                -D "TEST_APPEND=EXIT CODE:"
-                -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
-        )
-        if (last_test)
-          set_tests_properties (H5DIFF-${resultfile} PROPERTIES DEPENDS ${last_test})
-        endif ()
-      endif ()
+      ADD_SH5_TEST (${resultfile} ${resultcode} ${ARGN})
     endif ()
     if (H5_HAVE_PARALLEL AND HDF5_TEST_PARALLEL)
       ADD_PH5_TEST (${resultfile} ${resultcode} ${ARGN})
     endif ()
+  endmacro ()
+
+  macro (ADD_SH5_TEST resultfile resultcode)
+    # If using memchecker add tests without using scripts
+    if (HDF5_ENABLE_USING_MEMCHECKER)
+      add_test (NAME H5DIFF-${resultfile} COMMAND ${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:h5diff${tgt_file_ext}> ${ARGN})
+      if (${resultcode})
+        set_tests_properties (H5DIFF-${resultfile} PROPERTIES WILL_FAIL "true")
+      endif ()
+    else ()
+      add_test (
+          NAME H5DIFF-${resultfile}
+          COMMAND "${CMAKE_COMMAND}"
+              -D "TEST_EMULATOR=${CMAKE_CROSSCOMPILING_EMULATOR}"
+              -D "TEST_PROGRAM=$<TARGET_FILE:h5diff${tgt_file_ext}>"
+              -D "TEST_ARGS:STRING=${ARGN}"
+              -D "TEST_FOLDER=${PROJECT_BINARY_DIR}/testfiles"
+              -D "TEST_OUTPUT=${resultfile}.out"
+              -D "TEST_EXPECT=${resultcode}"
+              -D "TEST_REFERENCE=${resultfile}.txt"
+              -D "TEST_APPEND=EXIT CODE:"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
+      )
+    endif ()
+    set_tests_properties (H5DIFF-${resultfile} PROPERTIES
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/testfiles"
+    )
   endmacro ()
 
   macro (ADD_PH5_TEST resultfile resultcode)
@@ -404,9 +405,6 @@
       set_tests_properties (MPI_TEST_H5DIFF-${resultfile} PROPERTIES WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/PAR/testfiles")
       if (${resultcode})
         set_tests_properties (MPI_TEST_H5DIFF-${resultfile} PROPERTIES WILL_FAIL "true")
-      endif ()
-      if (last_test)
-        set_tests_properties (MPI_TEST_H5DIFF-${resultfile} PROPERTIES DEPENDS ${last_test})
       endif ()
     else ()
       add_test (
@@ -422,18 +420,17 @@
               -D "TEST_REF_APPEND=EXIT CODE: [0-9]"
               -D "TEST_REF_FILTER=EXIT CODE: 0"
               -D "TEST_SORT_COMPARE=TRUE"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
-      if (last_test)
-        set_tests_properties (MPI_TEST_H5DIFF-${resultfile} PROPERTIES DEPENDS ${last_test})
-      endif ()
-      set (last_test "MPI_TEST_H5DIFF-${resultfile}")
     endif ()
+    set_tests_properties (MPI_TEST_H5DIFF-${resultfile} PROPERTIES
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/PAR/testfiles"
+    )
   endmacro ()
 
   macro (ADD_H5_UD_TEST testname resultcode resultfile)
     if (NOT HDF5_ENABLE_USING_MEMCHECKER)
-      if (${resultcode} EQUAL 2)
+      if ("${resultcode}" STREQUAL "2")
         add_test (
             NAME H5DIFF_UD-${testname}
             COMMAND "${CMAKE_COMMAND}"
@@ -448,7 +445,7 @@
                 -D "TEST_ENV_VAR=HDF5_PLUGIN_PATH"
                 -D "TEST_ENV_VALUE=${CMAKE_BINARY_DIR}"
                 -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_OUTPUT_DIRECTORY}"
-                -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+                -P "${HDF_RESOURCES_DIR}/runTest.cmake"
         )
       else ()
         add_test (
@@ -465,11 +462,8 @@
                 -D "TEST_ENV_VAR=HDF5_PLUGIN_PATH"
                 -D "TEST_ENV_VALUE=${CMAKE_BINARY_DIR}/plugins"
                 -D "TEST_LIBRARY_DIRECTORY=${CMAKE_TEST_OUTPUT_DIRECTORY}"
-                -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+                -P "${HDF_RESOURCES_DIR}/runTest.cmake"
         )
-      endif ()
-      if (last_test)
-        set_tests_properties (H5DIFF_UD-${testname} PROPERTIES DEPENDS ${last_test})
       endif ()
     endif ()
   endmacro ()
@@ -544,392 +538,6 @@
   set (FILEV3_2 3_2_vds.h5)
   set (FILEV4 4_vds.h5)
   set (FILEV5 5_vds.h5)
-
-  if (HDF5_ENABLE_USING_MEMCHECKER)
-    # Remove any output file left over from previous test run
-    add_test (
-      NAME H5DIFF-clearall-objects
-      COMMAND    ${CMAKE_COMMAND}
-          -E remove
-          h5diff_10.out
-          h5diff_10.out.err
-          h5diff_100.out
-          h5diff_100.out.err
-          h5diff_101.out
-          h5diff_101.out.err
-          h5diff_102.out
-          h5diff_102.out.err
-          h5diff_103.out
-          h5diff_103.out.err
-          h5diff_104.out
-          h5diff_104.out.err
-          h5diff_11.out
-          h5diff_11.out.err
-          h5diff_12.out
-          h5diff_12.out.err
-          h5diff_13.out
-          h5diff_13.out.err
-          h5diff_14.out
-          h5diff_14.out.err
-          h5diff_15.out
-          h5diff_15.out.err
-          h5diff_16_1.out
-          h5diff_16_1.out.err
-          h5diff_16_2.out
-          h5diff_16_2.out.err
-          h5diff_16_3.out
-          h5diff_16_3.out.err
-          h5diff_17.out
-          h5diff_17.out.err
-          h5diff_171.out
-          h5diff_171.out.err
-          h5diff_172.out
-          h5diff_172.out.err
-          h5diff_18_1.out
-          h5diff_18_1.out.err
-          h5diff_18.out
-          h5diff_18.out.err
-          h5diff_20.out
-          h5diff_20.out.err
-          h5diff_200.out
-          h5diff_200.out.err
-          h5diff_201.out
-          h5diff_201.out.err
-          h5diff_202.out
-          h5diff_202.out.err
-          h5diff_203.out
-          h5diff_203.out.err
-          h5diff_204.out
-          h5diff_204.out.err
-          h5diff_205.out
-          h5diff_205.out.err
-          h5diff_206.out
-          h5diff_206.out.err
-          h5diff_207.out
-          h5diff_207.out.err
-          h5diff_208.out
-          h5diff_208.out.err
-          h5diff_220.out
-          h5diff_220.out.err
-          h5diff_221.out
-          h5diff_221.out.err
-          h5diff_222.out
-          h5diff_222.out.err
-          h5diff_223.out
-          h5diff_223.out.err
-          h5diff_224.out
-          h5diff_224.out.err
-          h5diff_21.out
-          h5diff_21.out.err
-          h5diff_22.out
-          h5diff_22.out.err
-          h5diff_23.out
-          h5diff_23.out.err
-          h5diff_24.out
-          h5diff_24.out.err
-          h5diff_25.out
-          h5diff_25.out.err
-          h5diff_26.out
-          h5diff_26.out.err
-          h5diff_27.out
-          h5diff_27.out.err
-          h5diff_28.out
-          h5diff_28.out.err
-          h5diff_300.out
-          h5diff_300.out.err
-          h5diff_400.out
-          h5diff_400.out.err
-          h5diff_401.out
-          h5diff_401.out.err
-          h5diff_402.out
-          h5diff_402.out.err
-          h5diff_403.out
-          h5diff_403.out.err
-          h5diff_404.out
-          h5diff_404.out.err
-          h5diff_405.out
-          h5diff_405.out.err
-          h5diff_406.out
-          h5diff_406.out.err
-          h5diff_407.out
-          h5diff_407.out.err
-          h5diff_408.out
-          h5diff_408.out.err
-          h5diff_409.out
-          h5diff_409.out.err
-          h5diff_410.out
-          h5diff_410.out.err
-          h5diff_411.out
-          h5diff_411.out.err
-          h5diff_412.out
-          h5diff_412.out.err
-          h5diff_413.out
-          h5diff_413.out.err
-          h5diff_414.out
-          h5diff_414.out.err
-          h5diff_415.out
-          h5diff_415.out.err
-          h5diff_416.out
-          h5diff_416.out.err
-          h5diff_417.out
-          h5diff_417.out.err
-          h5diff_418.out
-          h5diff_418.out.err
-          h5diff_419.out
-          h5diff_419.out.err
-          h5diff_420.out
-          h5diff_420.out.err
-          h5diff_421.out
-          h5diff_421.out.err
-          h5diff_422.out
-          h5diff_422.out.err
-          h5diff_423.out
-          h5diff_423.out.err
-          h5diff_424.out
-          h5diff_424.out.err
-          h5diff_425.out
-          h5diff_425.out.err
-          h5diff_450.out
-          h5diff_450.out.err
-          h5diff_451.out
-          h5diff_451.out.err
-          h5diff_452.out
-          h5diff_452.out.err
-          h5diff_453.out
-          h5diff_453.out.err
-          h5diff_454.out
-          h5diff_454.out.err
-          h5diff_455.out
-          h5diff_455.out.err
-          h5diff_456.out
-          h5diff_456.out.err
-          h5diff_457.out
-          h5diff_457.out.err
-          h5diff_458.out
-          h5diff_458.out.err
-          h5diff_459.out
-          h5diff_459.out.err
-          h5diff_465.out
-          h5diff_465.out.err
-          h5diff_466.out
-          h5diff_466.out.err
-          h5diff_467.out
-          h5diff_467.out.err
-          h5diff_468.out
-          h5diff_468.out.err
-          h5diff_469.out
-          h5diff_469.out.err
-          h5diff_471.out
-          h5diff_471.out.err
-          h5diff_472.out
-          h5diff_472.out.err
-          h5diff_473.out
-          h5diff_473.out.err
-          h5diff_474.out
-          h5diff_474.out.err
-          h5diff_475.out
-          h5diff_475.out.err
-          h5diff_480.out
-          h5diff_480.out.err
-          h5diff_481.out
-          h5diff_481.out.err
-          h5diff_482.out
-          h5diff_482.out.err
-          h5diff_483.out
-          h5diff_483.out.err
-          h5diff_484.out
-          h5diff_484.out.err
-          h5diff_50.out
-          h5diff_50.out.err
-          h5diff_51.out
-          h5diff_51.out.err
-          h5diff_52.out
-          h5diff_52.out.err
-          h5diff_53.out
-          h5diff_53.out.err
-          h5diff_54.out
-          h5diff_54.out.err
-          h5diff_55.out
-          h5diff_55.out.err
-          h5diff_56.out
-          h5diff_56.out.err
-          h5diff_57.out
-          h5diff_57.out.err
-          h5diff_58.out
-          h5diff_58.out.err
-          h5diff_59.out
-          h5diff_59.out.err
-          h5diff_500.out
-          h5diff_500.out.err
-          h5diff_501.out
-          h5diff_501.out.err
-          h5diff_502.out
-          h5diff_502.out.err
-          h5diff_503.out
-          h5diff_503.out.err
-          h5diff_504.out
-          h5diff_504.out.err
-          h5diff_505.out
-          h5diff_505.out.err
-          h5diff_506.out
-          h5diff_506.out.err
-          h5diff_507.out
-          h5diff_507.out.err
-          h5diff_508.out
-          h5diff_508.out.err
-          h5diff_509.out
-          h5diff_509.out.err
-          h5diff_510.out
-          h5diff_510.out.err
-          h5diff_511.out
-          h5diff_511.out.err
-          h5diff_512.out
-          h5diff_512.out.err
-          h5diff_513.out
-          h5diff_513.out.err
-          h5diff_514.out
-          h5diff_514.out.err
-          h5diff_515.out
-          h5diff_515.out.err
-          h5diff_516.out
-          h5diff_516.out.err
-          h5diff_517.out
-          h5diff_517.out.err
-          h5diff_518.out
-          h5diff_518.out.err
-          h5diff_530.out
-          h5diff_530.out.err
-          h5diff_540.out
-          h5diff_540.out.err
-          h5diff_60.out
-          h5diff_60.out.err
-          h5diff_61.out
-          h5diff_61.out.err
-          h5diff_62.out
-          h5diff_62.out.err
-          h5diff_63.out
-          h5diff_63.out.err
-          h5diff_600.out
-          h5diff_600.out.err
-          h5diff_601.out
-          h5diff_601.out.err
-          h5diff_603.out
-          h5diff_603.out.err
-          h5diff_604.out
-          h5diff_604.out.err
-          h5diff_605.out
-          h5diff_605.out.err
-          h5diff_606.out
-          h5diff_606.out.err
-          h5diff_607.out
-          h5diff_607.out.err
-          h5diff_608.out
-          h5diff_608.out.err
-          h5diff_609.out
-          h5diff_609.out.err
-          h5diff_610.out
-          h5diff_610.out.err
-          h5diff_612.out
-          h5diff_612.out.err
-          h5diff_613.out
-          h5diff_613.out.err
-          h5diff_614.out
-          h5diff_614.out.err
-          h5diff_615.out
-          h5diff_615.out.err
-          h5diff_616.out
-          h5diff_616.out.err
-          h5diff_617.out
-          h5diff_617.out.err
-          h5diff_618.out
-          h5diff_618.out.err
-          h5diff_619.out
-          h5diff_619.out.err
-          h5diff_621.out
-          h5diff_621.out.err
-          h5diff_622.out
-          h5diff_622.out.err
-          h5diff_623.out
-          h5diff_623.out.err
-          h5diff_624.out
-          h5diff_624.out.err
-          h5diff_625.out
-          h5diff_625.out.err
-          h5diff_626.out
-          h5diff_626.out.err
-          h5diff_627.out
-          h5diff_627.out.err
-          h5diff_628.out
-          h5diff_628.out.err
-          h5diff_629.out
-          h5diff_629.out.err
-          h5diff_640.out
-          h5diff_640.out.err
-          h5diff_641.out
-          h5diff_641.out.err
-          h5diff_642.out
-          h5diff_642.out.err
-          h5diff_643.out
-          h5diff_643.out.err
-          h5diff_644.out
-          h5diff_644.out.err
-          h5diff_645.out
-          h5diff_645.out.err
-          h5diff_646.out
-          h5diff_646.out.err
-          h5diff_70.out
-          h5diff_70.out.err
-          h5diff_700.out
-          h5diff_700.out.err
-          h5diff_701.out
-          h5diff_701.out.err
-          h5diff_702.out
-          h5diff_702.out.err
-          h5diff_703.out
-          h5diff_703.out.err
-          h5diff_704.out
-          h5diff_704.out.err
-          h5diff_705.out
-          h5diff_705.out.err
-          h5diff_706.out
-          h5diff_706.out.err
-          h5diff_707.out
-          h5diff_707.out.err
-          h5diff_708.out
-          h5diff_708.out.err
-          h5diff_709.out
-          h5diff_709.out.err
-          h5diff_710.out
-          h5diff_710.out.err
-          h5diff_80.out
-          h5diff_80.out.err
-          h5diff_800.out
-          h5diff_800.out.err
-          h5diff_801.out
-          h5diff_801.out.err
-          h5diff_8625.out
-          h5diff_8625.out.err
-          h5diff_8639.out
-          h5diff_8639.out.err
-          h5diff_90.out
-          h5diff_90.out.err
-          h5diff_v1.out
-          h5diff_v1.out.err
-          h5diff_v2.out
-          h5diff_v2.out.err
-          h5diff_v3.out
-          h5diff_v3.out.err
-          h5diff_vlstr.out
-          h5diff_vlstr.out.err
-          h5diff_eps.out
-          h5diff_eps.out.err
-    )
-    set_tests_properties (H5DIFF-clearall-objects PROPERTIES WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/testfiles")
-    if (last_test)
-      set_tests_properties (H5DIFF-clearall-objects PROPERTIES DEPENDS ${last_test})
-    endif ()
-    set (last_test "H5DIFF-clearall-objects")
-  endif ()
 
 # ############################################################################
 # # Common usage
@@ -1257,7 +865,7 @@ ADD_H5_TEST (h5diff_208 0 -c ${FILE19} ${FILE20})
 ADD_H5_TEST (h5diff_220 1 -c non_comparables1.h5 non_comparables2.h5 /g1)
 
 # comparable dataset with non-comparable attribute and other comparable attributes.
-# Also test non-compatible attributes with different type, dimention, rank.
+# Also test non-compatible attributes with different type, dimension, rank.
 # All the rest comparables should display differences.
 ADD_H5_TEST (h5diff_221 1 -c non_comparables1.h5 non_comparables2.h5 /g2)
 
@@ -1417,7 +1025,7 @@ ADD_H5_TEST (h5diff_475 1 -v h5diff_danglelinks1.h5 h5diff_danglelinks2.h5 /ext_
 
 
 # ##############################################################################
-# # test for group diff recursivly
+# # test for group diff recursively
 # ##############################################################################
 # root
 ADD_H5_TEST (h5diff_500 1 -v ${GRP_RECURSE_FILE1} ${GRP_RECURSE_FILE2} / /)
@@ -1528,6 +1136,12 @@ ADD_H5_TEST (h5diff_646 1 -v --use-system-epsilon -p 0.05 ${FILE1} ${FILE2} /g1/
 # ##############################################################################
 ADD_H5_TEST (h5diff_800 1 -v ${FILE7} ${FILE8} /g1/array /g1/array)
 ADD_H5_TEST (h5diff_801 1 -v ${FILE7} ${FILE8A} /g1/array /g1/array)
+
+# ##############################################################################
+# # dataset subsets
+# ##############################################################################
+#serial only
+ADD_SH5_TEST (h5diff_830 1 --enable-error-stack -v ${FILE7} ${FILE8} /g1/array3D[0,0,0;2,2,1;2,2,2;] /g1/array3D[0,0,0;2,2,1;2,2,2;])
 
 # ##############################################################################
 # # VDS tests

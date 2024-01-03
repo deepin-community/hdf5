@@ -1,12 +1,11 @@
 #
 # Copyright by The HDF Group.
-# Copyright by the Board of Trustees of the University of Illinois.
 # All rights reserved.
 #
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 ##
@@ -34,6 +33,9 @@
 #xxx
 
 include $(top_srcdir)/config/commence.am
+
+# include Doxygen rules (requires autoconf-archive >2016-03-20)
+@DX_RULES@
 
 # Define subdirectories to build.
 ## Automake understands that `make distclean' should recurse into
@@ -85,9 +87,9 @@ else
    TOOLS_DIR=
 endif
 
-SUBDIRS = src $(TESTSERIAL_DIR) $(TESTPARALLEL_DIR) bin utils $(TOOLS_DIR) . \
+SUBDIRS = src $(TESTSERIAL_DIR) $(TESTPARALLEL_DIR) bin $(TOOLS_DIR) utils . \
           $(CXX_DIR) $(FORTRAN_DIR) $(JAVA_DIR) $(HDF5_HL_DIR)
-DIST_SUBDIRS = src test testpar utils tools . c++ fortran hl examples java
+DIST_SUBDIRS = src test testpar tools utils . c++ fortran hl examples java
 
 # Some files generated during configure that should be cleaned
 DISTCLEANFILES=config/stamp1 config/stamp2
@@ -186,6 +188,11 @@ check-all-install:
 # so 'make trace' only needs to recurse into that directory.
 trace:
 	@(cd src && $(MAKE) $(AM_MAKEFLAGS) $@) || exit 1;
+
+# doxygen support
+if BUILD_DOXYGEN_CONDITIONAL
+doxygen: doxygen-doc
+endif
 
 # Run tests with different Virtual File Drivers.
 # Currently, only invoke check-vfd in the test directory.

@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -40,7 +40,18 @@ if (HDF5_TEST_SERIAL)
       NAME f90_ex-clear-objects
       COMMAND ${CMAKE_COMMAND} -E remove ${test_ex_fortran_CLEANFILES}
   )
-  set_tests_properties (f90_ex-clear-objects PROPERTIES FIXTURES_SETUP clear_f90_ex)
+  set_tests_properties (f90_ex-clear-objects PROPERTIES
+      FIXTURES_SETUP clear_f90_ex
+      WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+  )
+  add_test (
+      NAME f90_ex-clean-objects
+      COMMAND ${CMAKE_COMMAND} -E remove ${test_ex_fortran_CLEANFILES}
+  )
+  set_tests_properties (f90_ex-clean-objects PROPERTIES
+      FIXTURES_CLEANUP clear_f90_ex
+      WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+  )
 
   foreach (example ${examples})
     if (HDF5_ENABLE_USING_MEMCHECKER)
@@ -55,7 +66,7 @@ if (HDF5_TEST_SERIAL)
           -D "TEST_OUTPUT=f90_ex_${example}.txt"
           #-D "TEST_REFERENCE=f90_ex_${example}.out"
           -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-          -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+          -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
     endif ()
     set_tests_properties (f90_ex_${example} PROPERTIES FIXTURES_REQUIRED clear_f90_ex)
@@ -78,7 +89,7 @@ if (HDF5_TEST_SERIAL)
           -D "TEST_OUTPUT=f03_ex_${example}.txt"
           #-D "TEST_REFERENCE=f03_ex_${example}.out"
           -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-          -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+          -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
     endif ()
     set_tests_properties (f03_ex_${example} PROPERTIES FIXTURES_REQUIRED clear_f90_ex)

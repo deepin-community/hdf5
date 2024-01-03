@@ -10,13 +10,12 @@
 ! COPYRIGHT
 ! * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 !   Copyright by The HDF Group.                                               *
-!   Copyright by the Board of Trustees of the University of Illinois.         *
 !   All rights reserved.                                                      *
 !                                                                             *
 !   This file is part of HDF5.  The full HDF5 copyright notice, including     *
 !   terms governing use, modification, and redistribution, is contained in    *
 !   the COPYING file, which can be found at the root of the source code       *
-!   distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+!   distribution tree, or in https://www.hdfgroup.org/licenses.               *
 !   If you do not have access to either file, you may request a copy from     *
 !   help@hdfgroup.org.                                                        *
 ! * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -512,7 +511,7 @@ SUBROUTINE test_obj_visit(total_error)
   ! Construct "interesting" file to visit
   CALL build_visit_file(fid)
 
-  ! Inialize udata for testing purposes
+  ! Initialize udata for testing purposes
   udata%info(1)%path(1:1) ="."
   udata%info(1)%type_obj = H5O_TYPE_GROUP_F
   udata%info(2)%path(1:12) = &

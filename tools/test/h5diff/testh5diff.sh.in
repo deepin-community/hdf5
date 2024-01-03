@@ -1,13 +1,12 @@
 #! /bin/sh
 #
 # Copyright by The HDF Group.
-# Copyright by the Board of Trustees of the University of Illinois.
 # All rights reserved.
 #
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -341,6 +340,7 @@ $SRC_H5DIFF_TESTFILES/h5diff_710.txt
 $SRC_H5DIFF_TESTFILES/h5diff_80.txt
 $SRC_H5DIFF_TESTFILES/h5diff_800.txt
 $SRC_H5DIFF_TESTFILES/h5diff_801.txt
+$SRC_H5DIFF_TESTFILES/h5diff_830.txt
 $SRC_H5DIFF_TESTFILES/h5diff_90.txt
 $SRC_H5DIFF_TESTFILES/h5diff_8625.txt
 $SRC_H5DIFF_TESTFILES/h5diff_8639.txt
@@ -440,7 +440,7 @@ done
 
 # RUNSERIAL is used. Check if it can return exit code from executalbe correctly.
 if [ -n "$RUNSERIAL_NOEXITCODE" ]; then
-    echo "***Warning*** Serial Exit Code is not passed back to shell corretly."
+    echo "***Warning*** Serial Exit Code is not passed back to shell correctly."
     echo "***Warning*** Exit code checking is skipped."
     h5haveexitcode=no
 fi
@@ -503,7 +503,7 @@ TOOLTEST() {
     # don't add exit code check in pmode, as it causes failure. (exit code
     # is from mpirun not tool)
     # if any problem occurs relate to an exit code, it will be caught in
-    # serial mode, so the test is fullfilled.
+    # serial mode, so the test is fulfilled.
     if test $h5haveexitcode = 'yes' -a -z "$pmode"; then
       echo "EXIT CODE: $EXIT_CODE" >> $actual
     fi
@@ -909,7 +909,7 @@ TOOLTEST h5diff_207.txt -c h5diff_basic2.h5 h5diff_basic2.h5 g2/dset8  g2/dset9
 TOOLTEST h5diff_208.txt -c h5diff_dset_zero_dim_size1.h5 h5diff_dset_zero_dim_size2.h5
 
 # non-comparable dataset with comparable attribute, and other comparable datasets.
-# Also test non-compatible attributes with different type, dimention, rank.
+# Also test non-compatible attributes with different type, dimension, rank.
 # All the comparables should display differences.
 TOOLTEST h5diff_220.txt -c non_comparables1.h5 non_comparables2.h5 /g1
 
@@ -1072,7 +1072,7 @@ TOOLTEST h5diff_474.txt -v h5diff_danglelinks1.h5 h5diff_danglelinks2.h5 /ext_li
 TOOLTEST h5diff_475.txt -v h5diff_danglelinks1.h5 h5diff_danglelinks2.h5 /ext_link1
 
 # ##############################################################################
-# # test for group diff recursivly
+# # test for group diff recursively
 # ##############################################################################
 # root
 TOOLTEST h5diff_500.txt -v h5diff_grp_recurse1.h5 h5diff_grp_recurse2.h5 / /
@@ -1184,6 +1184,11 @@ TOOLTEST h5diff_646.txt -v --use-system-epsilon -p 0.05 h5diff_basic1.h5 h5diff_
 # ##############################################################################
 TOOLTEST h5diff_800.txt -v h5diff_dset1.h5 h5diff_dset2.h5 /g1/array /g1/array
 TOOLTEST h5diff_801.txt -v h5diff_dset1.h5 h5diff_dset3.h5 /g1/array /g1/array
+
+# ##############################################################################
+# # dataset subsets
+# ##############################################################################
+#TOOLTEST h5diff_830.txt --enable-error-stack -v h5diff_dset1.h5 h5diff_dset2.h5 "/g1/array3D[0,0,0;2,2,1;2,2,2;]" "/g1/array3D[0,0,0;2,2,1;2,2,2;]"
 
 # ##############################################################################
 # VDS tests

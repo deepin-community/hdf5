@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -16,22 +16,10 @@
 ##############################################################################
 ##############################################################################
 # included from CMakeTests.cmake
+H5_CREATE_VFD_DIR()
 
-set (VFD_LIST
-    sec2
-    stdio
-    core
-    core_paged
-    split
-    multi
-    family
-)
-if (DIRECT_VFD)
-  set (VFD_LIST ${VFD_LIST} direct)
-endif ()
-
+# create more test folders for each VFD
 foreach (vfdtest ${VFD_LIST})
-  file (MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${vfdtest}")
   file (MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${vfdtest}/testfiles")
   file (MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/${vfdtest}/testfiles/plist_files")
 endforeach ()
@@ -143,28 +131,30 @@ add_custom_target(HDF5_VFDTEST_LIB_files ALL COMMENT "Copying files needed by HD
               -P "${HDF_RESOURCES_DIR}/vfdTest.cmake"
       )
       set_tests_properties (VFD-${vfdname}-${vfdtest} PROPERTIES
-          ENVIRONMENT "srcdir=${HDF5_TEST_BINARY_DIR}/${vfdname};HDF5TestExpress=${HDF_TEST_EXPRESS}"
+          ENVIRONMENT "srcdir=${HDF5_TEST_BINARY_DIR}/${vfdname}"
           WORKING_DIRECTORY ${HDF5_TEST_BINARY_DIR}/${vfdname}
       )
     endif ()
   endmacro ()
 
   macro (DO_VFD_TEST vfdtest vfdname resultcode)
-    add_test (NAME VFD-${vfdname}-${vfdtest}
-        COMMAND "${CMAKE_COMMAND}"
-            -D "TEST_EMULATOR=${CMAKE_CROSSCOMPILING_EMULATOR}"
-            -D "TEST_PROGRAM=$<TARGET_FILE:${vfdtest}>"
-            -D "TEST_ARGS:STRING="
-            -D "TEST_VFD:STRING=${vfdname}"
-            -D "TEST_EXPECT=${resultcode}"
-            -D "TEST_OUTPUT=${vfdname}-${vfdtest}.out"
-            -D "TEST_FOLDER=${PROJECT_BINARY_DIR}/${vfdname}"
-            -P "${HDF_RESOURCES_DIR}/vfdTest.cmake"
-    )
-    set_tests_properties (VFD-${vfdname}-${vfdtest} PROPERTIES
-        ENVIRONMENT "srcdir=${HDF5_TEST_BINARY_DIR}/${vfdname}"
-        WORKING_DIRECTORY ${HDF5_TEST_BINARY_DIR}/${vfdname}
-    )
+    if (NOT "${vfdtest}" IN_LIST H5_VFD_${vfdname}_SKIP_TESTS)
+      add_test (NAME VFD-${vfdname}-${vfdtest}
+          COMMAND "${CMAKE_COMMAND}"
+              -D "TEST_EMULATOR=${CMAKE_CROSSCOMPILING_EMULATOR}"
+              -D "TEST_PROGRAM=$<TARGET_FILE:${vfdtest}>"
+              -D "TEST_ARGS:STRING="
+              -D "TEST_VFD:STRING=${vfdname}"
+              -D "TEST_EXPECT=${resultcode}"
+              -D "TEST_OUTPUT=${vfdname}-${vfdtest}.out"
+              -D "TEST_FOLDER=${PROJECT_BINARY_DIR}/${vfdname}"
+              -P "${HDF_RESOURCES_DIR}/vfdTest.cmake"
+      )
+      set_tests_properties (VFD-${vfdname}-${vfdtest} PROPERTIES
+          ENVIRONMENT "srcdir=${HDF5_TEST_BINARY_DIR}/${vfdname}"
+          WORKING_DIRECTORY ${HDF5_TEST_BINARY_DIR}/${vfdname}
+      )
+    endif ()
   endmacro ()
 
   macro (ADD_VFD_TEST vfdname resultcode)
@@ -177,10 +167,18 @@ add_custom_target(HDF5_VFDTEST_LIB_files ALL COMMENT "Copying files needed by HD
         endif ()
       endif ()
     endforeach ()
-    set_tests_properties (VFD-${vfdname}-flush2 PROPERTIES DEPENDS VFD-${vfdname}-flush1)
-    set_tests_properties (VFD-${vfdname}-flush1 PROPERTIES TIMEOUT 10)
-    set_tests_properties (VFD-${vfdname}-flush2 PROPERTIES TIMEOUT 10)
-    set_tests_properties (VFD-${vfdname}-istore PROPERTIES TIMEOUT ${CTEST_VERY_LONG_TIMEOUT})
+    if (NOT "flush2" IN_LIST H5_VFD_${vfdname}_SKIP_TESTS)
+      if (NOT "flush1" IN_LIST H5_VFD_${vfdname}_SKIP_TESTS)
+        set_tests_properties (VFD-${vfdname}-flush2 PROPERTIES DEPENDS VFD-${vfdname}-flush1)
+      endif ()
+      set_tests_properties (VFD-${vfdname}-flush2 PROPERTIES TIMEOUT 10)
+    endif ()
+    if (NOT "flush1" IN_LIST H5_VFD_${vfdname}_SKIP_TESTS)
+      set_tests_properties (VFD-${vfdname}-flush1 PROPERTIES TIMEOUT 10)
+    endif ()
+    if (NOT "istore" IN_LIST H5_VFD_${vfdname}_SKIP_TESTS)
+      set_tests_properties (VFD-${vfdname}-istore PROPERTIES TIMEOUT ${CTEST_VERY_LONG_TIMEOUT})
+    endif ()
     if (NOT CYGWIN)
       set_tests_properties (VFD-${vfdname}-cache PROPERTIES TIMEOUT ${CTEST_VERY_LONG_TIMEOUT})
     endif ()
@@ -198,7 +196,7 @@ add_custom_target(HDF5_VFDTEST_LIB_files ALL COMMENT "Copying files needed by HD
       )
       set_tests_properties (VFD-${vfdname}-fheap PROPERTIES
           TIMEOUT ${CTEST_VERY_LONG_TIMEOUT}
-          ENVIRONMENT "srcdir=${HDF5_TEST_BINARY_DIR}/${vfdname};HDF5TestExpress=${HDF_TEST_EXPRESS}"
+          ENVIRONMENT "srcdir=${HDF5_TEST_BINARY_DIR}/${vfdname}"
           WORKING_DIRECTORY ${HDF5_TEST_BINARY_DIR}/${vfdname}
       )
     endif ()

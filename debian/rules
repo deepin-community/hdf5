@@ -109,6 +109,7 @@ CONFIGURE_FLAGS = --prefix=/usr --host=$(DEB_HOST_GNU_TYPE) \
 		  --disable-sharedlib-rpath --with-zlib --with-default-api-version=v18 \
 		  --with-szlib \
 		  --enable-fortran --enable-fortran2003 \
+		  --enable-hltools \
 		  --enable-ros3-vfd
 
 FLAVOR_FLAGS =	  --includedir=\$${prefix}/include/hdf5/$(1) \

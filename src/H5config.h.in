@@ -115,9 +115,6 @@
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
-/* Define to 1 if you have the <dmalloc.h> header file. */
-#undef HAVE_DMALLOC_H
-
 /* Define if library information should be embedded in the executables */
 #undef HAVE_EMBEDDED_LIBINFO
 
@@ -200,9 +197,6 @@
 /* Define to 1 if you have the `dl' library (-ldl). */
 #undef HAVE_LIBDL
 
-/* Define to 1 if you have the `dmalloc' library (-ldmalloc). */
-#undef HAVE_LIBDMALLOC
-
 /* Proceed to build with libhdfs */
 #undef HAVE_LIBHDFS
 
@@ -245,9 +239,6 @@
 /* Define to 1 if you have the `lstat' function. */
 #undef HAVE_LSTAT
 
-/* Define to 1 if you have the <memory.h> header file. */
-#undef HAVE_MEMORY_H
-
 /* Define whether the Mirror virtual file driver (VFD) will be compiled */
 #undef HAVE_MIRROR_VFD
 
@@ -281,11 +272,17 @@
 /* Define if we have parallel support */
 #undef HAVE_PARALLEL
 
+/* Define if we have support for writing to filtered datasets in parallel */
+#undef HAVE_PARALLEL_FILTERED_WRITES
+
 /* Define if both pread and pwrite exist. */
 #undef HAVE_PREADWRITE
 
 /* Define to 1 if you have the <pthread.h> header file. */
 #undef HAVE_PTHREAD_H
+
+/* Define to 1 if you have the <pwd.h> header file. */
+#undef HAVE_PWD_H
 
 /* Define to 1 if you have the <quadmath.h> header file. */
 #undef HAVE_QUADMATH_H
@@ -344,6 +341,9 @@
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdio.h> header file. */
+#undef HAVE_STDIO_H
 
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
@@ -643,7 +643,9 @@
 /* The size of `__int64', as computed by sizeof. */
 #undef SIZEOF___INT64
 
-/* Define to 1 if you have the ANSI C header files. */
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
+   required in a freestanding environment). This macro is provided for
+   backward compatibility; new code need not use it. */
 #undef STDC_HEADERS
 
 /* Define if strict file format checks are enabled */
@@ -653,8 +655,8 @@
    PTHREAD_SCOPE_SYSTEM) call. */
 #undef SYSTEM_SCOPE_THREADS
 
-/* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
-#undef TIME_WITH_SYS_TIME
+/* HDF5 testing intensity level */
+#undef TEST_EXPRESS_LEVEL_DEFAULT
 
 /* Define using v1.10 public API symbols by default */
 #undef USE_110_API_DEFAULT
@@ -676,7 +678,7 @@
 /* Version number of package */
 #undef VERSION
 
-/* Data accuracy is prefered to speed during data conversions */
+/* Data accuracy is preferred to speed during data conversions */
 #undef WANT_DATA_ACCURACY
 
 /* Check exception handling functions during data conversions */

@@ -1,0 +1,41 @@
+Description: drop rpath flags from h5cc et al commands
+ See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1023446#22
+Index: hdf5/bin/h5cc.in
+===================================================================
+--- hdf5.orig/bin/h5cc.in
++++ hdf5/bin/h5cc.in
+@@ -332,7 +332,7 @@ if test "x$do_link" = "xyes"; then
+       # It appears to want none of them specified.
+       case "$host_os" in
+         darwin*)          flag="" ;;
+-        *)                flag="-Wl,-rpath -Wl," ;;
++        *)                flag="" ;;
+       esac
+       ;;
+     hpux*)                flag="-Wl,+b -Wl," ;;
+Index: hdf5/c++/src/h5c++.in
+===================================================================
+--- hdf5.orig/c++/src/h5c++.in
++++ hdf5/c++/src/h5c++.in
+@@ -325,7 +325,7 @@ if test "x$do_link" = "xyes"; then
+       # It appears to want none of them specified.
+       case "$host_os" in
+         darwin*)          flag="" ;;
+-        *)                flag="-Wl,-rpath -Wl," ;;
++        *)                flag="" ;;
+       esac
+       ;;
+     hpux*)                flag="-Wl,+b -Wl," ;;
+Index: hdf5/fortran/src/h5fc.in
+===================================================================
+--- hdf5.orig/fortran/src/h5fc.in
++++ hdf5/fortran/src/h5fc.in
+@@ -308,7 +308,7 @@ if test "x$do_link" = "xyes"; then
+   link_args="$link_args -L${libdevdir}"
+ 
+   case "$host_os" in
+-    linux*)               flag="@fortran_linux_linker_option@-rpath -Wl," ;;
++    linux*)               flag="" ;;
+     hpux*)                flag="-Wl,+b -Wl," ;;
+     freebsd*|solaris*)    flag="-R" ;;
+     rs6000*|aix*)         flag="-L" ;;
