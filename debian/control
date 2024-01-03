@@ -12,10 +12,12 @@ Build-Depends: debhelper (>= 10~),
                sharutils,
                chrpath,
                libaec-dev,
-               default-jdk-headless (>= 2:1.7) [!hppa !hurd-i386],
+               default-jdk-headless (>= 2:1.7),
                libcurl4-openssl-dev,
                libssl-dev,
-               javahelper [!hppa !hurd-i386]
+               javahelper [!hppa !hurd-i386],
+               junit4 [!hppa !hurd-i386],
+               libslf4j-java [!hppa !hurd-i386]
 Build-Depends-Indep: doxygen,
                      php-cli
 Standards-Version: 4.5.0
@@ -90,27 +92,6 @@ Description: HDF5 High Level Fortran runtime files - serial version
  This package contains the high level Fortran API runtime files for serial
  platforms.
 
-Package: libhdf5-103
-Architecture: any
-Multi-Arch: same
-Section: libs
-Depends: libhdf5-103-1 (= ${binary:Version}),
-#        libhdf5-fortran-102 (= ${binary:Version}),
-         libhdf5-hl-100 (= ${binary:Version}),
-         libhdf5-hl-fortran-100 (= ${binary:Version}),
-         ${misc:Depends}
-Description: HDF5 C runtime files - serial version (transitional package)
- Hierarchical Data Format 5 (HDF5) is a file format and library for
- storing scientific data.  HDF5 was designed and implemented to address
- the deficiencies of HDF4.x. It has a more powerful and flexible data
- model, supports files larger than 2 GB, and supports parallel I/O.
- .
- This package contains the C runtime files for serial platforms.
- .
- This transitional package helps upgrading from the single package bundling
- multiple libraries in buster to the individiual library packages in
- bullseye. It can be safely removed.
-
 Package: libhdf5-cpp-103-1
 Architecture: any
 Multi-Arch: same
@@ -144,25 +125,6 @@ Description: HDF5 High Level C++ runtime files - serial version
  .
  This package contains the high level C++ API runtime files for serial
  platforms.
-
-Package: libhdf5-cpp-103
-Architecture: any
-Multi-Arch: same
-Section: libs
-Depends: libhdf5-cpp-103-1 (= ${binary:Version}),
-         libhdf5-hl-cpp-100 (= ${binary:Version}),
-         ${misc:Depends}
-Description: HDF5 - C++ runtime files - serial version (transitional package)
- Hierarchical Data Format 5 (HDF5) is a file format and library for
- storing scientific data.  HDF5 was designed and implemented to address
- the deficiencies of HDF4.x. It has a more powerful and flexible data
- model, supports files larger than 2 GB, and supports parallel I/O.
- .
- This package contains the C++ runtime files for serial platforms.
- .
- This transitional package helps upgrading from the single package bundling
- multiple libraries in buster to the individiual library packages in
- bullseye. It can be safely removed.
 
 Package: libhdf5-dev
 Architecture: any
@@ -258,27 +220,6 @@ Description: HDF5 High Level Fortran runtime files - OpenMPI version
  .
  This package contains the high level Fortran API runtime files for openmpi
  platforms.
-
-Package: libhdf5-openmpi-103
-Architecture: any
-Multi-Arch: same
-Section: libs
-Depends: libhdf5-openmpi-103-1 (= ${binary:Version}),
-#        libhdf5-openmpi-fortran-102 (= ${binary:Version}),
-         libhdf5-openmpi-hl-100 (= ${binary:Version}),
-         libhdf5-openmpi-hl-fortran-100 (= ${binary:Version}),
-         ${misc:Depends}
-Description: HDF5 - C runtime files - OpenMPI version (transitional package)
- Hierarchical Data Format 5 (HDF5) is a file format and library for
- storing scientific data.  HDF5 was designed and implemented to address
- the deficiencies of HDF4.x. It has a more powerful and flexible data
- model, supports files larger than 2 GB, and supports parallel I/O.
- .
- This package contains the C runtime files for use with OpenMPI.
- .
- This transitional package helps upgrading from the single package bundling
- multiple libraries in buster to the individiual library packages in
- bullseye. It can be safely removed.
 
 Package: libhdf5-openmpi-cpp-103-1
 Architecture: any
@@ -412,27 +353,6 @@ Description: HDF5 High Level Fortran runtime files - MPICH2 version
  .
  This package contains the high level Fortran API runtime files for mpich
  platforms.
-
-Package: libhdf5-mpich-103
-Architecture: any
-Multi-Arch: same
-Section: libs
-Depends: libhdf5-mpich-103-1 (= ${binary:Version}),
-#        libhdf5-mpich-fortran-102 (= ${binary:Version}),
-         libhdf5-mpich-hl-100 (= ${binary:Version}),
-         libhdf5-mpich-hl-fortran-100 (= ${binary:Version}),
-         ${misc:Depends}
-Description: HDF5 - C runtime files - MPICH2 version (transitional package)
- Hierarchical Data Format 5 (HDF5) is a file format and library for
- storing scientific data.  HDF5 was designed and implemented to address
- the deficiencies of HDF4.x. It has a more powerful and flexible data
- model, supports files larger than 2 GB, and supports parallel I/O.
- .
- This package contains the C runtime files for use with MPICH2.
- .
- This transitional package helps upgrading from the single package bundling
- multiple libraries in buster to the individiual library packages in
- bullseye. It can be safely removed.
 
 Package: libhdf5-mpich-cpp-103-1
 Architecture: any

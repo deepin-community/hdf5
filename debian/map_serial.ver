@@ -2,13 +2,6 @@
 
 HDF5_SERIAL_1.8.7 {
     global:
-        arr_stack;
-        asindex;
-        cmpd_stack;
-        csindex;
-        enum_id;
-        enum_memb_symbol;
-        first_quote;
         H5A_BT2_CORDER;
         H5A_BT2_NAME;
         H5AC_BT;
@@ -889,7 +882,6 @@ HDF5_SERIAL_1.8.7 {
         H5_H5HG_obj_t_seq_free_list;
         H5_H5HL_free_t_reg_free_list;
         H5_H5MF_free_section_t_reg_free_list;
-        H5_H5MP_pool_t_reg_free_list;
         H5_H5O_addr_map_t_reg_free_list;
         H5_H5_obj_t_reg_free_list;
         H5_H5O_chunk_proxy_t_reg_free_list;
@@ -1025,15 +1017,6 @@ HDF5_SERIAL_1.8.7 {
         H5HL_protect;
         H5HL_remove;
         H5HL_unprotect;
-        H5HP_change;
-        H5HP_close;
-        H5HP_count;
-        H5HP_create;
-        H5HP_decr;
-        H5HP_incr;
-        H5HP_insert;
-        H5HP_remove;
-        H5HP_top;
         H5_hsize_t_arr_free_list;
         H5_hsize_t_seq_free_list;
         H5I_clear_type;
@@ -1256,15 +1239,6 @@ HDF5_SERIAL_1.8.7 {
         H5MM_strdup;
         H5MM_xfree;
         H5MM_xstrdup;
-        H5MP_close;
-        H5MP_create;
-        H5MP_free;
-        H5MP_get_page_free_size;
-        H5MP_get_page_next_page;
-        H5MP_get_pool_first_page;
-        H5MP_get_pool_free_size;
-        H5MP_malloc;
-        H5MP_pool_is_free_size_correct;
         H5_native_block_blk_free_list;
         H5_now;
         H5O_alloc_msgs;
@@ -1903,17 +1877,7 @@ HDF5_SERIAL_1.8.7 {
         H5Sset_extent_none;
         H5S_set_extent_real;
         H5Sset_extent_simple;
-        H5ST_close;
-        H5ST_create;
-        H5ST_delete;
-        H5ST_find;
-        H5ST_findfirst;
-        H5ST_findnext;
-        H5ST_insert;
-        H5ST_locate;
         H5_str_buf_blk_free_list;
-        H5ST_remove;
-        H5ST_search;
         H5S_write;
         H5T__alloc;
         H5T__array_create;
@@ -2496,23 +2460,11 @@ HDF5_SERIAL_1.8.7 {
         H5Z_xform_noop;
         HD5f2cstring;
         HD5packFstring;
-        HDfprintf;
         HDrand;
         HDsrand;
         indent;
         input_len;
-        is_enum;
-        is_enum_memb;
-        is_opq_size;
-        is_opq_tag;
-        is_str_pad;
-        is_str_size;
-        is_variable;
         myinput;
-        my_yyinput;
-        str_cset;
-        str_pad;
-        str_size;
 };
 
 HDF5_SERIAL_1.8.8 {
@@ -2761,7 +2713,6 @@ HDF5_SERIAL_1.10.0 {
         h5aopen_by_idx_c;
         h5aopen_by_name_c;
         h5aopen_c;
-        H5_api_entered_g;
         H5A__read;
         h5arename_by_name_c;
         h5arename_c;
@@ -3974,7 +3925,6 @@ HDF5_SERIAL_1.10.0 {
         H5MF_init_g;
         H5MF_sects_debug;
         H5MF_try_close;
-        H5MP_init_g;
         H5Oare_mdc_flushes_disabled;
         h5oclose_c;
         h5ocopy_c;
@@ -5465,6 +5415,44 @@ HDF5_SERIAL_1.10.7 {
         use_locks_env_g;
 } HDF5_SERIAL_1.10.6;
 
+HDF5_SERIAL_1.10.8 {
+    global:
+        H5_get_option;
+        H5I__destroy_type;
+        H5I__find_id;
+        H5I__get_type_ref;
+        H5I__inc_type_ref;
+        H5I_marking_g;
+        H5I_next_type_g;
+        H5_init_g;
+        H5I__remove_verify;
+        H5I_type_info_array_g;
+        H5_optarg;
+        H5_opterr;
+        H5_optind;
+        VERS_RELEASE_EXCEPTIONS;
+        VERS_RELEASE_EXCEPTIONS_SIZE;
+} HDF5_SERIAL_1.10.7;
+
+HDF5_SERIAL_1.10.10 {
+    global:
+        H5D__chunk_index_empty;
+        H5D__chunk_is_partial_edge_chunk;
+        H5D__chunk_iter;
+        H5Dchunk_iter;
+        H5D__chunk_mem_alloc;
+        H5D__chunk_mem_free;
+        H5D__chunk_mem_realloc;
+        H5D__chunk_mem_xfree;
+        H5D_select_io_mem;
+        __h5fortran_types_MOD___copy___iso_c_binding_C_funptr;
+        __h5fortran_types_MOD___copy___iso_c_binding_C_ptr;
+        __h5fortran_types_MOD___def_init___iso_c_binding_C_funptr;
+        __h5fortran_types_MOD___def_init___iso_c_binding_C_ptr;
+        __h5fortran_types_MOD___vtab___iso_c_binding_C_funptr;
+        __h5fortran_types_MOD___vtab___iso_c_binding_C_ptr;
+} HDF5_SERIAL_1.10.8;
+
 /* Generated from script make-version-scripts */
 
 HDF5_CPP_1.8.7 {
@@ -6044,7 +6032,6 @@ HDF5_CPP_1.8.9 {
             "vtable for H5::VarLenType";
             "VTT for FL_PacketTable";
         };
-        userAttrOpWrpr;
 } HDF5_CPP_1.8.8;
 
 HDF5_CPP_1.8.10 {
@@ -6748,7 +6735,6 @@ HDF5_CPP_1.10.5 {
         extern "C++" {
             "H5::H5Object::visit(H5_index_t, H5_iter_order_t, int (*)(H5::H5Object&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, H5O_info_t const*, void*), void*, unsigned int)";
         };
-        userVisitOpWrpr;
 } HDF5_CPP_1.10.3;
 
 HDF5_CPP_1.10.6 {
@@ -6767,4 +6753,15 @@ HDF5_CPP_1.10.7 {
             "H5::FileAccPropList::setFileLocking(bool, bool) const";
         };
 } HDF5_CPP_1.10.6;
+
+HDF5_CPP_1.10.8 {
+    global:
+        extern "C++" {
+            "H5::DataSet::operator=(H5::DataSet const&)";
+            "PacketTable::PacketTable()";
+        };
+} HDF5_CPP_1.10.7;
+
+HDF5_CPP_1.10.10 {
+} HDF5_CPP_1.10.8;
 

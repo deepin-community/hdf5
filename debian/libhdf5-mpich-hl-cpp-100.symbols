@@ -12,12 +12,14 @@ libhdf5_mpich_hl_cpp.so.100 libhdf5-mpich-hl-cpp-100 #MINVER#
  (optional|c++)"FL_PacketTable::GetPackets(unsigned long long, unsigned long long, void*)@HDF5_CPP_MPI_1.8.9" 1.10.5
  (optional|c++)"FL_PacketTable::~FL_PacketTable()@HDF5_CPP_MPI_1.10.0" 1.10.5
  HDF5_CPP_MPI_1.10.0@HDF5_CPP_MPI_1.10.0 1.10.5
+ HDF5_CPP_MPI_1.10.10@HDF5_CPP_MPI_1.10.10 1.10.10
  HDF5_CPP_MPI_1.10.1@HDF5_CPP_MPI_1.10.1 1.10.5
  HDF5_CPP_MPI_1.10.2@HDF5_CPP_MPI_1.10.2 1.10.5
  HDF5_CPP_MPI_1.10.3@HDF5_CPP_MPI_1.10.3 1.10.5
  HDF5_CPP_MPI_1.10.5@HDF5_CPP_MPI_1.10.5 1.10.5
  HDF5_CPP_MPI_1.10.6@HDF5_CPP_MPI_1.10.6 1.10.6
  HDF5_CPP_MPI_1.10.7@HDF5_CPP_MPI_1.10.7 1.10.7
+ HDF5_CPP_MPI_1.10.8@HDF5_CPP_MPI_1.10.8 1.10.8
  HDF5_CPP_MPI_1.8.10@HDF5_CPP_MPI_1.8.10 1.10.5
  HDF5_CPP_MPI_1.8.11@HDF5_CPP_MPI_1.8.11 1.10.5
  HDF5_CPP_MPI_1.8.12@HDF5_CPP_MPI_1.8.12 1.10.5
@@ -30,12 +32,14 @@ libhdf5_mpich_hl_cpp.so.100 libhdf5-mpich-hl-cpp-100 #MINVER#
  HDF5_CPP_MPI_1.8.8@HDF5_CPP_MPI_1.8.8 1.10.5
  HDF5_CPP_MPI_1.8.9@HDF5_CPP_MPI_1.8.9 1.10.5
  HDF5_MPI_1.10.0@HDF5_MPI_1.10.0 1.10.5
+ HDF5_MPI_1.10.10@HDF5_MPI_1.10.10 1.10.10
  HDF5_MPI_1.10.1@HDF5_MPI_1.10.1 1.10.5
  HDF5_MPI_1.10.2@HDF5_MPI_1.10.2 1.10.5
  HDF5_MPI_1.10.3@HDF5_MPI_1.10.3 1.10.5
  HDF5_MPI_1.10.5@HDF5_MPI_1.10.5 1.10.5
  HDF5_MPI_1.10.6@HDF5_MPI_1.10.6 1.10.6
  HDF5_MPI_1.10.7@HDF5_MPI_1.10.7 1.10.7
+ HDF5_MPI_1.10.8@HDF5_MPI_1.10.8 1.10.8
  HDF5_MPI_1.8.10@HDF5_MPI_1.8.10 1.10.5
  HDF5_MPI_1.8.11@HDF5_MPI_1.8.11 1.10.5
  HDF5_MPI_1.8.12@HDF5_MPI_1.8.12 1.10.5
@@ -55,6 +59,7 @@ libhdf5_mpich_hl_cpp.so.100 libhdf5-mpich-hl-cpp-100 #MINVER#
  (optional|c++)"PacketTable::GetTableId()@HDF5_CPP_MPI_1.10.0" 1.10.5
  (optional|c++)"PacketTable::IsValid()@HDF5_CPP_MPI_1.8.9" 1.10.5
  (optional|c++)"PacketTable::IsVariableLength()@HDF5_CPP_MPI_1.10.0" 1.10.5
+ (optional|c++)"PacketTable::PacketTable()@HDF5_CPP_MPI_1.10.8" 1.10.8
  (arch-bits=64|optional|c++)"PacketTable::PacketTable(long, char const*)@HDF5_CPP_MPI_1.10.0" 1.10.5
  (arch-bits=64|optional|c++)"PacketTable::PacketTable(long, char*)@HDF5_CPP_MPI_1.10.0" 1.10.5
  (optional|c++)"PacketTable::ResetIndex()@HDF5_CPP_MPI_1.8.9" 1.10.5

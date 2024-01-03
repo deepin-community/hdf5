@@ -4,3 +4,6 @@ ullong_force.diff
 relax-version-check.patch
 fix-unaligned-accesses.patch
 reproducibility.patch
+no-rpath.patch
+java-test-TestH5Arw_array-overflow.patch
+java_use-system-jars.patch

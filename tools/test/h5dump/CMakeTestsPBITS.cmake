@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -123,12 +123,8 @@
     # If using memchecker add tests without using scripts
     if (HDF5_ENABLE_USING_MEMCHECKER)
       add_test (NAME H5DUMP-${resultfile} COMMAND ${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:h5dump${tgt_file_ext}> ${ARGN})
-      set_tests_properties (H5DUMP-${resultfile} PROPERTIES WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/testfiles/pbits")
       if (${resultcode})
         set_tests_properties (H5DUMP-${resultfile} PROPERTIES WILL_FAIL "true")
-      endif ()
-      if (last_pbits_test)
-        set_tests_properties (H5DUMP-${resultfile} PROPERTIES DEPENDS ${last_pbits_test})
       endif ()
     else ()
       add_test (
@@ -141,9 +137,12 @@
               -D "TEST_OUTPUT=${resultfile}.out"
               -D "TEST_EXPECT=${resultcode}"
               -D "TEST_REFERENCE=${resultfile}.ddl"
-              -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+              -P "${HDF_RESOURCES_DIR}/runTest.cmake"
       )
     endif ()
+    set_tests_properties (H5DUMP-${resultfile} PROPERTIES
+        WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/testfiles/pbits"
+    )
   endmacro ()
 
 ##############################################################################
@@ -158,7 +157,7 @@
   # Limits:
   # Maximum number of packed bits is 8 (for now).
   # Maximum integer size is 8*sizeof(long long).
-  # Maximun Offset is Maximum size - 1.
+  # Maximum Offset is Maximum size - 1.
   # Maximum Offset+Length is Maximum size.
   # Tests:
   # Normal operation on both signed and unsigned int datasets.

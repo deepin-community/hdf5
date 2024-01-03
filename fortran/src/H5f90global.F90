@@ -18,18 +18,17 @@
 !  then the PARAMETER of that corresponding array in Fortran must also be changed.
 !
 ! USES
-!  H5FORTRAN_TYPES 	 - This module is generated at run time. See
+!  H5FORTRAN_TYPES - H5FORTRAN_TYPES is generated at run time by H5match_types.c
 !
 ! COPYRIGHT
 ! * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 !   Copyright by The HDF Group.                                               *
-!   Copyright by the Board of Trustees of the University of Illinois.         *
 !   All rights reserved.                                                      *
 !                                                                             *
 !   This file is part of HDF5.  The full HDF5 copyright notice, including     *
 !   terms governing use, modification, and redistribution, is contained in    *
 !   the COPYING file, which can be found at the root of the source code       *
-!   distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+!   distribution tree, or in https://www.hdfgroup.org/licenses.               *
 !   If you do not have access to either file, you may request a copy from     *
 !   help@hdfgroup.org.                                                        *
 ! * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -844,7 +843,7 @@ CONTAINS
   END SUBROUTINE H5_Fortran_string_f2c
 
 
-! Copy Fortran string to C charater array, assuming the C array is one-char
+! Copy Fortran string to C character array, assuming the C array is one-char
 ! longer for the terminating null char.
 ! fstring : the Fortran input string
 ! cstring : the C output string (with memory already allocated)
@@ -872,7 +871,7 @@ CONTAINS
 !!$    cstring(j) = C_NULL_CHAR
 !!$end subroutine MPIR_Fortran_string_f2c
 !!$
-!!$! Copy C charater array to Fortran string
+!!$! Copy C character array to Fortran string
 !!$subroutine MPIR_Fortran_string_c2f(cstring, fstring)
 !!$    implicit none
 !!$    character(kind=c_char), intent(in) :: cstring(:)

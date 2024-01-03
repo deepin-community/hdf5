@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -40,8 +39,7 @@ extern "C" {
  * Signature: (J)I
  */
 JNIEXPORT jint JNICALL
-Java_hdf_hdf5lib_H5__1H5Gclose
-    (JNIEnv *env, jclass clss, jlong group_id)
+Java_hdf_hdf5lib_H5__1H5Gclose(JNIEnv *env, jclass clss, jlong group_id)
 {
     herr_t retVal = FAIL;
 
@@ -65,8 +63,7 @@ done:
  *
  */
 jobject
-create_H5G_info_t
-    (JNIEnv *env, H5G_info_t group_info)
+create_H5G_info_t(JNIEnv *env, H5G_info_t group_info)
 {
     jfieldID fid_storage_type, fid_nlinks, fid_max_corder, fid_mounted;
     jboolean jmounted;
@@ -92,7 +89,7 @@ create_H5G_info_t
     if (NULL == (fid_mounted = ENVPTR->GetFieldID(ENVONLY, cls, "mounted", "Z")))
         CHECK_JNI_EXCEPTION(ENVONLY, JNI_FALSE);
 
-    jmounted = (group_info.mounted == 0) ? JNI_FALSE : JNI_TRUE;
+    jmounted     = (group_info.mounted == 0) ? JNI_FALSE : JNI_TRUE;
     storage_type = (jint)group_info.storage_type;
 
     ENVPTR->SetIntField(ENVONLY, obj, fid_storage_type, (jint)storage_type);
@@ -117,11 +114,10 @@ done:
  * Signature: (JLjava/lang/String;JJJ)J
  */
 JNIEXPORT jlong JNICALL
-Java_hdf_hdf5lib_H5__1H5Gcreate2
-    (JNIEnv *env, jclass clss, jlong loc_id, jstring name,
-          jlong link_plist_id, jlong create_plist_id, jlong access_plist_id)
+Java_hdf_hdf5lib_H5__1H5Gcreate2(JNIEnv *env, jclass clss, jlong loc_id, jstring name, jlong link_plist_id,
+                                 jlong create_plist_id, jlong access_plist_id)
 {
-    const char *grpName = NULL;
+    const char *grpName  = NULL;
     hid_t       group_id = H5I_INVALID_HID;
 
     UNUSED(clss);
@@ -131,7 +127,8 @@ Java_hdf_hdf5lib_H5__1H5Gcreate2
 
     PIN_JAVA_STRING(ENVONLY, name, grpName, NULL, "H5Gcreate2: group name not pinned");
 
-    if ((group_id = H5Gcreate2((hid_t)loc_id, grpName, (hid_t)link_plist_id, (hid_t)create_plist_id, (hid_t)access_plist_id)) < 0)
+    if ((group_id = H5Gcreate2((hid_t)loc_id, grpName, (hid_t)link_plist_id, (hid_t)create_plist_id,
+                               (hid_t)access_plist_id)) < 0)
         H5_LIBRARY_ERROR(ENVONLY);
 
 done:
@@ -147,8 +144,7 @@ done:
  * Signature: (JJJ)J
  */
 JNIEXPORT jlong JNICALL
-Java_hdf_hdf5lib_H5__1H5Gcreate_1anon
-    (JNIEnv *env, jclass clss, jlong loc_id, jlong gcpl_id, jlong gapl_id)
+Java_hdf_hdf5lib_H5__1H5Gcreate_1anon(JNIEnv *env, jclass clss, jlong loc_id, jlong gcpl_id, jlong gapl_id)
 {
     hid_t group_id = H5I_INVALID_HID;
 
@@ -167,10 +163,9 @@ done:
  * Signature: (JLjava/lang/String;J)J
  */
 JNIEXPORT jlong JNICALL
-Java_hdf_hdf5lib_H5__1H5Gopen2
-    (JNIEnv *env, jclass clss, jlong loc_id, jstring name, jlong access_plist_id)
+Java_hdf_hdf5lib_H5__1H5Gopen2(JNIEnv *env, jclass clss, jlong loc_id, jstring name, jlong access_plist_id)
 {
-    const char *grpName = NULL;
+    const char *grpName  = NULL;
     hid_t       group_id = H5I_INVALID_HID;
 
     UNUSED(clss);
@@ -190,15 +185,13 @@ done:
     return (jlong)group_id;
 } /* end Java_hdf_hdf5lib_H5__1H5Gopen2 */
 
-
 /*
  * Class:     hdf_hdf5lib_H5
  * Method:    H5Gget_create_plist
  * Signature: (J)J
  */
 JNIEXPORT jlong JNICALL
-Java_hdf_hdf5lib_H5_H5Gget_1create_1plist
-    (JNIEnv *env, jclass clss, jlong loc_id)
+Java_hdf_hdf5lib_H5_H5Gget_1create_1plist(JNIEnv *env, jclass clss, jlong loc_id)
 {
     hid_t plist_id = H5I_INVALID_HID;
 
@@ -217,8 +210,7 @@ done:
  * Signature: (J)Lhdf/hdf5lib/structs/H5G_info_t;
  */
 JNIEXPORT jobject JNICALL
-Java_hdf_hdf5lib_H5_H5Gget_1info
-    (JNIEnv *env, jclass clss, jlong loc_id)
+Java_hdf_hdf5lib_H5_H5Gget_1info(JNIEnv *env, jclass clss, jlong loc_id)
 {
     H5G_info_t group_info;
     jobject    obj = NULL;
@@ -241,12 +233,12 @@ done:
  * Signature: (JLjava/lang/String;J)Lhdf/hdf5lib/structs/H5G_info_t;
  */
 JNIEXPORT jobject JNICALL
-Java_hdf_hdf5lib_H5_H5Gget_1info_1by_1name
-    (JNIEnv *env, jclass clss, jlong loc_id, jstring name, jlong lapl_id)
+Java_hdf_hdf5lib_H5_H5Gget_1info_1by_1name(JNIEnv *env, jclass clss, jlong loc_id, jstring name,
+                                           jlong lapl_id)
 {
     H5G_info_t  group_info;
     const char *grpName = NULL;
-    jobject     obj = NULL;
+    jobject     obj     = NULL;
     herr_t      ret_val = FAIL;
 
     UNUSED(clss);
@@ -277,16 +269,15 @@ done:
  * Signature: (JLjava/lang/String;IIJJ)Lhdf/hdf5lib/structs/H5G_info_t;
  */
 JNIEXPORT jobject JNICALL
-Java_hdf_hdf5lib_H5_H5Gget_1info_1by_1idx
-    (JNIEnv *env, jclass clss, jlong loc_id, jstring name, jint index_type,
-          jint order, jlong n, jlong lapl_id)
+Java_hdf_hdf5lib_H5_H5Gget_1info_1by_1idx(JNIEnv *env, jclass clss, jlong loc_id, jstring name,
+                                          jint index_type, jint order, jlong n, jlong lapl_id)
 {
-    H5_iter_order_t  corder = (H5_iter_order_t)order;
-    H5_index_t       cindex_type = (H5_index_t)index_type;
-    H5G_info_t       group_info;
-    const char      *grpName = NULL;
-    jobject          obj = NULL;
-    herr_t           ret_val = FAIL;
+    H5_iter_order_t corder      = (H5_iter_order_t)order;
+    H5_index_t      cindex_type = (H5_index_t)index_type;
+    H5G_info_t      group_info;
+    const char     *grpName = NULL;
+    jobject         obj     = NULL;
+    herr_t          ret_val = FAIL;
 
     UNUSED(clss);
 
@@ -295,8 +286,8 @@ Java_hdf_hdf5lib_H5_H5Gget_1info_1by_1idx
 
     PIN_JAVA_STRING(ENVONLY, name, grpName, NULL, "H5Gget_info_by_idx: group name not pinned");
 
-    if ((ret_val = H5Gget_info_by_idx((hid_t)loc_id, grpName, cindex_type,
-            corder, (hsize_t)n, &group_info, (hid_t)lapl_id)) < 0)
+    if ((ret_val = H5Gget_info_by_idx((hid_t)loc_id, grpName, cindex_type, corder, (hsize_t)n, &group_info,
+                                      (hid_t)lapl_id)) < 0)
         H5_LIBRARY_ERROR(ENVONLY);
 
     if (NULL == (obj = create_H5G_info_t(env, group_info))) {
@@ -317,8 +308,7 @@ done:
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL
-Java_hdf_hdf5lib_H5_H5Gflush
-    (JNIEnv *env, jclass clss, jlong loc_id)
+Java_hdf_hdf5lib_H5_H5Gflush(JNIEnv *env, jclass clss, jlong loc_id)
 {
     UNUSED(clss);
 
@@ -335,8 +325,7 @@ done:
  * Signature: (J)V
  */
 JNIEXPORT void JNICALL
-Java_hdf_hdf5lib_H5_H5Grefresh
-    (JNIEnv *env, jclass clss, jlong loc_id)
+Java_hdf_hdf5lib_H5_H5Grefresh(JNIEnv *env, jclass clss, jlong loc_id)
 {
     UNUSED(clss);
 
@@ -346,8 +335,6 @@ Java_hdf_hdf5lib_H5_H5Grefresh
 done:
     return;
 } /* end Java_hdf_hdf5lib_H5_H5Grefresh */
-
-
 
 #ifdef __cplusplus
 } /* end extern "C" */

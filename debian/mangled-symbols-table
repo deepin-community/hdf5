@@ -103,6 +103,7 @@
 "H5::DataSet::getAccessPlist() const" _ZNK2H57DataSet14getAccessPlistEv
 "H5::DataSet::getVlenBufSize(H5::DataType const&, H5::DataSpace const&) const" _ZNK2H57DataSet14getVlenBufSizeERKNS_8DataTypeERKNS_9DataSpaceE
 "H5::DataSet::iterateElems(void*, H5::DataType const&, H5::DataSpace const&, int (*)(void*, long, unsigned int, unsigned long long const*, void*), void*)" _ZN2H57DataSet12iterateElemsEPvRKNS_8DataTypeERKNS_9DataSpaceEPFiS1_ljPKyS1_ES1_
+"H5::DataSet::operator=(H5::DataSet const&)" _ZN2H57DataSetaSERKS0_
 "H5::DataSet::p_read_fixed_len(long, long, long, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const" _ZNK2H57DataSet16p_read_fixed_lenEllllRNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 "H5::DataSet::p_read_variable_len(long, long, long, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const" _ZNK2H57DataSet19p_read_variable_lenEllllRNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 "H5::DataSet::p_setId(long)" _ZN2H57DataSet7p_setIdEl
@@ -605,6 +606,7 @@
 "PacketTable::GetDatatype()" _ZN11PacketTable11GetDatatypeEv
 "PacketTable::GetTableId()" _ZN11PacketTable10GetTableIdEv
 "PacketTable::IsVariableLength()" _ZN11PacketTable16IsVariableLengthEv
+"PacketTable::PacketTable()" _ZN11PacketTableC2Ev
 "PacketTable::PacketTable(long, char const*)" _ZN11PacketTableC2ElPKc
 "PacketTable::PacketTable(long, char*)" _ZN11PacketTableC2ElPc
 "virtual thunk to FL_PacketTable::~FL_PacketTable()" _ZTv0_n24_N14FL_PacketTableD1Ev
@@ -714,6 +716,7 @@
 "H5::DataSet::getAccessPlist() const" _ZNK2H57DataSet14getAccessPlistEv
 "H5::DataSet::getVlenBufSize(H5::DataType const&, H5::DataSpace const&) const" _ZNK2H57DataSet14getVlenBufSizeERKNS_8DataTypeERKNS_9DataSpaceE
 "H5::DataSet::iterateElems(void*, H5::DataType const&, H5::DataSpace const&, int (*)(void*, long, unsigned int, unsigned long long const*, void*), void*)" _ZN2H57DataSet12iterateElemsEPvRKNS_8DataTypeERKNS_9DataSpaceEPFiS1_ljPKyS1_ES1_
+"H5::DataSet::operator=(H5::DataSet const&)" _ZN2H57DataSetaSERKS0_
 "H5::DataSet::p_read_fixed_len(long, long, long, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const" _ZNK2H57DataSet16p_read_fixed_lenEllllRNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 "H5::DataSet::p_read_variable_len(long, long, long, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const" _ZNK2H57DataSet19p_read_variable_lenEllllRNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
 "H5::DataSet::p_setId(long)" _ZN2H57DataSet7p_setIdEl
@@ -1216,6 +1219,7 @@
 "PacketTable::GetDatatype()" _ZN11PacketTable11GetDatatypeEv
 "PacketTable::GetTableId()" _ZN11PacketTable10GetTableIdEv
 "PacketTable::IsVariableLength()" _ZN11PacketTable16IsVariableLengthEv
+"PacketTable::PacketTable()" _ZN11PacketTableC2Ev
 "PacketTable::PacketTable(long, char const*)" _ZN11PacketTableC2ElPKc
 "PacketTable::PacketTable(long, char*)" _ZN11PacketTableC2ElPc
 "virtual thunk to FL_PacketTable::~FL_PacketTable()" _ZTv0_n24_N14FL_PacketTableD1Ev

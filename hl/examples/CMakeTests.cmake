@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -27,31 +27,45 @@ endforeach ()
 add_custom_target(hl_ex_ex_ds1_files ALL COMMENT "Copying files needed by hl_ex_ex_ds1 tests" DEPENDS ${hl_ex_ex_ds1_files_list})
 
 # Remove any output file left over from previous test run
+set (HL_EX_CLEANFILES
+    ex_lite1.h5
+    ex_lite2.h5
+    ex_lite3.h5
+    packet_table_FLexample.h5
+    ex_image1.h5
+    ex_image2.h5
+    ex_table_01.h5
+    ex_table_02.h5
+    ex_table_03.h5
+    ex_table_04.h5
+    ex_table_05.h5
+    ex_table_06.h5
+    ex_table_07.h5
+    ex_table_08.h5
+    ex_table_09.h5
+    ex_table_10.h5
+    ex_table_11.h5
+    ex_table_12.h5
+    ex_ds1.h5
+)
 add_test (
     NAME HL_ex-clear-objects
     COMMAND    ${CMAKE_COMMAND}
-        -E remove
-            ex_lite1.h5
-            ex_lite2.h5
-            ex_lite3.h5
-            packet_table_FLexample.h5
-            ex_image1.h5
-            ex_image2.h5
-            ex_table_01.h5
-            ex_table_02.h5
-            ex_table_03.h5
-            ex_table_04.h5
-            ex_table_05.h5
-            ex_table_06.h5
-            ex_table_07.h5
-            ex_table_08.h5
-            ex_table_09.h5
-            ex_table_10.h5
-            ex_table_11.h5
-            ex_table_12.h5
-            ex_ds1.h5
+        -E remove ${HL_EX_CLEANFILES}
 )
-set_tests_properties (HL_ex-clear-objects PROPERTIES FIXTURES_SETUP clear_HL_ex)
+set_tests_properties (HL_ex-clear-objects PROPERTIES
+    FIXTURES_SETUP clear_HL_ex
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+)
+add_test (
+    NAME HL_ex-clean-objects
+    COMMAND    ${CMAKE_COMMAND}
+        -E remove ${HL_EX_CLEANFILES}
+)
+set_tests_properties (HL_ex-clean-objects PROPERTIES
+    FIXTURES_CLEANUP clear_HL_ex
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+)
 
 foreach (example ${examples})
   if (HDF5_ENABLE_USING_MEMCHECKER)
@@ -66,7 +80,7 @@ foreach (example ${examples})
         -D "TEST_OUTPUT=hl_ex_${example}.txt"
         #-D "TEST_REFERENCE=hl_ex_${example}.out"
         -D "TEST_FOLDER=${PROJECT_BINARY_DIR}"
-        -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+        -P "${HDF_RESOURCES_DIR}/runTest.cmake"
     )
   endif ()
   if (last_test)

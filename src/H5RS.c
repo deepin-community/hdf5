@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -18,16 +17,15 @@
  *
  */
 
-
-#include "H5Eprivate.h"		/* Error handling		  	*/
-#include "H5FLprivate.h"	/* Free lists                           */
-#include "H5RSprivate.h"        /* Reference-counted strings            */
+#include "H5Eprivate.h"  /* Error handling		  	*/
+#include "H5FLprivate.h" /* Free lists                           */
+#include "H5RSprivate.h" /* Reference-counted strings            */
 
 /* Private typedefs & structs */
 struct H5RS_str_t {
-    char *s;            /* String to be reference counted */
-    unsigned wrapped;   /* Indicates that the string to be ref-counted is not copied */
-    unsigned n;         /* Reference count of number of pointers sharing string */
+    char    *s;       /* String to be reference counted */
+    unsigned wrapped; /* Indicates that the string to be ref-counted is not copied */
+    unsigned n;       /* Reference count of number of pointers sharing string */
 };
 
 /* Declare a free list to manage the H5RS_str_t struct */
@@ -36,7 +34,6 @@ H5FL_DEFINE_STATIC(H5RS_str_t);
 /* Declare the PQ free list for the wrapped strings */
 H5FL_BLK_DEFINE(str_buf);
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_xstrdup
@@ -59,11 +56,11 @@ H5FL_BLK_DEFINE(str_buf);
 static char *
 H5RS_xstrdup(const char *s)
 {
-    char *ret_value;   /* Return value */
+    char *ret_value; /* Return value */
 
     FUNC_ENTER_NOAPI_NOINIT_NOERR
 
-    if(s) {
+    if (s) {
         size_t len = HDstrlen(s) + 1;
 
         ret_value = (char *)H5FL_BLK_MALLOC(str_buf, len);
@@ -76,7 +73,6 @@ H5RS_xstrdup(const char *s)
     FUNC_LEAVE_NOAPI(ret_value)
 } /* end H5RS_xstrdup() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_create
@@ -99,24 +95,23 @@ H5RS_xstrdup(const char *s)
 H5RS_str_t *
 H5RS_create(const char *s)
 {
-    H5RS_str_t *ret_value;   /* Return value */
+    H5RS_str_t *ret_value; /* Return value */
 
     FUNC_ENTER_NOAPI(NULL)
 
     /* Allocate ref-counted string structure */
-    if(NULL == (ret_value = H5FL_MALLOC(H5RS_str_t)))
+    if (NULL == (ret_value = H5FL_MALLOC(H5RS_str_t)))
         HGOTO_ERROR(H5E_RS, H5E_NOSPACE, NULL, "memory allocation failed")
 
     /* Set the internal fields */
-    ret_value->s = H5RS_xstrdup(s);
+    ret_value->s       = H5RS_xstrdup(s);
     ret_value->wrapped = 0;
-    ret_value->n = 1;
+    ret_value->n       = 1;
 
 done:
     FUNC_LEAVE_NOAPI(ret_value)
 } /* end H5RS_create() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_wrap
@@ -139,24 +134,31 @@ done:
 H5RS_str_t *
 H5RS_wrap(const char *s)
 {
-    H5RS_str_t *ret_value;   /* Return value */
+    H5RS_str_t *ret_value; /* Return value */
 
     FUNC_ENTER_NOAPI(NULL)
 
     /* Allocate ref-counted string structure */
-    if(NULL == (ret_value = H5FL_MALLOC(H5RS_str_t)))
+    if (NULL == (ret_value = H5FL_MALLOC(H5RS_str_t)))
         HGOTO_ERROR(H5E_RS, H5E_NOSPACE, NULL, "memory allocation failed")
 
-    /* Set the internal fields */
+    /* Set the internal fields
+     *
+     * We ignore warnings about storing a const char pointer in the struct
+     * since we never modify or free the string when the wrapped struct
+     * field is set to TRUE.
+     */
+    H5_GCC_DIAG_OFF("cast-qual")
     ret_value->s = (char *)s;
+    H5_GCC_DIAG_ON("cast-qual")
+
     ret_value->wrapped = 1;
-    ret_value->n = 1;
+    ret_value->n       = 1;
 
 done:
     FUNC_LEAVE_NOAPI(ret_value)
 } /* end H5RS_wrap() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_own
@@ -181,24 +183,23 @@ done:
 H5RS_str_t *
 H5RS_own(char *s)
 {
-    H5RS_str_t *ret_value;   /* Return value */
+    H5RS_str_t *ret_value; /* Return value */
 
     FUNC_ENTER_NOAPI(NULL)
 
     /* Allocate ref-counted string structure */
-    if(NULL == (ret_value = H5FL_MALLOC(H5RS_str_t)))
+    if (NULL == (ret_value = H5FL_MALLOC(H5RS_str_t)))
         HGOTO_ERROR(H5E_RS, H5E_NOSPACE, NULL, "memory allocation failed")
 
     /* Set the internal fields */
-    ret_value->s = s;
+    ret_value->s       = s;
     ret_value->wrapped = 0;
-    ret_value->n = 1;
+    ret_value->n       = 1;
 
 done:
     FUNC_LEAVE_NOAPI(ret_value)
 } /* end H5RS_own() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_decr
@@ -228,8 +229,8 @@ H5RS_decr(H5RS_str_t *rs)
     HDassert(rs->n > 0);
 
     /* Decrement reference count for string */
-    if((--rs->n) == 0) {
-        if(!rs->wrapped)
+    if ((--rs->n) == 0) {
+        if (!rs->wrapped)
             rs->s = (char *)H5FL_BLK_FREE(str_buf, rs->s);
         rs = H5FL_FREE(H5RS_str_t, rs);
     } /* end if */
@@ -237,7 +238,6 @@ H5RS_decr(H5RS_str_t *rs)
     FUNC_LEAVE_NOAPI(SUCCEED)
 } /* end H5RS_decr() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_incr
@@ -269,8 +269,8 @@ H5RS_incr(H5RS_str_t *rs)
      * string, duplicate the string now, so that the wrapped string can go out
      * scope appropriately.
      */
-    if(rs->wrapped) {
-        rs->s = H5RS_xstrdup(rs->s);
+    if (rs->wrapped) {
+        rs->s       = H5RS_xstrdup(rs->s);
         rs->wrapped = 0;
     } /* end if */
 
@@ -280,7 +280,6 @@ H5RS_incr(H5RS_str_t *rs)
     FUNC_LEAVE_NOAPI(SUCCEED)
 } /* end H5RS_incr() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_dup
@@ -306,14 +305,13 @@ H5RS_dup(H5RS_str_t *ret_value)
     FUNC_ENTER_NOAPI_NOINIT_NOERR
 
     /* Check for valid reference counted string */
-    if(ret_value != NULL)
+    if (ret_value != NULL)
         /* Increment reference count for string */
         ret_value->n++;
 
     FUNC_LEAVE_NOAPI(ret_value)
 } /* end H5RS_dup() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_dup_str
@@ -335,8 +333,8 @@ H5RS_dup(H5RS_str_t *ret_value)
 H5RS_str_t *
 H5RS_dup_str(const char *s)
 {
-    char *new_str;              /* Duplicate of string */
-    size_t path_len;            /* Length of the path */
+    char       *new_str;  /* Duplicate of string */
+    size_t      path_len; /* Length of the path */
     H5RS_str_t *ret_value;
 
     FUNC_ENTER_NOAPI(NULL)
@@ -348,7 +346,7 @@ H5RS_dup_str(const char *s)
     path_len = HDstrlen(s);
 
     /* Allocate space for the string */
-    if(NULL == (new_str = (char *)H5FL_BLK_MALLOC(str_buf, path_len + 1)))
+    if (NULL == (new_str = (char *)H5FL_BLK_MALLOC(str_buf, path_len + 1)))
         HGOTO_ERROR(H5E_RESOURCE, H5E_NOSPACE, NULL, "memory allocation failed")
 
     /* Copy name for full path */
@@ -361,7 +359,6 @@ done:
     FUNC_LEAVE_NOAPI(ret_value)
 } /* end H5RS_dup_str() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_cmp
@@ -398,7 +395,6 @@ H5RS_cmp(const H5RS_str_t *rs1, const H5RS_str_t *rs2)
     FUNC_LEAVE_NOAPI(HDstrcmp(rs1->s, rs2->s))
 } /* end H5RS_cmp() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_len
@@ -429,7 +425,6 @@ H5RS_len(const H5RS_str_t *rs)
     FUNC_LEAVE_NOAPI((ssize_t)HDstrlen(rs->s))
 } /* end H5RS_len() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_get_str
@@ -463,7 +458,6 @@ H5RS_get_str(const H5RS_str_t *rs)
     FUNC_LEAVE_NOAPI(rs->s)
 } /* end H5RS_get_str() */
 
-
 /*--------------------------------------------------------------------------
  NAME
     H5RS_get_count
@@ -494,4 +488,3 @@ H5RS_get_count(const H5RS_str_t *rs)
 
     FUNC_LEAVE_NOAPI(rs->n)
 } /* end H5RS_get_count() */
-

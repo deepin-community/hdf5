@@ -207,6 +207,7 @@ libhdf5_mpich_cpp.so.103 libhdf5-mpich-cpp-103-1 #MINVER#
  (optional|c++)"H5::DataSet::getStorageSize() const@HDF5_CPP_MPI_1.8.9" 1.10.5
  (optional|c++)"H5::DataSet::getVlenBufSize(H5::DataType const&, H5::DataSpace const&) const@HDF5_CPP_MPI_1.8.13" 1.10.5
  (arch-bits=64|optional|c++)"H5::DataSet::iterateElems(void*, H5::DataType const&, H5::DataSpace const&, int (*)(void*, long, unsigned int, unsigned long long const*, void*), void*)@HDF5_CPP_MPI_1.10.0" 1.10.5
+ (optional|c++)"H5::DataSet::operator=(H5::DataSet const&)@HDF5_CPP_MPI_1.10.8" 1.10.8
  (optional|c++)"H5::DataSet::p_get_type() const@HDF5_CPP_MPI_1.8.9" 1.10.5
  (arch-bits=64|optional|c++)"H5::DataSet::p_read_fixed_len(long, long, long, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_MPI_1.10.0" 1.10.5
  (arch-bits=64|optional|c++)"H5::DataSet::p_read_variable_len(long, long, long, long, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&) const@HDF5_CPP_MPI_1.10.0" 1.10.5
@@ -1024,12 +1025,14 @@ libhdf5_mpich_cpp.so.103 libhdf5-mpich-cpp-103-1 #MINVER#
  (arch-bits=64|optional|c++)"H5::f_DataType_setId(H5::DataType*, long)@HDF5_CPP_MPI_1.10.0" 1.10.5
  (arch-bits=64|optional|c++)"H5::f_PropList_setId(H5::PropList*, long)@HDF5_CPP_MPI_1.10.0" 1.10.5
  HDF5_CPP_MPI_1.10.0@HDF5_CPP_MPI_1.10.0 1.10.5
+ HDF5_CPP_MPI_1.10.10@HDF5_CPP_MPI_1.10.10 1.10.10
  HDF5_CPP_MPI_1.10.1@HDF5_CPP_MPI_1.10.1 1.10.5
  HDF5_CPP_MPI_1.10.2@HDF5_CPP_MPI_1.10.2 1.10.5
  HDF5_CPP_MPI_1.10.3@HDF5_CPP_MPI_1.10.3 1.10.5
  HDF5_CPP_MPI_1.10.5@HDF5_CPP_MPI_1.10.5 1.10.5
  HDF5_CPP_MPI_1.10.6@HDF5_CPP_MPI_1.10.6 1.10.6
  HDF5_CPP_MPI_1.10.7@HDF5_CPP_MPI_1.10.7 1.10.7
+ HDF5_CPP_MPI_1.10.8@HDF5_CPP_MPI_1.10.8 1.10.8
  HDF5_CPP_MPI_1.8.10@HDF5_CPP_MPI_1.8.10 1.10.5
  HDF5_CPP_MPI_1.8.11@HDF5_CPP_MPI_1.8.11 1.10.5
  HDF5_CPP_MPI_1.8.12@HDF5_CPP_MPI_1.8.12 1.10.5
@@ -1042,12 +1045,14 @@ libhdf5_mpich_cpp.so.103 libhdf5-mpich-cpp-103-1 #MINVER#
  HDF5_CPP_MPI_1.8.8@HDF5_CPP_MPI_1.8.8 1.10.5
  HDF5_CPP_MPI_1.8.9@HDF5_CPP_MPI_1.8.9 1.10.5
  HDF5_MPI_1.10.0@HDF5_MPI_1.10.0 1.10.5
+ HDF5_MPI_1.10.10@HDF5_MPI_1.10.10 1.10.10
  HDF5_MPI_1.10.1@HDF5_MPI_1.10.1 1.10.5
  HDF5_MPI_1.10.2@HDF5_MPI_1.10.2 1.10.5
  HDF5_MPI_1.10.3@HDF5_MPI_1.10.3 1.10.5
  HDF5_MPI_1.10.5@HDF5_MPI_1.10.5 1.10.5
  HDF5_MPI_1.10.6@HDF5_MPI_1.10.6 1.10.6
  HDF5_MPI_1.10.7@HDF5_MPI_1.10.7 1.10.7
+ HDF5_MPI_1.10.8@HDF5_MPI_1.10.8 1.10.8
  HDF5_MPI_1.8.10@HDF5_MPI_1.8.10 1.10.5
  HDF5_MPI_1.8.11@HDF5_MPI_1.8.11 1.10.5
  HDF5_MPI_1.8.12@HDF5_MPI_1.8.12 1.10.5
@@ -1078,6 +1083,7 @@ libhdf5_mpich_cpp.so.103 libhdf5-mpich-cpp-103-1 #MINVER#
  (arch-bits=64|optional|c++)"non-virtual thunk to H5::H5File::p_setId(long)@HDF5_CPP_MPI_1.10.0" 1.10.5
  (optional|c++)"non-virtual thunk to H5::H5File::throwException(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const@HDF5_CPP_MPI_1.8.15.1" 1.10.5
  (optional|c++)"non-virtual thunk to H5::H5File::~H5File()@HDF5_CPP_MPI_1.8.11" 1.10.5
+#MISSING: 1.10.10# (optional|c++)"std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&)@HDF5_CPP_MPI_1.10.8" 1.10.8
  (optional|c++)"std::ctype<char>::do_widen(char) const@HDF5_CPP_MPI_1.10.6" 1.10.6
  (optional|c++)"typeinfo for H5::AbstractDs@HDF5_CPP_MPI_1.8.9" 1.10.5
  (optional|c++)"typeinfo for H5::ArrayType@HDF5_CPP_MPI_1.8.9" 1.10.5
@@ -1163,8 +1169,8 @@ libhdf5_mpich_cpp.so.103 libhdf5-mpich-cpp-103-1 #MINVER#
  (optional|c++)"typeinfo name for H5::ReferenceException@HDF5_CPP_MPI_1.8.9" 1.10.5
  (optional|c++)"typeinfo name for H5::StrType@HDF5_CPP_MPI_1.8.9" 1.10.5
  (optional|c++)"typeinfo name for H5::VarLenType@HDF5_CPP_MPI_1.8.9" 1.10.5
- userAttrOpWrpr@HDF5_CPP_MPI_1.8.9 1.10.5
- userVisitOpWrpr@HDF5_CPP_MPI_1.10.5 1.10.5
+#MISSING: 1.10.8# userAttrOpWrpr@HDF5_CPP_MPI_1.8.9 1.10.5
+#MISSING: 1.10.8# userVisitOpWrpr@HDF5_CPP_MPI_1.10.5 1.10.5
  (optional|c++)"vtable for H5::AbstractDs@HDF5_CPP_MPI_1.8.9" 1.10.5
  (optional|c++)"vtable for H5::ArrayType@HDF5_CPP_MPI_1.8.9" 1.10.5
  (optional|c++)"vtable for H5::AtomType@HDF5_CPP_MPI_1.8.9" 1.10.5

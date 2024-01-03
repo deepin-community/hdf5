@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 #
@@ -79,7 +79,18 @@ add_test (
     NAME HL_test-clear-objects
     COMMAND    ${CMAKE_COMMAND} -E remove ${test_hl_CLEANFILES}
 )
-set_tests_properties (HL_test-clear-objects PROPERTIES FIXTURES_SETUP clear_test_hl)
+set_tests_properties (HL_test-clear-objects PROPERTIES
+    FIXTURES_SETUP clear_test_hl
+    WORKING_DIRECTORY ${HDF5_HL_TEST_BINARY_DIR}
+)
+add_test (
+    NAME HL_test-clean-objects
+    COMMAND    ${CMAKE_COMMAND} -E remove ${test_hl_CLEANFILES}
+)
+set_tests_properties (HL_test-clean-objects PROPERTIES
+    FIXTURES_CLEANUP clear_test_hl
+    WORKING_DIRECTORY ${HDF5_HL_TEST_BINARY_DIR}
+)
 
 # --------------------------------------------------------------------
 #  Macro used to add a unit test
@@ -97,7 +108,7 @@ macro (HL_ADD_TEST hl_name)
         -D "TEST_OUTPUT=hl_${hl_name}.txt"
         #-D "TEST_REFERENCE=hl_${hl_name}.out"
         -D "TEST_FOLDER=${HDF5_HL_TEST_BINARY_DIR}"
-        -P "${HDF_RESOURCES_EXT_DIR}/runTest.cmake"
+        -P "${HDF_RESOURCES_DIR}/runTest.cmake"
     )
   endif ()
   set_tests_properties (HL_${hl_name} PROPERTIES

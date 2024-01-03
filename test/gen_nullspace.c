@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -26,19 +25,19 @@
 
 #include "h5test.h"
 
-#define NULLFILE   "tnullspace.h5"
-#define NULLDATASET  "null_dataset"
-#define NULLATTR   "null_attribute"
+#define NULLFILE    "tnullspace.h5"
+#define NULLDATASET "null_dataset"
+#define NULLATTR    "null_attribute"
 
 int
 main(void)
 {
-    hid_t fid;          /* File ID */
-    hid_t gid;          /* Group ID */
-    hid_t sid;          /* Dataspace ID */
-    hid_t did;          /* Dataset ID */
-    hid_t attr;         /* Attribute ID */
-    herr_t H5_ATTR_NDEBUG_UNUSED ret;         /* Generic return value */
+    hid_t                        fid;  /* File ID */
+    hid_t                        gid;  /* Group ID */
+    hid_t                        sid;  /* Dataspace ID */
+    hid_t                        did;  /* Dataset ID */
+    hid_t                        attr; /* Attribute ID */
+    herr_t H5_ATTR_NDEBUG_UNUSED ret;  /* Generic return value */
 
     /* Create the file */
     fid = H5Fcreate(NULLFILE, H5F_ACC_TRUNC, H5P_DEFAULT, H5P_DEFAULT);
@@ -81,5 +80,3 @@ main(void)
 
     return EXIT_SUCCESS;
 }
-
-

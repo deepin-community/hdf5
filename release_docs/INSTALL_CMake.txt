@@ -13,6 +13,7 @@ Section V:    Options for building HDF5 Libraries with CMake command line
 Section VI:   CMake option defaults for HDF5
 Section VII:  User Defined Options for HDF5 Libraries with CMake
 Section VIII: User Defined Compile Flags for HDF5 Libraries with CMake
+Section IX:   Considerations for cross-compiling
 
 ************************************************************************
 
@@ -32,7 +33,8 @@ CMake version
    1. We suggest you obtain the latest CMake from the Kitware web site.
       The HDF5 1.10."X" product requires a minimum CMake version 3.12,
       where "X" is the current HDF5 release version. If you are using
-      VS2019, the minimum version is 3.15.
+      VS2019, the minimum version is 3.15. For VS2022, the minimum
+      version is 3.21.
 
 Note:
    To change the install prefix from the platform defaults initialize
@@ -65,8 +67,11 @@ External compression szip and zlib libraries:
     SZip.tar.gz
     ZLib.tar.gz
 
+External compression plugin libraries:
+    hdf5_plugins.tar.gz
+
 Examples Source package:
-    HDF5Examples-1.10.x-Source.tar.gz
+    HDF5Examples-2.0.x-Source.tar.gz
 
 Configuration files:
     HDF5config.cmake
@@ -92,6 +97,10 @@ To build HDF5 with the SZIP and ZLIB external libraries you will need to:
    5. From the "myhdfstuff" directory execute the CTest Script with the
       following options:
 
+      On 32-bit Windows with Visual Studio 2022, execute:
+         ctest -S HDF5config.cmake,BUILD_GENERATOR=VS2022 -C Release -VV -O hdf5.log
+      On 64-bit Windows with Visual Studio 2022, execute:
+         ctest -S HDF5config.cmake,BUILD_GENERATOR=VS202264 -C Release -VV -O hdf5.log
       On 32-bit Windows with Visual Studio 2019, execute:
          ctest -S HDF5config.cmake,BUILD_GENERATOR=VS2019 -C Release -VV -O hdf5.log
       On 64-bit Windows with Visual Studio 2019, execute:
@@ -100,10 +109,6 @@ To build HDF5 with the SZIP and ZLIB external libraries you will need to:
          ctest -S HDF5config.cmake,BUILD_GENERATOR=VS2017 -C Release -VV -O hdf5.log
       On 64-bit Windows with Visual Studio 2017, execute:
          ctest -S HDF5config.cmake,BUILD_GENERATOR=VS201764 -C Release -VV -O hdf5.log
-      On 32-bit Windows with Visual Studio 2015, execute:
-         ctest -S HDF5config.cmake,BUILD_GENERATOR=VS2015 -C Release -VV -O hdf5.log
-      On 64-bit Windows with Visual Studio 2015, execute:
-         ctest -S HDF5config.cmake,BUILD_GENERATOR=VS201564 -C Release -VV -O hdf5.log
       On Linux and Mac, execute:
          ctest -S HDF5config.cmake,BUILD_GENERATOR=Unix -C Release -VV -O hdf5.log
       The supplied build scripts are versions of the above.
@@ -293,8 +298,8 @@ IV. Further considerations
       B. Use source packages from an GIT server by adding the following CMake
          options:
             HDF5_ALLOW_EXTERNAL_SUPPORT:STRING="GIT"
-            ZLIB_GIT_URL:STRING="http://some_location/zlib"
-            SZIP_GIT_URL:STRING="http://some_location/szip"
+            ZLIB_GIT_URL:STRING="https://some_location/zlib"
+            SZIP_GIT_URL:STRING="https://some_location/szip"
          where "some_location" is the URL to the GIT repository. Also set
          CMAKE_BUILD_TYPE to the configuration type.
 
@@ -306,9 +311,51 @@ IV. Further considerations
             TGZPATH:STRING="some_location"
          where "some_location" is the URL or full path to the compressed
          file and ext is the type of compression file. Also set CMAKE_BUILD_TYPE
-         to the configuration type during configuration
+         to the configuration type during configuration. See the settings in the
+         config/cmake/cacheinit.cmake file HDF uses for testing.
 
-   3. If you are building on Apple Darwin platforms, you should add the
+      D. Use original source packages from a compressed file by adding the following
+         CMake options:
+            BUILD_SZIP_WITH_FETCHCONTENT:BOOL=ON
+            LIBAEC_TGZ_ORIGNAME:STRING="szip_src.ext"
+            LIBAEC_TGZ_ORIGPATH:STRING="some_location"
+
+            BUILD_ZLIB_WITH_FETCHCONTENT:BOOL=ON
+            ZLIB_TGZ_ORIGNAME:STRING="zlib_src.ext"
+            ZLIB_TGZ_ORIGPATH:STRING="some_location"
+
+            HDF5_ALLOW_EXTERNAL_SUPPORT:STRING="TGZ"
+         where "some_location" is the URL or full path to the compressed
+         file and ext is the type of compression file. The individual filters are
+         enabled by setting the BUILD_<filter>_WITH_FETCHCONTENT CMake variable to ON.
+         Also set CMAKE_BUILD_TYPE to the configuration type during configuration.
+         See the settings in the config/cmake/cacheinit.cmake file HDF uses for testing.
+
+         The files can also be retrieved from a local path if necessary
+            TGZPATH:STRING="some_location"
+         by setting
+            ZLIB_USE_LOCALCONTENT:BOOL=ON
+            LIBAEC_USE_LOCALCONTENT:BOOL=ON
+
+   3. If you plan to use compression plugins:
+      A. Use source packages from an GIT server by adding the following CMake
+         options:
+            HDF5_ALLOW_EXTERNAL_SUPPORT:STRING="GIT"
+            PLUGIN_GIT_URL:STRING="http://some_location/plugins"
+         where "some_location" is the URL to the GIT repository. Also set
+         CMAKE_BUILD_TYPE to the configuration type.
+
+      B. Use source packages from a compressed file by adding the following
+         CMake options:
+            HDF5_ALLOW_EXTERNAL_SUPPORT:STRING="TGZ"
+            PLUGIN_TGZ_NAME:STRING="plugin_src.ext"
+            TGZPATH:STRING="some_location"
+         where "some_location" is the URL or full path to the compressed
+         file and ext is the type of compression file. Also set CMAKE_BUILD_TYPE
+         to the configuration type during configuration. See the settings in the
+         config/cmake/cacheinit.cmake file HDF uses for testing.
+
+   4. If you are building on Apple Darwin platforms, you should add the
       following options:
           Compiler choice - use xcode by setting the ENV variables of CC and CXX
           Shared fortran is not supported, build static:
@@ -318,11 +365,11 @@ IV. Further considerations
             CTEST_USE_LAUNCHERS:BOOL=ON
             CMAKE_BUILD_WITH_INSTALL_RPATH:BOOL=OFF
 
-   4. Windows developers should install NSIS or WiX to create an install image with CPack.
+   5. Windows developers should install NSIS or WiX to create an install image with CPack.
       Visual Studio Express users will not be able to package HDF5 into
       an install image executable.
 
-   5. Developers can copy the config/cmake/cacheinit.cmake file and alter the
+   6. Developers can copy the config/cmake/cacheinit.cmake file and alter the
       the settings for the developers' environment. Then the only options needed
       on the command line are those options that are different. Example using HDF
       default cache file:
@@ -330,7 +377,7 @@ IV. Further considerations
                -DHDF5_ENABLE_SZIP_SUPPORT:BOOL=OFF -DHDF5_ENABLE_Z_LIB_SUPPORT:BOOL=OFF \
                -DCMAKE_BUILD_TYPE:STRING=Release ..
 
-   6. CMake uses a toolchain of utilities to compile, link libraries and
+   7. CMake uses a toolchain of utilities to compile, link libraries and
       create archives, and other tasks to drive the build. The toolchain
       utilities available are determined by the languages enabled. In normal
       builds, CMake automatically determines the toolchain for host builds
@@ -450,6 +497,7 @@ These five steps are described in detail below.
             * Visual Studio 15 2017
             * Visual Studio 15 2017 Win64
             * Visual Studio 16 2019
+            * Visual Studio 17 2022
 
         <options> is:
             * SZIP_INCLUDE_DIR:PATH=<path to szip includes directory>
@@ -474,13 +522,100 @@ These five steps are described in detail below.
                 set (HDF_TEST_EXPRESS "2" CACHE STRING "Control testing framework (0-3)" FORCE)
                 set (HDF5_ALLOW_EXTERNAL_SUPPORT "NO" CACHE STRING "Allow External Library Building (NO GIT TGZ)" FORCE)
                 set_property (CACHE HDF5_ALLOW_EXTERNAL_SUPPORT PROPERTY STRINGS NO GIT TGZ)
+                set (ZLIB_PACKAGE_NAME "zlib" CACHE STRING "Name of ZLIB package" FORCE)
                 set (ZLIB_TGZ_NAME "ZLib.tar.gz" CACHE STRING "Use ZLib from compressed file" FORCE)
+                set (ZLIB_TGZ_ORIGPATH "https://github.com/madler/zlib/releases/download/v1.2.13" CACHE STRING "Use ZLIB from original location" FORCE)
+                set (ZLIB_TGZ_ORIGNAME "zlib-1.2.13.tar.gz" CACHE STRING "Use ZLIB from original compressed file" FORCE)
+                set (ZLIB_USE_LOCALCONTENT OFF CACHE BOOL "Use local file for ZLIB FetchContent" FORCE)
+                set (SZIP_PACKAGE_NAME "szip" CACHE STRING "Name of SZIP package" FORCE)
+                set (LIBAEC_PACKAGE_NAME "libaec" CACHE STRING "Name of AEC SZIP package" FORCE)
                 set (SZIP_TGZ_NAME "SZip.tar.gz" CACHE STRING "Use SZip from compressed file" FORCE)
                 set (SZAEC_TGZ_NAME "LIBAEC.tar.gz" CACHE STRING "Use SZip AEC from compressed file" FORCE)
                 set (USE_LIBAEC ON CACHE BOOL "Use libaec szip replacement" FORCE)
+                set (LIBAEC_TGZ_ORIGPATH "https://github.com/MathisRosenhauer/libaec/releases/download/v1.0.6/libaec-1.0.6.tar.gz" CACHE STRING "Use LIBAEC from original location" FORCE)
+                set (LIBAEC_TGZ_ORIGNAME "libaec-v1.0.6.tar.gz" CACHE STRING "Use LIBAEC from original compressed file" FORCE)
+                set (LIBAEC_USE_LOCALCONTENT OFF CACHE BOOL "Use local file for LIBAEC FetchContent" FORCE)
+                #######################
+                # filter plugin options
+                #######################
+                set (PLUGIN_TGZ_NAME "hdf5_plugins.tar.gz" CACHE STRING "Use PLUGINS from compressed file" FORCE)
+                set (PLUGIN_PACKAGE_NAME "pl" CACHE STRING "Name of PLUGIN package" FORCE)
+                ############
+                # bitshuffle
+                ###########
+                set (BSHUF_GIT_URL "https://someurl/bitshuffle.git" CACHE STRING "Use BSHUF from HDF repository" FORCE)
+                set (BSHUF_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (BSHUF_TGZ_NAME "bitshuffle.tar.gz" CACHE STRING "Use BSHUF from compressed file" FORCE)
+                set (BSHUF_PACKAGE_NAME "bshuf" CACHE STRING "Name of BSHUF package" FORCE)
+                #######
+                # blosc
+                #######
+                set (BLOSC_GIT_URL "https://github.com/Blosc/c-blosc.git" CACHE STRING "Use BLOSC from Github" FORCE)
+                set (BLOSC_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (BLOSC_TGZ_NAME "c-blosc.tar.gz" CACHE STRING "Use BLOSC from compressed file" FORCE)
+                set (BLOSC_PACKAGE_NAME "blosc" CACHE STRING "Name of BLOSC package" FORCE)
+                set (ZLIB_GIT_URL "https://someurl/zlib.git" CACHE STRING "Use ZLIB from HDF repo" FORCE)
+                set (ZLIB_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (ZLIB_TGZ_NAME "ZLib.tar.gz" CACHE STRING "Use ZLib from compressed file" FORCE)
                 set (ZLIB_PACKAGE_NAME "zlib" CACHE STRING "Name of ZLIB package" FORCE)
-                set (LIBAEC_PACKAGE_NAME "libaec" CACHE STRING "Name of AEC SZIP package" FORCE)
-                set (SZIP_PACKAGE_NAME "szip" CACHE STRING "Name of SZIP package" FORCE)
+                #######
+                # bzip2
+                ######
+                #
+                set (BZ2_GIT_URL "https://someurl/bzip2.git" CACHE STRING "Use BZ2 from HDF repository" FORCE)
+                set (BZ2_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (BZ2_TGZ_NAME "BZ2.tar.gz" CACHE STRING "Use BZ2 from compressed file" FORCE)
+                set (BZ2_PACKAGE_NAME "bz2" CACHE STRING "Name of BZ2 package" FORCE)
+                #######
+                # fpzip
+                #######
+                set (FPZIP_GIT_URL "https://github.com/LLNL/fpzip" CACHE STRING "Use FPZIP from github repository" FORCE)
+                set (FPZIP_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (FPZIP_TGZ_NAME "fpzip.tar.gz" CACHE STRING "Use FPZIP from compressed file" FORCE)
+                set (FPZIP_PACKAGE_NAME "fpzip" CACHE STRING "Name of FPZIP package" FORCE)
+                ######
+                # jpeg
+                ######
+                set (JPEG_GIT_URL "https://someurl/jpeg.git" CACHE STRING "Use JPEG from HDF repository" FORCE)
+                set (JPEG_GIT_BRANCH "jpeg9c" CACHE STRING "" FORCE)
+                #set (JPEG_TGZ_NAME "JPEG9c.tar.gz" CACHE STRING "Use JPEG from compressed file" FORCE)
+                set (JPEG_TGZ_NAME "JPEG.tar.gz" CACHE STRING "Use JPEG from compressed file" FORCE)
+                set (JPEG_PACKAGE_NAME "jpeg" CACHE STRING "Name of JPEG package" FORCE)
+                ######
+                # lz4
+                ######
+                set (BUILD_LZ4_LIBRARY_SOURCE ON CACHE BOOL "build the lz4 library within the plugin" FORCE)
+                set (LZ4_GIT_URL "https://someurl/lz4.git" CACHE STRING "Use LZ4 from HDF repository" FORCE)
+                set (LZ4_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (LZ4_TGZ_NAME "lz4.tar.gz" CACHE STRING "Use LZ4 from compressed file" FORCE)
+                set (LZ4_PACKAGE_NAME "lz4" CACHE STRING "Name of LZ4 package" FORCE)
+                ######
+                # lzf
+                ######
+                set (LZF_GIT_URL "https://someurl/lzf.git" CACHE STRING "Use LZF from HDF repository" FORCE)
+                set (LZF_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (LZF_TGZ_NAME "lzf.tar.gz" CACHE STRING "Use LZF from compressed file" FORCE)
+                set (LZF_PACKAGE_NAME "lzf" CACHE STRING "Name of LZF package" FORCE)
+                ########
+                # mafisc
+                ########
+                #set (BUILD_MAFISC_LIBRARY_SOURCE OFF CACHE BOOL "build the mafisc library within the plugin" FORCE)
+                #set (MAFISC_PACKAGE_NAME "mafisc" CACHE STRING "Name of MAFISC package" FORCE)
+                ######
+                # szf
+                ######
+                set (SZF_GIT_URL "https://github.com/disheng222/SZ" CACHE STRING "Use SZ from github repository" FORCE)
+                set (SZF_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (SZF_TGZ_NAME "szf.tar.gz" CACHE STRING "Use SZ from compressed file" FORCE)
+                set (SZF_PACKAGE_NAME "szf" CACHE STRING "Name of SZ package" FORCE)
+                ######
+                # zfp
+                ######
+                set (ZFP_GIT_URL "https://github.com/LLNL/zfp.git" CACHE STRING "Use ZFP from Github" FORCE)
+                set (ZFP_GIT_BRANCH "master" CACHE STRING "" FORCE)
+                set (ZFP_TGZ_NAME "zfp.tar.gz" CACHE STRING "Use ZFP from compressed file" FORCE)
+                set (ZFP_PACKAGE_NAME "zfp" CACHE STRING "Name of ZFP package" FORCE)
+
 
    2. Configure the cache settings
 
@@ -532,7 +667,7 @@ These five steps are described in detail below.
            file in your build directory. Be sure to select either Debug or
            Release and build the solution.
 
-      3.2.1  The external libraries (zlib and szip) can be configured
+      3.2.1  The external libraries (zlib, szip and plugins) can be configured
            to allow building the libraries by downloading from a GIT repository.
            The option is 'HDF5_ALLOW_EXTERNAL_SUPPORT'; by adding the following
            configuration option:
@@ -541,10 +676,11 @@ These five steps are described in detail below.
            The options to control the GIT URL (config/cmake/cacheinit.cmake file) are:
                ZLIB_GIT_URL:STRING="http://${git_url}/zlib"
                SZIP_GIT_URL:STRING="http://${git_url}/szip"
+               PLUGIN_GIT_URL:STRING="http://${git_url}/plugin"
            ${git_url} should be changed to your location. Also define CMAKE_BUILD_TYPE
            to be the configuration type.
 
-      3.2.2  Or the external libraries (zlib and szip) can be configured
+      3.2.2  Or the external libraries (zlib, szip and plugins) can be configured
            to allow building the libraries by using a compressed file.
            The option is 'HDF5_ALLOW_EXTERNAL_SUPPORT' and is enabled by
            adding the following configuration option:
@@ -554,7 +690,8 @@ These five steps are described in detail below.
            file) are:
                ZLIB_TGZ_NAME:STRING="zlib_src.ext"
                SZIP_TGZ_NAME:STRING="szip_src.ext"
-               LIBAEC_TGZ_NAME:STRING="liaec_src.ext"
+               LIBAEC_TGZ_NAME:STRING="libaec_src.ext"
+               PLUGIN_TGZ_NAME:STRING="plugin_src.ext"
                TGZPATH:STRING="some_location"
             where "some_location/xxxx_src.ext" is the URL or full path to
             the compressed file and where ext is the type of the compression
@@ -629,14 +766,40 @@ BUILD_STATIC_EXECS "Build Static Executables"  OFF
 BUILD_TESTING      "Build HDF5 Unit Testing"   ON
 
 ---------------- HDF5 Build Options ---------------------
-HDF5_BUILD_CPP_LIB  "Build HDF5 C++ Library"         ON
+HDF5_BUILD_CPP_LIB  "Build HDF5 C++ Library"         OFF
 HDF5_BUILD_EXAMPLES "Build HDF5 Library Examples"    ON
 HDF5_BUILD_FORTRAN  "Build FORTRAN support"          OFF
 HDF5_BUILD_JAVA     "Build JAVA support"             OFF
 HDF5_BUILD_HL_LIB   "Build HIGH Level HDF5 Library"  ON
 HDF5_BUILD_TOOLS    "Build HDF5 Tools"               ON
+HDF5_BUILD_HL_TOOLS "Build HIGH Level HDF5 Tools"    ON
+HDF5_BUILD_HL_GIF_TOOLS "Build HIGH Level HDF5 GIF Tools"    OFF
+
+---------------- HDF5 Folder Build Options ---------------------
+Defaults relative to $<INSTALL_PREFIX>
+HDF5_INSTALL_BIN_DIR      "bin"
+HDF5_INSTALL_LIB_DIR      "lib"
+HDF5_INSTALL_INCLUDE_DIR  "include"
+HDF5_INSTALL_MODULE_DIR   "mod"
+HDF5_INSTALL_CMAKE_DIR    "cmake"
+if (MSVC)
+  HDF5_INSTALL_DATA_DIR   "."
+else ()
+  HDF5_INSTALL_DATA_DIR   "share"
+HDF5_INSTALL_DOC_DIR      "HDF5_INSTALL_DATA_DIR"
+
+Defaults as defined by the `GNU Coding Standards`
+HDF5_INSTALL_BIN_DIR      "bin"
+HDF5_INSTALL_LIB_DIR      "lib"
+HDF5_INSTALL_INCLUDE_DIR  "include"
+HDF5_INSTALL_MODULE_DIR   "HDF5_INSTALL_INCLUDE_DIR/mod"
+HDF5_INSTALL_CMAKE_DIR    "HDF5_INSTALL_LIB_DIR/cmake"
+HDF5_INSTALL_DATA_DIR     "share"
+HDF5_INSTALL_DOC_DIR      "HDF5_INSTALL_DATA_DIR/doc/hdf5"
 
 ---------------- HDF5 Advanced Options ---------------------
+HDF5_USE_GNU_DIRS              "TRUE to use GNU Coding Standard install directory variables,
+                                FALSE to use historical settings"                             FALSE
 ONLY_SHARED_LIBS               "Only Build Shared Libraries"                                  OFF
 ALLOW_UNSUPPORTED              "Allow unsupported combinations of configure options"          OFF
 HDF5_EXTERNAL_LIB_PREFIX       "Use prefix for custom library naming."                        ""
@@ -648,7 +811,6 @@ HDF5_ENABLE_DEBUG_APIS         "Turn on extra debug output in all packages"     
 HDF5_ENABLE_DEPRECATED_SYMBOLS "Enable deprecated public API symbols"                         ON
 HDF5_ENABLE_DIRECT_VFD         "Build the Direct I/O Virtual File Driver"                     OFF
 HDF5_ENABLE_EMBEDDED_LIBINFO   "embed library info into executables"                          ON
-HDF5_ENABLE_HSIZET             "Enable datasets larger than memory"                           ON
 HDF5_ENABLE_PARALLEL           "Enable parallel build (requires MPI)"                         OFF
 HDF5_ENABLE_PREADWRITE         "Use pread/pwrite in sec2/log/core VFDs in place of read/write (when available)" ON
 HDF5_ENABLE_TRACE              "Enable API tracing capability"                                OFF
@@ -664,7 +826,7 @@ HDF5_BUILD_FRAMEWORKS          "TRUE to build as frameworks libraries,
                                 FALSE to build according to BUILD_SHARED_LIBS"                FALSE
 HDF5_PACKAGE_EXTLIBS           "CPACK - include external libraries"                           OFF
 HDF5_STRICT_FORMAT_CHECKS      "Whether to perform strict file format checks"                 OFF
-HDF_TEST_EXPRESS               "Control testing framework (0-3)"                              "0"
+HDF_TEST_EXPRESS               "Control testing framework (0-3)"                              "3"
 HDF5_TEST_VFD                  "Execute tests with different VFDs"                            OFF
 HDF5_TEST_PASSTHROUGH_VOL      "Execute tests with different passthrough VOL connectors"      OFF
 DEFAULT_API_VERSION            "Enable default API (v16, v18, v110)"                          "v110"
@@ -672,6 +834,8 @@ HDF5_USE_FOLDERS               "Enable folder grouping of projects in IDEs."    
 HDF5_WANT_DATA_ACCURACY        "IF data accuracy is guaranteed during data conversions"       ON
 HDF5_WANT_DCONV_EXCEPTION      "exception handling functions is checked during data conversions" ON
 HDF5_ENABLE_THREADSAFE         "Enable Threadsafety"                                          OFF
+HDF5_MSVC_NAMING_CONVENTION    "Use MSVC Naming conventions for Shared Libraries"             OFF
+HDF5_MINGW_STATIC_GCC_LIBS     "Statically link libgcc/libstdc++"                             OFF
 if (APPLE)
     HDF5_BUILD_WITH_INSTALL_NAME "Build with library install_name set to the installation path"  OFF
 if (CMAKE_BUILD_TYPE MATCHES Debug)
@@ -684,11 +848,18 @@ if (HDF5_BUILD_FORTRAN)
     if (BUILD_SHARED_LIBS AND NOT BUILD_STATIC_LIBS) default HDF5_INSTALL_MOD_FORTRAN is SHARED
     if (NOT BUILD_SHARED_LIBS AND BUILD_STATIC_LIBS) default HDF5_INSTALL_MOD_FORTRAN is STATIC
     if (NOT BUILD_SHARED_LIBS AND NOT BUILD_STATIC_LIBS) default HDF5_INSTALL_MOD_FORTRAN is SHARED
+HDF5_BUILD_DOC                 "Build documentation"                              OFF
+HDF5_ENABLE_ANALYZER_TOOLS     "enable the use of Clang tools"                    OFF
+HDF5_ENABLE_SANITIZERS         "execute the Clang sanitizer"                      OFF
+HDF5_ENABLE_FORMATTERS         "format source files"                              OFF
+TEST_SHELL_SCRIPTS             "Enable shell script tests"                        ON
 
 ---------------- External Library Options ---------------------
 HDF5_ALLOW_EXTERNAL_SUPPORT "Allow External Library Building (NO GIT TGZ)"        "NO"
+HDF5_ENABLE_PLUGIN_SUPPORT  "Enable PLUGIN Filters"                               OFF
 HDF5_ENABLE_SZIP_SUPPORT    "Use SZip Filter"                                     OFF
 HDF5_ENABLE_Z_LIB_SUPPORT   "Enable Zlib Filters"                                 OFF
+PLUGIN_USE_EXTERNAL         "Use External Library Building for PLUGINS"           0
 ZLIB_USE_EXTERNAL           "Use External Library Building for ZLIB"              0
 SZIP_USE_EXTERNAL           "Use External Library Building for SZIP"              0
 if (HDF5_ENABLE_SZIP_SUPPORT)
@@ -699,12 +870,24 @@ if (WINDOWS)
 else ()
     H5_DEFAULT_PLUGINDIR    "/usr/local/hdf5/lib/plugin"
 endif ()
+if (BUILD_SZIP_WITH_FETCHCONTENT)
+    LIBAEC_TGZ_ORIGPATH       "Use LIBAEC from original location"        "https://github.com/MathisRosenhauer/libaec/releases/download/v1.0.6/libaec-1.0.6.tar.gz"
+    LIBAEC_TGZ_ORIGNAME       "Use LIBAEC from original compressed file" "libaec-v1.0.6.tar.gz"
+    LIBAEC_USE_LOCALCONTENT   "Use local file for LIBAEC FetchContent"    OFF
+if (BUILD_ZLIB_WITH_FETCHCONTENT)
+    ZLIB_TGZ_ORIGPATH         "Use ZLIB from original location"        "https://github.com/madler/zlib/releases/download/v1.2.13"
+    ZLIB_TGZ_ORIGNAME         "Use ZLIB from original compressed file" "zlib-1.2.13.tar.gz"
+    ZLIB_USE_LOCALCONTENT     "Use local file for ZLIB FetchContent"    OFF
 
 NOTE:
   The BUILD_STATIC_EXECS ("Build Static Executables") option is only valid
   on some unix operating systems. It adds the "-static" flag to cflags. This
   flag is not available on windows and some modern linux systems will
   ignore the flag.
+
+NOTE:
+  The HDF5_USE_GNU_DIRS option is usually recommended for linux platforms, but may
+  be useful on other platforms. See the CMake documentation for more details.
 
   ---------------- Unsupported Library Options ---------------------
     The threadsafe, C++ and Java interfaces are not compatible
@@ -757,6 +940,86 @@ is run without a debugger attached.
 The HDF5_ENABLE_COVERAGE option will add "-g -O0 -fprofile-arcs -ftest-coverage"
 to CMAKE_C_FLAGS.
 
+
+========================================================================
+IX:   Considerations for cross-compiling
+========================================================================
+
+Cross-compiling has several consequences for CMake:
+    CMake cannot automatically detect the target platform.
+    CMake cannot find libraries and headers in the default system directories.
+    Executables built during cross compiling cannot be executed.
+
+Cross-compiling support means that CMake separates information about the
+build platform and target platform and gives the user mechanisms to solve
+cross-compiling issues without additional requirements such as running
+virtual machines, etc.
+
+CMake uses a toolchain of utilities to compile, link libraries and create
+archives, and other tasks to drive the build. The toolchain utilities
+available are determined by the languages enabled.
+
+CMake stores info about the current toolchain in the following variables:
+    CMAKE_C_COMPILER,
+    CMAKE_CXX_COMPILER.
+They contain paths to the C and C++ compilers respectively. This is usually
+enough on desktop platforms. In the case of embedded systems, a custom
+linker and assembler setting may be needed. In more complex projects
+you may need to additionally specify binaries to other parts of the toolchain
+(size, ranlib, objcopy…). All these tools should be set in the corresponding
+variables:
+    CMAKE_AR,
+    CMAKE_ASM_COMPILER,
+    CMAKE_LINKER,
+    CMAKE_OBJCOPY,
+    CMAKE_RANLIB
+
+As for the host and target operating systems, CMake stores their names in the
+following variables:
+    CMAKE_HOST_SYSTEM_NAME – name of the platform, on which CMake is running (host platform).
+        On major operating systems this is set to the Linux, Windows or
+        Darwin (MacOS) value.
+    CMAKE_SYSTEM_NAME – name of the platform, for which we are building (target platform).
+        By default, this value is the same as CMAKE_HOST_SYSTEM_NAME, which
+        means that we are building for the local platform (no cross-compilation).
+
+Put the toolchain variables into a separate file (e.g. <toolchain_name>.cmake)
+and set CMAKE_TOOLCHAIN_FILE variable to the path of that file.
+If cmake is invoked with the command line parameter:
+    --toolchain path/to/file
+or
+    -DCMAKE_TOOLCHAIN_FILE=path/to/file
+the file will be loaded early to set values for the compilers. The
+CMAKE_CROSSCOMPILING variable is set to true when CMake is cross-compiling.
+
+Structure of the toolchain file
+-------------------------------
+In fact, the toolchain file doesn’t have any structure. You can put anything you
+want there. But the best practice is to define at least these settings:
+path to the toolchain binaries (C compiler, C++ compiler, linker, etc.)
+name of the target platform (and optionally target processor architecture)
+required compilation and linking flags on that particular platform
+toolchain sysroot settings
+
+It is recommended that you set the CMAKE_FIND_ROOT_PATH variable to a path where
+you have an exact copy of the root filesystem you have on your target device (with
+libraries and binaries pre-compiled for the target processor).
+
+References:
+    https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html
+    https://gitlab.com/embeddedlinux/libs/platform
+    https://discourse.cmake.org/t/cross-compile-for-aarch64-on-ubuntu/2161/10
+    https://stackoverflow.com/questions/54539682/how-to-set-up-cmake-to-cross-compile-with-clang-for-arm-embedded-on-windows?rq=1
+    https://developer.android.com/ndk/guides/cmake
+
+Predefine H5Tinit.c file
+-------------------------------
+The one file that needs to be pre-generated is the H5Tinit.c file. The variables
+indicated in the error log (see above) are the variables that need to match the target system.
+
+The HDF5 CMake variables;
+    HDF5_USE_PREGEN: set this to true
+    HDF5_USE_PREGEN_DIR: set this path to the preset H5Tinit.c file
 
 ========================================================================
 For further assistance, send email to help@hdfgroup.org

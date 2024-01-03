@@ -72,14 +72,14 @@ Index: hdf5/src/H5Tvlen.c
 ===================================================================
 --- hdf5.orig/src/H5Tvlen.c
 +++ hdf5/src/H5Tvlen.c
-@@ -1086,35 +1086,64 @@ H5T_vlen_reclaim_recurse(void *elem, con
+@@ -1062,36 +1062,65 @@ H5T_vlen_reclaim_recurse(void *elem, con
          case H5T_VLEN:
              /* Recurse on the VL information if it's VL, compound, enum or array, then free VL sequence */
-             if(dt->shared->u.vlen.type == H5T_VLEN_SEQUENCE) {
+             if (dt->shared->u.vlen.type == H5T_VLEN_SEQUENCE) {
 +                void *p;
 +                size_t len;
 +#ifdef H5_NO_ALIGNMENT_RESTRICTIONS
-                 hvl_t *vl = (hvl_t *)elem;    /* Temp. ptr to the vl info */
+                 hvl_t *vl = (hvl_t *)elem; /* Temp. ptr to the vl info */
 +                p = vl->p;
 +                len = vl->len;
 +#else
@@ -90,19 +90,19 @@ Index: hdf5/src/H5Tvlen.c
 +#endif
  
                  /* Check if there is anything actually in this sequence */
--                if(vl->len!=0) {
-+                if(len!=0) {
+-                if (vl->len != 0) {
++                if (len!=0) {
                      /* Recurse if it's VL, array, enum or compound */
-                     if(H5T_IS_COMPLEX(dt->shared->parent->shared->type)) {
-                         void *off;     /* offset of field */
+                     if (H5T_IS_COMPLEX(dt->shared->parent->shared->type)) {
+                         void *off; /* offset of field */
  
                          /* Calculate the offset of each array element and recurse on it */
--                        while(vl->len > 0) {
+-                        while (vl->len > 0) {
 -                            off = ((uint8_t *)vl->p) + (vl->len - 1) * dt->shared->parent->shared->size;
--                            if(H5T_vlen_reclaim_recurse(off, dt->shared->parent, free_func, free_info) < 0)
-+                        while(len > 0) {
+-                            if (H5T_vlen_reclaim_recurse(off, dt->shared->parent, free_func, free_info) < 0)
++                        while (len > 0) {
 +                            off = ((uint8_t *)p) + (len - 1) * dt->shared->parent->shared->size;
-+                            if(H5T_vlen_reclaim_recurse(off, dt->shared->parent, free_func, free_info) < 0) {
++                            if (H5T_vlen_reclaim_recurse(off, dt->shared->parent, free_func, free_info) < 0) {
 +#ifdef H5_NO_ALIGNMENT_RESTRICTIONS
 +                                vl->len = len;
 +#else
@@ -118,17 +118,18 @@ Index: hdf5/src/H5Tvlen.c
 +#else
 +                        HDmemset(((uint8_t *)elem)+HOFFSET(hvl_t, len), 0, sizeof(size_t));
 +#endif
-                     } /* end if */
+                     }     /* end if */
  
                      /* Free the VL sequence */
-                     if(free_func != NULL)
+                     if (free_func != NULL)
 -                        (*free_func)(vl->p, free_info);
 +                        (*free_func)(p, free_info);
                      else
 -                        HDfree(vl->p);
 +                        HDfree(p);
                  } /* end if */
-             } else if(dt->shared->u.vlen.type == H5T_VLEN_STRING) {
+             }
+             else if (dt->shared->u.vlen.type == H5T_VLEN_STRING) {
                  /* Free the VL string */
 +#ifdef H5_NO_ALIGNMENT_RESTRICTIONS
 +                char *s=*(char **)elem;   /* Pointer to the user's string information */
@@ -137,12 +138,12 @@ Index: hdf5/src/H5Tvlen.c
 +                HDmemcpy(&s, elem, sizeof(char *));
 +#endif
 +
-                 if(free_func != NULL)
+                 if (free_func != NULL)
 -                    (*free_func)(*(char **)elem, free_info);
 +                    (*free_func)(s, free_info);
                  else
 -                    HDfree(*(char **)elem);
 +                    HDfree(s);
-             } else {
+             }
+             else {
                  HDassert(0 && "Invalid VL type");
-             } /* end else */

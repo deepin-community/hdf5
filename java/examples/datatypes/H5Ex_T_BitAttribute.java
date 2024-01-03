@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -25,19 +24,20 @@ import hdf.hdf5lib.H5;
 import hdf.hdf5lib.HDF5Constants;
 
 public class H5Ex_T_BitAttribute {
-    private static String FILENAME = "H5Ex_T_BitAttribute.h5";
-    private static String DATASETNAME = "DS1";
+    private static String FILENAME      = "H5Ex_T_BitAttribute.h5";
+    private static String DATASETNAME   = "DS1";
     private static String ATTRIBUTENAME = "A1";
-    private static final int DIM0 = 4;
-    private static final int DIM1 = 7;
-    private static final int RANK = 2;
+    private static final int DIM0       = 4;
+    private static final int DIM1       = 7;
+    private static final int RANK       = 2;
 
-    private static void CreateDataset() {
-        long file_id = -1;
-        long dataspace_id = -1;
-        long dataset_id = -1;
-        long attribute_id = -1;
-        long[] dims = { DIM0, DIM1 };
+    private static void CreateDataset()
+    {
+        long file_id      = HDF5Constants.H5I_INVALID_HID;
+        long dataspace_id = HDF5Constants.H5I_INVALID_HID;
+        long dataset_id   = HDF5Constants.H5I_INVALID_HID;
+        long attribute_id = HDF5Constants.H5I_INVALID_HID;
+        long[] dims       = {DIM0, DIM1};
         int[][] dset_data = new int[DIM0][DIM1];
 
         // Initialize data.
@@ -45,15 +45,15 @@ public class H5Ex_T_BitAttribute {
             for (int jndx = 0; jndx < DIM1; jndx++) {
                 dset_data[indx][jndx] = 0;
                 dset_data[indx][jndx] |= (indx * jndx - jndx) & 0x03; /* Field "A" */
-                dset_data[indx][jndx] |= (indx & 0x03) << 2; /* Field "B" */
-                dset_data[indx][jndx] |= (jndx & 0x03) << 4; /* Field "C" */
+                dset_data[indx][jndx] |= (indx & 0x03) << 2;          /* Field "B" */
+                dset_data[indx][jndx] |= (jndx & 0x03) << 4;          /* Field "C" */
                 dset_data[indx][jndx] |= ((indx + jndx) & 0x03) << 6; /* Field "D" */
             }
 
         // Create a new file using default properties.
         try {
             file_id = H5.H5Fcreate(FILENAME, HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT,
-                    HDF5Constants.H5P_DEFAULT);
+                                   HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -64,9 +64,10 @@ public class H5Ex_T_BitAttribute {
             dataspace_id = H5.H5Screate(HDF5Constants.H5S_SCALAR);
             if (dataspace_id >= 0) {
                 dataset_id = H5.H5Dcreate(file_id, DATASETNAME, HDF5Constants.H5T_STD_I32LE, dataspace_id,
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                                          HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                          HDF5Constants.H5P_DEFAULT);
                 H5.H5Sclose(dataspace_id);
-                dataspace_id = -1;
+                dataspace_id = HDF5Constants.H5I_INVALID_HID;
             }
         }
         catch (Exception e) {
@@ -85,8 +86,9 @@ public class H5Ex_T_BitAttribute {
         // Create the attribute and write the array data to it.
         try {
             if ((dataset_id >= 0) && (dataspace_id >= 0))
-                attribute_id = H5.H5Acreate(dataset_id, ATTRIBUTENAME, HDF5Constants.H5T_STD_B8BE, dataspace_id,
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                attribute_id =
+                    H5.H5Acreate(dataset_id, ATTRIBUTENAME, HDF5Constants.H5T_STD_B8BE, dataspace_id,
+                                 HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -135,15 +137,15 @@ public class H5Ex_T_BitAttribute {
         catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    private static void ReadDataset() {
-        long file_id = -1;
-        long dataspace_id = -1;
-        long dataset_id = -1;
-        long attribute_id = -1;
-        long[] dims = { DIM0, DIM1 };
+    private static void ReadDataset()
+    {
+        long file_id      = HDF5Constants.H5I_INVALID_HID;
+        long dataspace_id = HDF5Constants.H5I_INVALID_HID;
+        long dataset_id   = HDF5Constants.H5I_INVALID_HID;
+        long attribute_id = HDF5Constants.H5I_INVALID_HID;
+        long[] dims       = {DIM0, DIM1};
         int[][] dset_data;
 
         // Open an existing file.
@@ -166,7 +168,7 @@ public class H5Ex_T_BitAttribute {
         try {
             if (dataset_id >= 0)
                 attribute_id = H5.H5Aopen_by_name(dataset_id, ".", ATTRIBUTENAME, HDF5Constants.H5P_DEFAULT,
-                        HDF5Constants.H5P_DEFAULT);
+                                                  HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -191,7 +193,7 @@ public class H5Ex_T_BitAttribute {
 
         // Allocate array of pointers to two-dimensional arrays (the
         // elements of the dataset.
-        dset_data = new int[(int) dims[0]][(int) (dims[1])];
+        dset_data = new int[(int)dims[0]][(int)(dims[1])];
 
         // Read data.
         try {
@@ -250,10 +252,10 @@ public class H5Ex_T_BitAttribute {
         catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         H5Ex_T_BitAttribute.CreateDataset();
         // Now we begin the read section of this example. Here we assume
         // the dataset and array have the same name and rank, but can have
@@ -261,5 +263,4 @@ public class H5Ex_T_BitAttribute {
         // data using malloc().
         H5Ex_T_BitAttribute.ReadDataset();
     }
-
 }

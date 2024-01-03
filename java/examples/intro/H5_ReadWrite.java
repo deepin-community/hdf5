@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -21,16 +20,17 @@ import hdf.hdf5lib.H5;
 import hdf.hdf5lib.HDF5Constants;
 
 public class H5_ReadWrite {
-    private static String FILENAME = "H5_ReadWrite.h5";
+    private static String FILENAME    = "H5_ReadWrite.h5";
     private static String DATASETNAME = "dset";
-    private static final int DIM_X = 4;
-    private static final int DIM_Y = 6;
+    private static final int DIM_X    = 4;
+    private static final int DIM_Y    = 6;
 
-    private static void ReadWriteDataset() {
-        long file_id = -1;
-        long dataspace_id = -1;
-        long dataset_id = -1;
-        long[] dims = { DIM_X, DIM_Y };
+    private static void ReadWriteDataset()
+    {
+        long file_id      = HDF5Constants.H5I_INVALID_HID;
+        long dataspace_id = HDF5Constants.H5I_INVALID_HID;
+        long dataset_id   = HDF5Constants.H5I_INVALID_HID;
+        long[] dims       = {DIM_X, DIM_Y};
         int[][] dset_data = new int[DIM_X][DIM_Y];
 
         // Initialize the dataset.
@@ -41,7 +41,7 @@ public class H5_ReadWrite {
         // Create a new file using default properties.
         try {
             file_id = H5.H5Fcreate(FILENAME, HDF5Constants.H5F_ACC_TRUNC, HDF5Constants.H5P_DEFAULT,
-                    HDF5Constants.H5P_DEFAULT);
+                                   HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -58,8 +58,9 @@ public class H5_ReadWrite {
         // Create the dataset.
         try {
             if ((file_id >= 0) && (dataspace_id >= 0))
-                dataset_id = H5.H5Dcreate(file_id, "/" + DATASETNAME, HDF5Constants.H5T_STD_I32BE, dataspace_id,
-                        HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT);
+                dataset_id = H5.H5Dcreate(file_id, "/" + DATASETNAME, HDF5Constants.H5T_STD_I32BE,
+                                          dataspace_id, HDF5Constants.H5P_DEFAULT, HDF5Constants.H5P_DEFAULT,
+                                          HDF5Constants.H5P_DEFAULT);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -68,8 +69,8 @@ public class H5_ReadWrite {
         // Write the dataset.
         try {
             if (dataset_id >= 0)
-                H5.H5Dwrite(dataset_id, HDF5Constants.H5T_NATIVE_INT, HDF5Constants.H5S_ALL, HDF5Constants.H5S_ALL,
-                        HDF5Constants.H5P_DEFAULT, dset_data);
+                H5.H5Dwrite(dataset_id, HDF5Constants.H5T_NATIVE_INT, HDF5Constants.H5S_ALL,
+                            HDF5Constants.H5S_ALL, HDF5Constants.H5P_DEFAULT, dset_data);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -77,8 +78,8 @@ public class H5_ReadWrite {
 
         try {
             if (dataset_id >= 0)
-                H5.H5Dread(dataset_id, HDF5Constants.H5T_NATIVE_INT, HDF5Constants.H5S_ALL, HDF5Constants.H5S_ALL,
-                        HDF5Constants.H5P_DEFAULT, dset_data);
+                H5.H5Dread(dataset_id, HDF5Constants.H5T_NATIVE_INT, HDF5Constants.H5S_ALL,
+                           HDF5Constants.H5S_ALL, HDF5Constants.H5P_DEFAULT, dset_data);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -103,8 +104,5 @@ public class H5_ReadWrite {
         }
     }
 
-    public static void main(String[] args) {
-        H5_ReadWrite.ReadWriteDataset();
-    }
-
+    public static void main(String[] args) { H5_ReadWrite.ReadWriteDataset(); }
 }

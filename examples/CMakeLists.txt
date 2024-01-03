@@ -40,9 +40,17 @@ set (examples
     h5_vds-percival-unlim-maxmin
 )
 
+if (H5_HAVE_PARALLEL)
+  set (parallel_examples
+    ph5example
+    ph5_filtered_writes
+    ph5_filtered_writes_no_sel
+  )
+endif ()
+
 foreach (example ${examples})
   add_executable (${example} ${HDF5_EXAMPLES_SOURCE_DIR}/${example}.c)
-  target_include_directories (${example} PRIVATE "${HDF5_SRC_DIR};${HDF5_BINARY_DIR};$<$<BOOL:${HDF5_ENABLE_PARALLEL}>:${MPI_C_INCLUDE_DIRS}>")
+  target_include_directories (${example} PRIVATE "${HDF5_SRC_INCLUDE_DIRS};${HDF5_SRC_BINARY_DIR};$<$<BOOL:${HDF5_ENABLE_PARALLEL}>:${MPI_C_INCLUDE_DIRS}>")
   if (NOT BUILD_SHARED_LIBS)
     TARGET_C_PROPERTIES (${example} STATIC)
     target_link_libraries (${example} PRIVATE ${HDF5_LIB_TARGET})
@@ -51,19 +59,35 @@ foreach (example ${examples})
     target_link_libraries (${example} PRIVATE ${HDF5_LIBSH_TARGET})
   endif ()
   set_target_properties (${example} PROPERTIES FOLDER examples)
+
+  #-----------------------------------------------------------------------------
+  # Add Target to clang-format
+  #-----------------------------------------------------------------------------
+  if (HDF5_ENABLE_FORMATTERS)
+    clang_format (HDF5_EXAMPLES_${example}_FORMAT ${example})
+  endif ()
 endforeach ()
 
 if (H5_HAVE_PARALLEL)
-  add_executable (ph5example ${HDF5_EXAMPLES_SOURCE_DIR}/ph5example.c)
-  target_include_directories (ph5example PRIVATE "${HDF5_SRC_DIR};${HDF5_BINARY_DIR};$<$<BOOL:${HDF5_ENABLE_PARALLEL}>:${MPI_C_INCLUDE_DIRS}>")
-  if (NOT BUILD_SHARED_LIBS)
-    TARGET_C_PROPERTIES (ph5example STATIC)
-    target_link_libraries (ph5example PRIVATE ${HDF5_LIB_TARGET} ${MPI_C_LIBRARIES})
-  else ()
-    TARGET_C_PROPERTIES (ph5example SHARED)
-    target_link_libraries (ph5example PRIVATE ${HDF5_LIBSH_TARGET} ${MPI_C_LIBRARIES})
-  endif ()
-  set_target_properties (ph5example PROPERTIES FOLDER examples)
+  foreach (parallel_example ${parallel_examples})
+    add_executable (${parallel_example} ${HDF5_EXAMPLES_SOURCE_DIR}/${parallel_example}.c)
+    target_include_directories (${parallel_example} PRIVATE "${HDF5_SRC_INCLUDE_DIRS};${HDF5_SRC_BINARY_DIR};$<$<BOOL:${HDF5_ENABLE_PARALLEL}>:${MPI_C_INCLUDE_DIRS}>")
+    if (NOT BUILD_SHARED_LIBS)
+      TARGET_C_PROPERTIES (${parallel_example} STATIC)
+      target_link_libraries (${parallel_example} PRIVATE ${HDF5_LIB_TARGET} MPI::MPI_C)
+    else ()
+      TARGET_C_PROPERTIES (${parallel_example} SHARED)
+      target_link_libraries (${parallel_example} PRIVATE ${HDF5_LIBSH_TARGET} MPI::MPI_C)
+    endif ()
+    set_target_properties (${parallel_example} PROPERTIES FOLDER examples)
+
+    #-----------------------------------------------------------------------------
+    # Add Target to clang-format
+    #-----------------------------------------------------------------------------
+    if (HDF5_ENABLE_FORMATTERS)
+      clang_format (HDF5_EXAMPLES_${parallel_example}_FORMAT ${parallel_example})
+    endif ()
+  endforeach ()
 endif ()
 
 if (BUILD_TESTING AND HDF5_TEST_EXAMPLES)

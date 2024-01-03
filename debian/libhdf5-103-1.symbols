@@ -427,9 +427,16 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5D__chunk_dump_index@HDF5_SERIAL_1.8.7 1.8.13
  H5D__chunk_file_alloc@HDF5_SERIAL_1.10.2 1.10.2
  H5D__chunk_format_convert@HDF5_SERIAL_1.10.0 1.10.0
+ H5D__chunk_index_empty@HDF5_SERIAL_1.10.10 1.10.10
  H5D__chunk_is_data_cached@HDF5_SERIAL_1.10.6 1.10.6
+ H5D__chunk_is_partial_edge_chunk@HDF5_SERIAL_1.10.10 1.10.10
  H5D__chunk_is_space_alloc@HDF5_SERIAL_1.8.7 1.8.13
+ H5D__chunk_iter@HDF5_SERIAL_1.10.10 1.10.10
  H5D__chunk_lookup@HDF5_SERIAL_1.8.7 1.8.13
+ H5D__chunk_mem_alloc@HDF5_SERIAL_1.10.10 1.10.10
+ H5D__chunk_mem_free@HDF5_SERIAL_1.10.10 1.10.10
+ H5D__chunk_mem_realloc@HDF5_SERIAL_1.10.10 1.10.10
+ H5D__chunk_mem_xfree@HDF5_SERIAL_1.10.10 1.10.10
  H5D__chunk_prune_by_extent@HDF5_SERIAL_1.8.7 1.8.13
  H5D__chunk_set_info@HDF5_SERIAL_1.8.7 1.8.13
  H5D__chunk_set_sizes@HDF5_SERIAL_1.10.0 1.10.0
@@ -518,6 +525,7 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5D_nameof@HDF5_SERIAL_1.8.7 1.8.13
  H5D_oloc@HDF5_SERIAL_1.8.7 1.8.13
  H5D_open@HDF5_SERIAL_1.8.7 1.8.13
+ H5D_select_io_mem@HDF5_SERIAL_1.10.10 1.10.10
  H5D_term_package@HDF5_SERIAL_1.10.0 1.10.0
  H5D_top_term_package@HDF5_SERIAL_1.10.0 1.10.0
  H5D_typeof@HDF5_SERIAL_1.8.7 1.8.13
@@ -528,6 +536,7 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5D_virtual_parse_source_name@HDF5_SERIAL_1.10.0 1.10.0
  H5D_virtual_update_min_dims@HDF5_SERIAL_1.10.0 1.10.0
  H5D_vlen_reclaim@HDF5_SERIAL_1.8.7 1.8.13
+ H5Dchunk_iter@HDF5_SERIAL_1.10.10 1.10.10
  H5Dclose@HDF5_SERIAL_1.8.7 1.8.13
  H5Dcreate1@HDF5_SERIAL_1.8.7 1.8.13
  H5Dcreate2@HDF5_SERIAL_1.8.7 1.8.13
@@ -1615,16 +1624,21 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5HL_protect@HDF5_SERIAL_1.8.7 1.8.13
  H5HL_remove@HDF5_SERIAL_1.8.7 1.8.13
  H5HL_unprotect@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_change@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_close@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_count@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_create@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_decr@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_incr@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_insert@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_remove@HDF5_SERIAL_1.8.7 1.8.13
- H5HP_top@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_change@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_close@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_count@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_create@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_decr@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_incr@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_insert@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_remove@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5HP_top@HDF5_SERIAL_1.8.7 1.8.13
+ H5I__destroy_type@HDF5_SERIAL_1.10.8 1.10.8
+ H5I__find_id@HDF5_SERIAL_1.10.8 1.10.8
  H5I__get_name_test@HDF5_SERIAL_1.10.3 1.10.3
+ H5I__get_type_ref@HDF5_SERIAL_1.10.8 1.10.8
+ H5I__inc_type_ref@HDF5_SERIAL_1.10.8 1.10.8
+ H5I__remove_verify@HDF5_SERIAL_1.10.8 1.10.8
  H5I_clear_type@HDF5_SERIAL_1.8.7 1.8.13
  H5I_dec_app_ref@HDF5_SERIAL_1.8.7 1.8.13
  H5I_dec_app_ref_always_close@HDF5_SERIAL_1.8.7 1.8.13
@@ -1637,6 +1651,8 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5I_inc_ref@HDF5_SERIAL_1.8.7 1.8.13
  H5I_init_g@HDF5_SERIAL_1.10.0 1.10.0
  H5I_iterate@HDF5_SERIAL_1.8.7 1.8.13
+ H5I_marking_g@HDF5_SERIAL_1.10.8 1.10.8
+ H5I_next_type_g@HDF5_SERIAL_1.10.8 1.10.8
  H5I_nmembers@HDF5_SERIAL_1.8.7 1.8.13
  H5I_object@HDF5_SERIAL_1.8.7 1.8.13
  H5I_object_verify@HDF5_SERIAL_1.8.7 1.8.13
@@ -1647,6 +1663,7 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5I_remove@HDF5_SERIAL_1.8.7 1.8.13
  H5I_subst@HDF5_SERIAL_1.8.7 1.8.13
  H5I_term_package@HDF5_SERIAL_1.10.0 1.10.0
+ H5I_type_info_array_g@HDF5_SERIAL_1.10.8 1.10.8
  H5Iclear_type@HDF5_SERIAL_1.8.7 1.8.13
  H5Idec_ref@HDF5_SERIAL_1.8.7 1.8.13
  H5Idec_type_ref@HDF5_SERIAL_1.8.7 1.8.13
@@ -1748,16 +1765,16 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5MM_xfree@HDF5_SERIAL_1.8.7 1.8.13
  H5MM_xfree_const@HDF5_SERIAL_1.10.7 1.10.7
  H5MM_xstrdup@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_close@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_create@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_free@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_get_page_free_size@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_get_page_next_page@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_get_pool_first_page@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_get_pool_free_size@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_init_g@HDF5_SERIAL_1.10.0 1.10.0
- H5MP_malloc@HDF5_SERIAL_1.8.7 1.8.13
- H5MP_pool_is_free_size_correct@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_close@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_create@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_free@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_get_page_free_size@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_get_page_next_page@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_get_pool_first_page@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_get_pool_free_size@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_init_g@HDF5_SERIAL_1.10.0 1.10.0
+#MISSING: 1.10.10# H5MP_malloc@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5MP_pool_is_free_size_correct@HDF5_SERIAL_1.8.7 1.8.13
  H5O_MSG_AINFO@HDF5_SERIAL_1.8.7 1.8.13
  H5O_MSG_ATTR@HDF5_SERIAL_1.8.7 1.8.13
  H5O_MSG_BTREEK@HDF5_SERIAL_1.8.7 1.8.13
@@ -2482,16 +2499,16 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5SM_table_free@HDF5_SERIAL_1.8.7 1.8.13
  H5SM_try_share@HDF5_SERIAL_1.8.7 1.8.13
  H5SM_type_shared@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_close@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_create@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_delete@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_find@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_findfirst@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_findnext@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_insert@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_locate@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_remove@HDF5_SERIAL_1.8.7 1.8.13
- H5ST_search@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_close@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_create@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_delete@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_find@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_findfirst@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_findnext@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_insert@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_locate@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_remove@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# H5ST_search@HDF5_SERIAL_1.8.7 1.8.13
  H5S__extent_copy_real@HDF5_SERIAL_1.10.7 1.10.7
  H5S__extent_release@HDF5_SERIAL_1.10.7 1.10.7
  H5S__get_diminfo_status_test@HDF5_SERIAL_1.10.7 1.10.7
@@ -3213,7 +3230,7 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5_H5HG_obj_t_seq_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_H5HL_free_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_H5MF_free_section_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
- H5_H5MP_pool_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.10# H5_H5MP_pool_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_H5O_addr_map_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_H5O_chunk_proxy_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_H5O_chunk_t_seq_free_list@HDF5_SERIAL_1.8.7 1.8.13
@@ -3239,7 +3256,7 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5_H5T_shared_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_H5T_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_H5_obj_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
- H5_api_entered_g@HDF5_SERIAL_1.10.0 1.10.0
+#MISSING: 1.10.8# H5_api_entered_g@HDF5_SERIAL_1.10.0 1.10.0
  H5_attr_buf_blk_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_bandwidth@HDF5_SERIAL_1.8.7 1.8.13
  H5_buffer_dump@HDF5_SERIAL_1.8.7 1.8.13
@@ -3258,6 +3275,7 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5_fa_native_elmt_blk_free_list@HDF5_SERIAL_1.10.0 1.10.0
  H5_fa_page_init_blk_free_list@HDF5_SERIAL_1.10.0 1.10.0
  H5_g@HDF5_SERIAL_1.8.7 1.8.13
+ H5_get_option@HDF5_SERIAL_1.10.8 1.10.8
  H5_get_time@HDF5_SERIAL_1.10.1 1.10.1
  H5_gheap_chunk_blk_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_haddr_t_reg_free_list@HDF5_SERIAL_1.8.7 1.8.13
@@ -3265,6 +3283,7 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5_hash_string@HDF5_SERIAL_1.8.7 1.8.13
  H5_hsize_t_arr_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_hsize_t_seq_free_list@HDF5_SERIAL_1.8.7 1.8.13
+ H5_init_g@HDF5_SERIAL_1.10.8 1.10.8
  H5_init_library@HDF5_SERIAL_1.8.7 1.8.13
  H5_lheap_chunk_blk_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_lib_vers_info_g@HDF5_SERIAL_1.8.7 1.8.13
@@ -3273,6 +3292,9 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5_native_block_blk_free_list@HDF5_SERIAL_1.8.7 1.8.13
  H5_now@HDF5_SERIAL_1.8.7 1.8.13
  H5_now_usec@HDF5_SERIAL_1.10.7 1.10.7
+ H5_optarg@HDF5_SERIAL_1.10.8 1.10.8
+ H5_opterr@HDF5_SERIAL_1.10.8 1.10.8
+ H5_optind@HDF5_SERIAL_1.10.8 1.10.8
  H5_page_elmts_blk_free_list@HDF5_SERIAL_1.10.0 1.10.0
  H5_page_init_blk_free_list@HDF5_SERIAL_1.10.0 1.10.0
  H5_sieve_buf_blk_free_list@HDF5_SERIAL_1.8.7 1.8.13
@@ -3308,12 +3330,14 @@ libhdf5_serial.so.103 libhdf5-103-1
  H5resize_memory@HDF5_SERIAL_1.8.15 1.8.15
  H5set_free_list_limits@HDF5_SERIAL_1.8.7 1.8.13
  HDF5_CPP_1.10.0@HDF5_CPP_1.10.0 1.10.0
+ HDF5_CPP_1.10.10@HDF5_CPP_1.10.10 1.10.10
  HDF5_CPP_1.10.1@HDF5_CPP_1.10.1 1.10.1
  HDF5_CPP_1.10.2@HDF5_CPP_1.10.2 1.10.2
  HDF5_CPP_1.10.3@HDF5_CPP_1.10.3 1.10.3
  HDF5_CPP_1.10.5@HDF5_CPP_1.10.5 1.10.5
  HDF5_CPP_1.10.6@HDF5_CPP_1.10.6 1.10.6
  HDF5_CPP_1.10.7@HDF5_CPP_1.10.7 1.10.7
+ HDF5_CPP_1.10.8@HDF5_CPP_1.10.8 1.10.8
  HDF5_CPP_1.8.10@HDF5_CPP_1.8.10 1.8.13
  HDF5_CPP_1.8.11@HDF5_CPP_1.8.11 1.8.13
  HDF5_CPP_1.8.12@HDF5_CPP_1.8.12 1.8.13
@@ -3326,12 +3350,14 @@ libhdf5_serial.so.103 libhdf5-103-1
  HDF5_CPP_1.8.8@HDF5_CPP_1.8.8 1.8.13
  HDF5_CPP_1.8.9@HDF5_CPP_1.8.9 1.8.13
  HDF5_SERIAL_1.10.0@HDF5_SERIAL_1.10.0 1.10.0
+ HDF5_SERIAL_1.10.10@HDF5_SERIAL_1.10.10 1.10.10
  HDF5_SERIAL_1.10.1@HDF5_SERIAL_1.10.1 1.10.1
  HDF5_SERIAL_1.10.2@HDF5_SERIAL_1.10.2 1.10.2
  HDF5_SERIAL_1.10.3@HDF5_SERIAL_1.10.3 1.10.3
  HDF5_SERIAL_1.10.5@HDF5_SERIAL_1.10.5 1.10.5
  HDF5_SERIAL_1.10.6@HDF5_SERIAL_1.10.6 1.10.6
  HDF5_SERIAL_1.10.7@HDF5_SERIAL_1.10.7 1.10.7
+ HDF5_SERIAL_1.10.8@HDF5_SERIAL_1.10.8 1.10.8
  HDF5_SERIAL_1.8.10@HDF5_SERIAL_1.8.10 1.8.13
  HDF5_SERIAL_1.8.11@HDF5_SERIAL_1.8.11 1.8.13
  HDF5_SERIAL_1.8.12@HDF5_SERIAL_1.8.12 1.8.13
@@ -3343,11 +3369,13 @@ libhdf5_serial.so.103 libhdf5-103-1
  HDF5_SERIAL_1.8.7@HDF5_SERIAL_1.8.7 1.8.13
  HDF5_SERIAL_1.8.8@HDF5_SERIAL_1.8.8 1.8.13
  HDF5_SERIAL_1.8.9@HDF5_SERIAL_1.8.9 1.8.13
- HDfprintf@HDF5_SERIAL_1.8.7 1.8.13
+#MISSING: 1.10.8# HDfprintf@HDF5_SERIAL_1.8.7 1.8.13
  HDrand@HDF5_SERIAL_1.8.7 1.8.13
  HDsrand@HDF5_SERIAL_1.8.7 1.8.13
  Nflock@HDF5_SERIAL_1.10.0 1.10.0
  Pflock@HDF5_SERIAL_1.10.0 1.10.0
+ VERS_RELEASE_EXCEPTIONS@HDF5_SERIAL_1.10.8 1.10.8
+ VERS_RELEASE_EXCEPTIONS_SIZE@HDF5_SERIAL_1.10.8 1.10.8
  curlwritecallback@HDF5_SERIAL_1.10.7 1.10.7
  gmnow@HDF5_SERIAL_1.10.7 1.10.7
  use_locks_env_g@HDF5_SERIAL_1.10.7 1.10.7

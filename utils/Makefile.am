@@ -5,7 +5,7 @@
 # This file is part of HDF5.  The full HDF5 copyright notice, including
 # terms governing use, modification, and redistribution, is contained in
 # the COPYING file, which can be found at the root of the source code
-# distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.
+# distribution tree, or in https://www.hdfgroup.org/licenses.
 # If you do not have access to either file, you may request a copy from
 # help@hdfgroup.org.
 ##
@@ -20,7 +20,19 @@ include $(top_srcdir)/config/commence.am
 
 CONFIG=ordered
 
+if BUILD_TESTS_CONDITIONAL
+   TESTUTIL_DIR =test
+else
+   TESTUTIL_DIR=
+endif
+
+if MIRROR_VFD_CONDITIONAL
+   MIRROR_VFD_DIR = mirror_vfd
+else
+   MIRROR_VFD_DIR=
+endif
+
 # All subdirectories
-SUBDIRS=mirror_vfd
+SUBDIRS=$(MIRROR_VFD_DIR) $(TESTUTIL_DIR)
 
 include $(top_srcdir)/config/conclude.am

@@ -4,19 +4,18 @@ Index: hdf5/src/H5Tconv.c
 ===================================================================
 --- hdf5.orig/src/H5Tconv.c
 +++ hdf5/src/H5Tconv.c
-@@ -7548,7 +7548,6 @@ H5T__conv_ullong_double (hid_t src_id, h
+@@ -7475,14 +7475,12 @@ H5T__conv_ullong_double(hid_t src_id, hi
   *
   *-------------------------------------------------------------------------
   */
--#if H5T_CONV_INTERNAL_ULLONG_LDOUBLE
+-#ifdef H5T_CONV_INTERNAL_ULLONG_LDOUBLE
  herr_t
- H5T__conv_ullong_ldouble (hid_t src_id, hid_t dst_id, H5T_cdata_t *cdata,
-     size_t nelmts, size_t buf_stride, size_t H5_ATTR_UNUSED bkg_stride,
-@@ -7556,7 +7555,6 @@ H5T__conv_ullong_ldouble (hid_t src_id,
+ H5T__conv_ullong_ldouble(hid_t src_id, hid_t dst_id, H5T_cdata_t *cdata, size_t nelmts, size_t buf_stride,
+                          size_t H5_ATTR_UNUSED bkg_stride, void *buf, void H5_ATTR_UNUSED *bkg)
  {
      H5T_CONV_xF(ULLONG, LDOUBLE, unsigned long long, long double, -, -);
  }
 -#endif /*H5T_CONV_INTERNAL_ULLONG_LDOUBLE*/
  
- 
  /*-------------------------------------------------------------------------
+  * Function:    H5T__conv_float_schar

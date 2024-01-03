@@ -1,12 +1,11 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Copyright by The HDF Group.                                               *
- * Copyright by the Board of Trustees of the University of Illinois.         *
  * All rights reserved.                                                      *
  *                                                                           *
  * This file is part of HDF5.  The full HDF5 copyright notice, including     *
  * terms governing use, modification, and redistribution, is contained in    *
  * the COPYING file, which can be found at the root of the source code       *
- * distribution tree, or in https://support.hdfgroup.org/ftp/HDF5/releases.  *
+ * distribution tree, or in https://www.hdfgroup.org/licenses.               *
  * If you do not have access to either file, you may request a copy from     *
  * help@hdfgroup.org.                                                        *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -17,8 +16,8 @@
  *
  * Purpose:     srcdir querying support.
  */
-#ifndef _H5SRCDIR_H
-#define _H5SRCDIR_H
+#ifndef H5SRCDIR_H
+#define H5SRCDIR_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,5 +32,4 @@ H5TEST_DLL const char *H5_get_srcdir_filename(const char *filename);
 }
 #endif
 
-#endif /* _H5SRCDIR_H */
-
+#endif /* H5SRCDIR_H */
