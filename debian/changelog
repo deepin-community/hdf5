@@ -1,3 +1,9 @@
+hdf5 (1.10.7+repack-4deepin0) unstable; urgency=medium
+
+  * No source change upload against GCC 12.
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Thu, 19 Sep 2024 22:48:57 +0800
+
 hdf5 (1.10.7+repack-4) unstable; urgency=medium
 
   * libhdf5*-dev: Depends: libssl-dev
