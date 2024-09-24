@@ -85,14 +85,14 @@ libhdf5_openmpi_fortran.so.102 libhdf5-openmpi-fortran-102 #MINVER#
  __h5_gen_MOD_h5aread_ikind_8_rank_5@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5aread_ikind_8_rank_6@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5aread_ikind_8_rank_7@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5aread_rkind_10_rank_0@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5aread_rkind_10_rank_1@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5aread_rkind_10_rank_2@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5aread_rkind_10_rank_3@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5aread_rkind_10_rank_4@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5aread_rkind_10_rank_5@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5aread_rkind_10_rank_6@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5aread_rkind_10_rank_7@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5aread_rkind_10_rank_0@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5aread_rkind_10_rank_1@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5aread_rkind_10_rank_2@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5aread_rkind_10_rank_3@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5aread_rkind_10_rank_4@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5aread_rkind_10_rank_5@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5aread_rkind_10_rank_6@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5aread_rkind_10_rank_7@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5aread_rkind_16_rank_0@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5aread_rkind_16_rank_1@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5aread_rkind_16_rank_2@HDF5_MPI_1.10.0 1.10.0
@@ -164,14 +164,14 @@ libhdf5_openmpi_fortran.so.102 libhdf5-openmpi-fortran-102 #MINVER#
  __h5_gen_MOD_h5awrite_ikind_8_rank_5@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5awrite_ikind_8_rank_6@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5awrite_ikind_8_rank_7@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5awrite_rkind_10_rank_0@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5awrite_rkind_10_rank_1@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5awrite_rkind_10_rank_2@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5awrite_rkind_10_rank_3@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5awrite_rkind_10_rank_4@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5awrite_rkind_10_rank_5@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5awrite_rkind_10_rank_6@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5awrite_rkind_10_rank_7@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5awrite_rkind_10_rank_0@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5awrite_rkind_10_rank_1@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5awrite_rkind_10_rank_2@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5awrite_rkind_10_rank_3@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5awrite_rkind_10_rank_4@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5awrite_rkind_10_rank_5@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5awrite_rkind_10_rank_6@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5awrite_rkind_10_rank_7@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5awrite_rkind_16_rank_0@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5awrite_rkind_16_rank_1@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5awrite_rkind_16_rank_2@HDF5_MPI_1.10.0 1.10.0
@@ -243,14 +243,14 @@ libhdf5_openmpi_fortran.so.102 libhdf5-openmpi-fortran-102 #MINVER#
  __h5_gen_MOD_h5dread_ikind_8_rank_5@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5dread_ikind_8_rank_6@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5dread_ikind_8_rank_7@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dread_rkind_10_rank_0@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dread_rkind_10_rank_1@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dread_rkind_10_rank_2@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dread_rkind_10_rank_3@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dread_rkind_10_rank_4@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dread_rkind_10_rank_5@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dread_rkind_10_rank_6@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dread_rkind_10_rank_7@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dread_rkind_10_rank_0@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dread_rkind_10_rank_1@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dread_rkind_10_rank_2@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dread_rkind_10_rank_3@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dread_rkind_10_rank_4@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dread_rkind_10_rank_5@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dread_rkind_10_rank_6@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dread_rkind_10_rank_7@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5dread_rkind_16_rank_0@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5dread_rkind_16_rank_1@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5dread_rkind_16_rank_2@HDF5_MPI_1.10.0 1.10.0
@@ -322,14 +322,14 @@ libhdf5_openmpi_fortran.so.102 libhdf5-openmpi-fortran-102 #MINVER#
  __h5_gen_MOD_h5dwrite_ikind_8_rank_5@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5dwrite_ikind_8_rank_6@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5dwrite_ikind_8_rank_7@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dwrite_rkind_10_rank_0@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dwrite_rkind_10_rank_1@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dwrite_rkind_10_rank_2@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dwrite_rkind_10_rank_3@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dwrite_rkind_10_rank_4@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dwrite_rkind_10_rank_5@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dwrite_rkind_10_rank_6@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5dwrite_rkind_10_rank_7@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dwrite_rkind_10_rank_0@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dwrite_rkind_10_rank_1@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dwrite_rkind_10_rank_2@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dwrite_rkind_10_rank_3@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dwrite_rkind_10_rank_4@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dwrite_rkind_10_rank_5@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dwrite_rkind_10_rank_6@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5dwrite_rkind_10_rank_7@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5dwrite_rkind_16_rank_0@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5dwrite_rkind_16_rank_1@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5dwrite_rkind_16_rank_2@HDF5_MPI_1.10.0 1.10.0
@@ -354,27 +354,27 @@ libhdf5_openmpi_fortran.so.102 libhdf5-openmpi-fortran-102 #MINVER#
  __h5_gen_MOD_h5dwrite_rkind_8_rank_5@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5dwrite_rkind_8_rank_6@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5dwrite_rkind_8_rank_7@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5pget_fill_value_kind_10@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5pget_fill_value_kind_10@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5pget_fill_value_kind_16@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pget_fill_value_kind_4@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pget_fill_value_kind_8@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5pget_kind_10@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5pget_kind_10@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5pget_kind_16@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pget_kind_4@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pget_kind_8@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5pinsert_kind_10@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5pinsert_kind_10@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5pinsert_kind_16@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pinsert_kind_4@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pinsert_kind_8@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5pregister_kind_10@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5pregister_kind_10@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5pregister_kind_16@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pregister_kind_4@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pregister_kind_8@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5pset_fill_value_kind_10@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5pset_fill_value_kind_10@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5pset_fill_value_kind_16@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pset_fill_value_kind_4@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pset_fill_value_kind_8@HDF5_MPI_1.10.0 1.10.0
- (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64)__h5_gen_MOD_h5pset_kind_10@HDF5_MPI_1.10.0 1.10.0
+ (arch=!sparc64 !hppa !alpha !powerpc !ppc64 !ppc64el !s390x !mips !mips64el !mipsel !armel !armhf !arm64 !sh4 !riscv64 !loong64)__h5_gen_MOD_h5pset_kind_10@HDF5_MPI_1.10.0 1.10.0
  (arch=!m68k !hppa !mips !mipsel !armel !armhf !sh4)__h5_gen_MOD_h5pset_kind_16@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pset_kind_4@HDF5_MPI_1.10.0 1.10.0
  __h5_gen_MOD_h5pset_kind_8@HDF5_MPI_1.10.0 1.10.0

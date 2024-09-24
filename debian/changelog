@@ -1,3 +1,9 @@
+hdf5 (1.10.7+repack-4deepin1) unstable; urgency=medium
+
+  * Update symbols for loong64.
+
+ -- Tianyu Chen <sweetyfish@deepin.org>  Tue, 24 Sep 2024 14:50:22 +0800
+
 hdf5 (1.10.7+repack-4deepin0) unstable; urgency=medium
 
   * No source change upload against GCC 12.
